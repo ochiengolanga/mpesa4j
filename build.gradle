@@ -1,0 +1,119 @@
+/*
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Copyright 2019 Daniel Ochieng' Olanga.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+plugins {
+    id 'org.kordamp.gradle.project' version '0.27.0'
+    id 'org.kordamp.gradle.bintray' version '0.27.0'
+}
+
+if (!project.hasProperty('bintrayUsername')) ext.bintrayUsername = '**UNDEFINED**' else System.getenv('BINTRAY_USERNAME')
+if (!project.hasProperty('bintrayApiKey'))   ext.bintrayApiKey   = '**UNDEFINED**' else System.getenv('BINTRAY_APIKEY')
+
+config {
+    release = (rootProject.findProperty('release') ?: false).toBoolean()
+
+    info {
+        name        = rootProject.name
+        vendor      = 'Mpesa4j'
+        description = project.project_description
+        inceptionYear = '2019'
+        tags          = ['mpesa', 'daraja', 'java', 'sdk']
+
+        links {
+            website      = project.project_website
+            issueTracker = project.project_issues
+            scm          = project.project_repo
+        }
+
+        scm {
+            url                     = project.project_website
+            connection              = project.project_scm
+            developerConnection     = project.project_scm
+        }
+
+        issueManagement {
+            system  = project.project_issuemanagement_type
+            url     = project.project_issues
+        }
+
+        specification {
+            enabled = false
+        }
+
+        implementation {
+            enabled = false
+        }
+
+        people {
+            person {
+                id    = project.project_developer_id
+                name  = project.project_developer_name
+                email = project.project_developer_email
+                url   = project.project_developer_url
+                roles = ['author', 'developer']
+            }
+        }
+    }
+
+    javadoc {
+        enabled = false
+    }
+
+    groovydoc {
+        enabled = false
+    }
+
+    licensing {
+        licenses {
+            license {
+                id = 'Apache-2.0'
+                ext.year = Calendar.getInstance().get(Calendar.YEAR)
+            }
+        }
+    }
+
+    bintray {
+        credentials {
+            username = project.bintrayUsername
+            password = project.bintrayApiKey
+        }
+        userOrg    = 'ochiengolanga'
+        repo       = 'mpesa4j'
+        name       = rootProject.name
+        githubRepo = 'ochiengolanga/mpesa4j'
+    }
+}
+
+allprojects {
+    apply plugin: 'idea'
+
+    repositories {
+        jcenter()
+        gradlePluginPortal()
+    }
+}
+
+subprojects {
+    if (project.name.startsWith('mpesa4j-')) {
+        
+        config {
+            bintray { enabled = true }
+        }
+
+        //task publishRelease(dependsOn: [bintrayUpload]) {}
+    }
+}

@@ -1,0 +1,180 @@
+[[_usage]]
+= Usage
+
+There are two choices for applying any of the plugins described in this document
+
+Option #1
+[source,groovy]
+[subs="attributes"]
+----
+buildscript {
+    repositories {
+        jcenter()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'org.kordamp.gradle:oci-gradle-plugin:{project-version}'
+    }
+}
+apply plugin: 'org.kordamp.gradle.oci'
+----
+
+Option #2
+[source,groovy]
+[subs="attributes"]
+----
+plugins {
+    id 'org.kordamp.gradle.oci' version '{project-version}'
+}
+----
+
+== Requirements
+
+Java 8 and Gradle 5 are the minimum requirements to use this plugin.
+
+=== Example
+
+Provisioning an Instance with brand new Vcn, Subnets, InternetGateway, and InstanceConsoleConnection, making sure that OpenJDK
+is installed and port `8080` is open
+
+[source,groovy]
+----
+gradle setupInstance \
+  --compartment-id=ocid1.compartment.oc1... \
+  --verbose \
+  --instance-name=myInstance \
+  --image=Oracle-Linux-7.6-2019.04.18-0 \
+  --shape=VM.Standard2.1 \
+  --public-key-file=/home/myuser/.oci/oci-key.pub \
+  --user-data-file=/home/myuser/oci/cloud-init.sh
+----
+
+[source]
+.cloud-init.sh
+----
+#!/bin/bash
+
+# install Java
+yum install -y yum java-1.8.0-openjdk
+
+# amend firewall rules to allow port 8080
+firewall-cmd --permanent --zone=public --add-port=8080/tcp
+firewall-cmd --reload
+----
+
+== Configuration
+
+You can configure tasks in two ways:
+
+ 1. Using the standard `~/.oci/config` file.
+ 2. Defining an `ociConfig` block on a task.
+
+=== Standard Config File
+
+The format of the configuration file is specified at link:https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/javasdkgettingstarted.htm[this page],
+it looks something similar to
+
+[source]
+----
+[DEFAULT]
+user=ocid1.user.oc1...
+fingerprint=f9:14:d0:...
+key_file=~/.oci/oci_api_key.pem
+tenancy=ocid1.tenancy.oc1...
+region=eu-frankfurt-1
+pass_phrase=<secret>
+----
+
+=== OciConfig Extension Block
+
+Alternatively you may define an `ociConfig` block in a task. This block defines properties that match settings
+found on the config file
+
+[source,groovy]
+.build.gradle
+----
+listInstances {
+    ociConfig {
+        userId.set('ocid1.user.oc1...'
+        tenantId.set('ocid1.tenancy.oc1...')
+        fingerprint.set('f9:14:d0:...')
+        region.set('eu-frankfurt-1')
+        keyfile.set(project.file('/.oci/oci_api_key.pem'))
+        passphrase.set('<secret>')
+    }
+}
+----
+
+=== Common Properties
+
+All tasks share the following properties
+
+[horizontal]
+profile:: The profile to use. Defaults to DEFAULT (OPTIONAL).
+region:: The region to use (OPTIONAL).
+
+== Tasks
+
+Invoke `gradle help --task <taskname>` to learn more about the properties that can be set for a particular task.
+
+=== OCI Create
+
+[horizontal]
+createCompartment:: Creates a Compartment.
+createInstance:: Creates an Instance.
+createInstanceConsoleConnection:: Creates an InstanceConsoleConnection.
+createInternetGateway:: Creates a InternetGateway.
+createSubnet:: Creates a Subnet.
+createVcn:: Creates a Vcn.
+
+==== OCI Delete
+
+[horizontal]
+deleteCompartment:: Deletes a Compartment.
+deleteInstanceConsoleConnection:: Deletes an InstanceConsoleConnection.
+deleteInternetGateway:: Deletes a InternetGateway.
+deleteSubnet:: Deletes a Subnet.
+deleteVcn:: Deletes a Vcn.
+
+=== OCI Get
+
+[horizontal]
+getCompartment:: Displays information for an specific Compartment.
+getInstance:: Displays information for an specific Instance.
+getInstanceConsoleConnection:: Displays information for an specific InstanceConsoleConnection.
+getInstancePublicIp:: Displays public Ip addresses for a particular Instance.
+getInternetGateway:: Displays information for an specific InternetGateway.
+getRouteTable:: Displays information for an specific RouteTable.
+getSecurityList:: Displays information for an specific SecurityList.
+getSubnet:: Displays information for an specific Subnet.
+getVcn:: Displays information for an specific Vcn.
+
+=== OCI Instance
+
+[horizontal]
+addIngressSecurityRule:: Adds IngressSecurityRules to a SecurityList.
+instanceAction:: Performs a given action on an Instance.
+setupInstance:: Setups an Instance with Vcn, InternetGateway, Subnets, InstanceConsoleConnection, and Volume.
+terminateInstance:: Terminates an Instance.
+
+=== OCI List
+
+[horizontal]
+listAvailabilityDomains:: Lists AvailabilityDomains available on a Compartment.
+listCompartments:: Lists available Compartments.
+listImages:: Lists Images available on a Compartment.
+listInstanceConsoleConnections:: Lists available InstanceConsoleConnection on an Instance.
+listInstances:: Lists available Instances.
+listInternetGateways:: Lists InternetGateways available on a Vcn.
+listRegions:: Lists available Regions.
+listRouteTables:: Lists RouteTables available on a Vcn.
+listSecurityLists:: Lists SecurityLists available on a Vcn.
+listShapes:: Lists Shapes available on a Compartment.
+listSubnets:: Lists Subnets available on a Vcn.
+listUsers:: Lists available Users.
+listVcns:: Lists Vcns available on a Compartment.
+
+=== OCI Query
+
+[horizontal]
+searchResources:: Lists information on resource types.
