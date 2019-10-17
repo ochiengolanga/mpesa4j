@@ -119,6 +119,29 @@ subprojects {
             }
         }
 
-        //task publishRelease(dependsOn: [bintrayUpload]) {}
+        if (project.name.equalsIgnoreCase('mpesa4j-core')) {
+            config {
+                info {
+                    name        = 'mpesa4j-core'
+                    description = 'The unofficial Safaricom\'s MPesa Daraja 1.0 API Java integration library'
+                }
+            }
+        } else if (project.name.equalsIgnoreCase('mpesa4j-spring-boot-autoconfigure')) {
+            config {
+                info {
+                    name        = 'mpesa4j-spring-boot-autoconfigure'
+                    description = 'The unofficial MPesa4j\'s Spring boot autoconfigure'
+                    tags        = ['mpesa', 'daraja', 'java', 'sdk', 'spring', 'spring-boot']
+                }
+            }
+        } else if (project.name.equalsIgnoreCase('mpesa4j-spring-boot-starter')) {
+            config {
+                info {
+                    name        = 'mpesa4j-spring-boot-starter'
+                    description = 'The unofficial MPesa4j\'s Spring boot starter'
+                    tags        = ['mpesa', 'daraja', 'java', 'sdk', 'spring', 'spring-boot']
+                }
+            }
+        }
     }
 }

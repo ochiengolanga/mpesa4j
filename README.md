@@ -16,7 +16,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.github.ochiengolanga</groupId>
   <artifactId>mpesa4j</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
 </dependency>
 ```
 
@@ -25,7 +25,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.github.ochiengolanga:mpesa4j:0.0.1"
+compile "com.github.ochiengolanga:mpesa4j:0.0.2"
 ```
 
 ## Feedback ##
