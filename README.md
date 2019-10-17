@@ -1,6 +1,7 @@
 # M-Pesa4j #
 
 [![CircleCI](https://circleci.com/gh/ochiengolanga/mpesa4j/tree/master.svg?style=svg)](https://circleci.com/gh/ochiengolanga/mpesa4j/tree/master)
+[ ![Download](https://api.bintray.com/packages/ochiengolanga/mpesa4j/mpesa4j-core/images/download.svg) ](https://bintray.com/ochiengolanga/mpesa4j/mpesa4j-core/_latestVersion)
 
 ## Requirements ##
 
