@@ -94,9 +94,8 @@ config {
             username = project.bintrayUsername
             password = project.bintrayApiKey
         }
-        userOrg    = 'ochiengolanga'
         repo       = 'mpesa4j'
-        name       = rootProject.name
+        userOrg    = 'ochiengolanga'
         githubRepo = 'ochiengolanga/mpesa4j'
     }
 }
@@ -114,7 +113,10 @@ subprojects {
     if (project.name.startsWith('mpesa4j-')) {
         
         config {
-            bintray { enabled = true }
+            bintray {
+                enabled = true
+                name    = project.name
+            }
         }
 
         //task publishRelease(dependsOn: [bintrayUpload]) {}
