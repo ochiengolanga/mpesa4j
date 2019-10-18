@@ -7,5 +7,7 @@ build
 /.attach_*
 /mpesa4j.iml
 /draft_readme.txt
-/libs/mpesa4j-core/src/test/resources/.env
+/libs/mpesa4j/src/test/resources/.env
 /.settings/
+/TODOS.txt
+/mpesa4j-master.iml

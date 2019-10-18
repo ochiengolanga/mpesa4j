@@ -110,7 +110,7 @@ allprojects {
 }
 
 subprojects {
-    if (project.name.startsWith('mpesa4j-')) {
+    if (project.name.startsWith('mpesa4j')) {
         
         config {
             bintray {
@@ -119,10 +119,10 @@ subprojects {
             }
         }
 
-        if (project.name.equalsIgnoreCase('mpesa4j-core')) {
+        if (project.name.equalsIgnoreCase('mpesa4j')) {
             config {
                 info {
-                    name        = 'mpesa4j-core'
+                    name        = 'mpesa4j'
                     description = 'The unofficial Safaricom\'s MPesa Daraja 1.0 API Java integration library'
                 }
             }

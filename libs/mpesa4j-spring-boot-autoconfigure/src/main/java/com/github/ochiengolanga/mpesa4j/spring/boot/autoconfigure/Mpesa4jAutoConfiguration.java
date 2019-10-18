@@ -15,8 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-//package com.github.ochiengolanga.mpesa4j.spring.boot.autoconfigure;
-//
+package com.github.ochiengolanga.mpesa4j.spring.boot.autoconfigure;
+
+//import com.github.ochiengolanga.mpesa4j.Mpesa;
+//import com.github.ochiengolanga.mpesa4j.MpesaFactory;
+//import com.github.ochiengolanga.mpesa4j.config.ConfigurationBuilder;
 //import org.apache.commons.logging.Log;
 //import org.apache.commons.logging.LogFactory;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +42,7 @@
 //    @Bean
 //    @ConditionalOnMissingBean
 //    public MpesaFactory mpesaFactory(){
-//        if (this.properties.getMpesa().getConsumerKey() == null || this.properties.getMpesa().getConsumerSecret() == null)
+//        if (this.properties.getConsumerKey() == null || this.properties.getConsumerSecret() == null)
 //        {
 //            String msg = "Mpesa4j properties not configured properly." +
 //                    " Please check mpesa4j.* properties settings in configuration file.";
@@ -49,13 +52,11 @@
 //
 //        ConfigurationBuilder cb = new ConfigurationBuilder();
 //        cb.setDebugEnabled(properties.getDebug())
-//                .setOAuthConsumerKey(properties.getOauth().getConsumerKey())
-//                .setOAuthConsumerSecret(properties.getOauth().getConsumerSecret())
-//                .setOAuthAccessToken(properties.getOauth().getAccessToken())
-//                .setOAuthAccessTokenSecret(properties.getOauth().getAccessTokenSecret());
-//        MpesaFactory mpesaFactory = new MpesaFactory(cb.build());
+//                .setConsumerKey(properties.getConsumerKey())
+//                .setConsumerSecret(properties.getConsumerSecret())
+//                .setLipaNaMpesaKey(properties.getLipaNaMpesa().getPasskey());
 //
-//        return mpesaFactory;
+//        return new MpesaFactory(cb.build());
 //    }
 //
 //    @Bean

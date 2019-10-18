@@ -15,10 +15,10 @@ jobs: # a collection of steps
       - restore_cache:
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
       - run:
-          name: Run mpesa4j-core tests in parallel # See: https://circleci.com/docs/2.0/parallelism-faster-jobs/
+          name: Run mpesa4j tests in parallel # See: https://circleci.com/docs/2.0/parallelism-faster-jobs/
           # Use "./gradlew test" instead if tests are not run in parallel
           command: |
-            cd libs/mpesa4j-core/src/test/java
+            cd libs/mpesa4j/src/test/java
             # Get list of classnames of tests that should run on this node
             CLASSNAMES=$(circleci tests glob "**/*.java" \
               | cut -c 1- | sed 's@/@.@g' \

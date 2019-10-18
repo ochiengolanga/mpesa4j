@@ -37,7 +37,7 @@ asciidoctor {
     attributes = [
             'gradle-version'      : project.gradle.gradleVersion,
             'source-highlighter'  : 'prettify',
-            'mpesa4j-core-version': project.version
+            'mpesa4j-version': project.version
     ]
 }
 

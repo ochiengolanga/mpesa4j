@@ -27,6 +27,7 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
   private static final long serialVersionUID = -7262615247923693252L;
 
   private static final String DEBUG = "MPESA4J_DEBUG";
+  private static final String SANDBOX_ENABLED = "MPESA4J_SANDBOX_ENABLED";
   private static final String HTTP_CONNECTION_TIMEOUT = "MPESA4J_HTTP_CONNECTION_TIMEOUT";
   private static final String HTTP_READ_TIMEOUT = "MPESA4J_HTTP_READ_TIMEOUT";
   private static final String ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL =
@@ -181,6 +182,10 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
   private void setFieldsWithPrefix(Properties props, String prefix) {
     if (notNull(props, prefix, DEBUG)) {
       setDebug(getBoolean(props, prefix, DEBUG));
+    }
+
+    if (notNull(props, prefix, SANDBOX_ENABLED)) {
+      setSandBoxModeEnabled(getBoolean(props, prefix, SANDBOX_ENABLED));
     }
 
     if (notNull(props, prefix, HTTP_CONNECTION_TIMEOUT)) {

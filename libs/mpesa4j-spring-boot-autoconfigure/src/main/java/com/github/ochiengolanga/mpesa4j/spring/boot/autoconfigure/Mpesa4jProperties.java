@@ -25,290 +25,291 @@
 //
 //    public static final String MPESA4J_PREFIX = "mpesa4j";
 //
+//    private Boolean debug = false;
+//    private int connectionTimeout = -1;
+//    private int readTimeout = -1;
+//    private String consumerKey;
+//    private String consumerSecret;
+//
 //    @NestedConfigurationProperty
-//    private Mpesa mpesa = new Mpesa();
+//    private AccountBalance accountBalance = new AccountBalance();
 //
-//    public Mpesa getMpesa() {
-//        return mpesa;
+//    @NestedConfigurationProperty
+//    private B2B b2B = new B2B();
+//
+//    @NestedConfigurationProperty
+//    private B2C b2C = new B2C();
+//
+//    @NestedConfigurationProperty
+//    private Initiator initiator = new Initiator();
+//
+//    @NestedConfigurationProperty
+//    private LipaNaMpesa lipaNaMpesa = new LipaNaMpesa();
+//
+//    @NestedConfigurationProperty
+//    private TransactionReversal transactionReversal = new TransactionReversal();
+//
+//    @NestedConfigurationProperty
+//    private TransactionQuery transactionQuery = new TransactionQuery();
+//
+//    public Boolean getDebug() {
+//        return debug;
 //    }
 //
-//    public void setMpesa(Mpesa mpesa) {
-//        this.mpesa = mpesa;
+//    public void setDebug(Boolean debug) {
+//        this.debug = debug;
 //    }
 //
-//    public static class Mpesa {
-//        private Boolean debug = false;
-//        private int connectionTimeout = -1;
-//        private int readTimeout = -1;
-//        private String consumerKey;
-//        private String consumerSecret;
-//        private AccountBalance accountBalance;
-//        private B2B b2B;
-//        private B2C b2C;
-//        private Initiator initiator;
-//        private LipaNaMpesa lipaNaMpesa;
-//        private TransactionReversal transactionReversal;
-//        private TransactionQuery transactionQuery;
+//    public int getConnectionTimeout() {
+//        return connectionTimeout;
+//    }
 //
-//        public Boolean getDebug() {
-//            return debug;
+//    public void setConnectionTimeout(int connectionTimeout) {
+//        this.connectionTimeout = connectionTimeout;
+//    }
+//
+//    public int getReadTimeout() {
+//        return readTimeout;
+//    }
+//
+//    public void setReadTimeout(int readTimeout) {
+//        this.readTimeout = readTimeout;
+//    }
+//
+//    public String getConsumerKey() {
+//        return consumerKey;
+//    }
+//
+//    public void setConsumerKey(String consumerKey) {
+//        this.consumerKey = consumerKey;
+//    }
+//
+//    public String getConsumerSecret() {
+//        return consumerSecret;
+//    }
+//
+//    public void setConsumerSecret(String consumerSecret) {
+//        this.consumerSecret = consumerSecret;
+//    }
+//
+//    public AccountBalance getAccountBalance() {
+//        return accountBalance;
+//    }
+//
+//    public void setAccountBalance(AccountBalance accountBalance) {
+//        this.accountBalance = accountBalance;
+//    }
+//
+//    public B2B getB2B() {
+//        return b2B;
+//    }
+//
+//    public void setB2B(B2B b2B) {
+//        this.b2B = b2B;
+//    }
+//
+//    public B2C getB2C() {
+//        return b2C;
+//    }
+//
+//    public void setB2C(B2C b2C) {
+//        this.b2C = b2C;
+//    }
+//
+//    public Initiator getInitiator() {
+//        return initiator;
+//    }
+//
+//    public void setInitiator(Initiator initiator) {
+//        this.initiator = initiator;
+//    }
+//
+//    public LipaNaMpesa getLipaNaMpesa() {
+//        return lipaNaMpesa;
+//    }
+//
+//    public void setLipaNaMpesa(LipaNaMpesa lipaNaMpesa) {
+//        this.lipaNaMpesa = lipaNaMpesa;
+//    }
+//
+//    public TransactionReversal getTransactionReversal() {
+//        return transactionReversal;
+//    }
+//
+//    public void setTransactionReversal(TransactionReversal transactionReversal) {
+//        this.transactionReversal = transactionReversal;
+//    }
+//
+//    public TransactionQuery getTransactionQuery() {
+//        return transactionQuery;
+//    }
+//
+//    public void setTransactionQuery(TransactionQuery transactionQuery) {
+//        this.transactionQuery = transactionQuery;
+//    }
+//
+//    public static class AccountBalance {
+//        private String queueTimeoutUrl;
+//        private String resultUrl;
+//
+//        public String getQueueTimeoutUrl() {
+//            return queueTimeoutUrl;
 //        }
 //
-//        public void setDebug(Boolean debug) {
-//            this.debug = debug;
+//        public void setQueueTimeoutUrl(String queueTimeoutUrl) {
+//            this.queueTimeoutUrl = queueTimeoutUrl;
 //        }
 //
-//        public int getConnectionTimeout() {
-//            return connectionTimeout;
+//        public String getResultUrl() {
+//            return resultUrl;
 //        }
 //
-//        public void setConnectionTimeout(int connectionTimeout) {
-//            this.connectionTimeout = connectionTimeout;
+//        public void setResultUrl(String resultUrl) {
+//            this.resultUrl = resultUrl;
+//        }
+//    }
+//
+//    public static class B2B {
+//        private String queueTimeoutUrl;
+//        private String resultUrl;
+//
+//        public String getQueueTimeoutUrl() {
+//            return queueTimeoutUrl;
 //        }
 //
-//        public int getReadTimeout() {
-//            return readTimeout;
+//        public void setQueueTimeoutUrl(String queueTimeoutUrl) {
+//            this.queueTimeoutUrl = queueTimeoutUrl;
 //        }
 //
-//        public void setReadTimeout(int readTimeout) {
-//            this.readTimeout = readTimeout;
+//        public String getResultUrl() {
+//            return resultUrl;
 //        }
 //
-//        public String getConsumerKey() {
-//            return consumerKey;
+//        public void setResultUrl(String resultUrl) {
+//            this.resultUrl = resultUrl;
+//        }
+//    }
+//
+//    public static class B2C {
+//        private String queueTimeoutUrl;
+//        private String resultUrl;
+//
+//        public String getQueueTimeoutUrl() {
+//            return queueTimeoutUrl;
 //        }
 //
-//        public void setConsumerKey(String consumerKey) {
-//            this.consumerKey = consumerKey;
+//        public void setQueueTimeoutUrl(String queueTimeoutUrl) {
+//            this.queueTimeoutUrl = queueTimeoutUrl;
 //        }
 //
-//        public String getConsumerSecret() {
-//            return consumerSecret;
+//        public String getResultUrl() {
+//            return resultUrl;
 //        }
 //
-//        public void setConsumerSecret(String consumerSecret) {
-//            this.consumerSecret = consumerSecret;
+//        public void setResultUrl(String resultUrl) {
+//            this.resultUrl = resultUrl;
+//        }
+//    }
+//
+//    public static class Initiator {
+//        private String name;
+//        private String shortCode;
+//        private String securityCredential;
+//
+//        public String getName() {
+//            return name;
 //        }
 //
-//        public AccountBalance getAccountBalance() {
-//            return accountBalance;
+//        public void setName(String name) {
+//            this.name = name;
 //        }
 //
-//        public void setAccountBalance(AccountBalance accountBalance) {
-//            this.accountBalance = accountBalance;
+//        public String getShortCode() {
+//            return shortCode;
 //        }
 //
-//        public B2B getB2B() {
-//            return b2B;
+//        public void setShortCode(String shortCode) {
+//            this.shortCode = shortCode;
 //        }
 //
-//        public void setB2B(B2B b2B) {
-//            this.b2B = b2B;
+//        public String getSecurityCredential() {
+//            return securityCredential;
 //        }
 //
-//        public B2C getB2C() {
-//            return b2C;
+//        public void setSecurityCredential(String securityCredential) {
+//            this.securityCredential = securityCredential;
+//        }
+//    }
+//
+//    public static class LipaNaMpesa {
+//        private String shortCode;
+//        private String passkey;
+//        private String callbackUrl;
+//
+//        public String getShortCode() {
+//            return shortCode;
 //        }
 //
-//        public void setB2C(B2C b2C) {
-//            this.b2C = b2C;
+//        public void setShortCode(String shortCode) {
+//            this.shortCode = shortCode;
 //        }
 //
-//        public Initiator getInitiator() {
-//            return initiator;
+//        public String getPasskey() {
+//            return passkey;
 //        }
 //
-//        public void setInitiator(Initiator initiator) {
-//            this.initiator = initiator;
+//        public void setPasskey(String passkey) {
+//            this.passkey = passkey;
 //        }
 //
-//        public LipaNaMpesa getLipaNaMpesa() {
-//            return lipaNaMpesa;
+//        public String getCallbackUrl() {
+//            return callbackUrl;
 //        }
 //
-//        public void setLipaNaMpesa(LipaNaMpesa lipaNaMpesa) {
-//            this.lipaNaMpesa = lipaNaMpesa;
+//        public void setCallbackUrl(String callbackUrl) {
+//            this.callbackUrl = callbackUrl;
+//        }
+//    }
+//
+//    public static class TransactionQuery {
+//        private String queueTimeoutUrl;
+//        private String resultUrl;
+//
+//        public String getQueueTimeoutUrl() {
+//            return queueTimeoutUrl;
 //        }
 //
-//        public TransactionReversal getTransactionReversal() {
-//            return transactionReversal;
+//        public void setQueueTimeoutUrl(String queueTimeoutUrl) {
+//            this.queueTimeoutUrl = queueTimeoutUrl;
 //        }
 //
-//        public void setTransactionReversal(TransactionReversal transactionReversal) {
-//            this.transactionReversal = transactionReversal;
+//        public String getResultUrl() {
+//            return resultUrl;
 //        }
 //
-//        public TransactionQuery getTransactionQuery() {
-//            return transactionQuery;
+//        public void setResultUrl(String resultUrl) {
+//            this.resultUrl = resultUrl;
+//        }
+//    }
+//
+//    public static class TransactionReversal {
+//        private String queueTimeoutUrl;
+//        private String resultUrl;
+//
+//        public String getQueueTimeoutUrl() {
+//            return queueTimeoutUrl;
 //        }
 //
-//        public void setTransactionQuery(TransactionQuery transactionQuery) {
-//            this.transactionQuery = transactionQuery;
+//        public void setQueueTimeoutUrl(String queueTimeoutUrl) {
+//            this.queueTimeoutUrl = queueTimeoutUrl;
 //        }
 //
-//        public static class AccountBalance {
-//            private String queueTimeoutUrl;
-//            private String resultUrl;
-//
-//            public String getQueueTimeoutUrl() {
-//                return queueTimeoutUrl;
-//            }
-//
-//            public void setQueueTimeoutUrl(String queueTimeoutUrl) {
-//                this.queueTimeoutUrl = queueTimeoutUrl;
-//            }
-//
-//            public String getResultUrl() {
-//                return resultUrl;
-//            }
-//
-//            public void setResultUrl(String resultUrl) {
-//                this.resultUrl = resultUrl;
-//            }
+//        public String getResultUrl() {
+//            return resultUrl;
 //        }
 //
-//        public static class B2B {
-//            private String queueTimeoutUrl;
-//            private String resultUrl;
-//
-//            public String getQueueTimeoutUrl() {
-//                return queueTimeoutUrl;
-//            }
-//
-//            public void setQueueTimeoutUrl(String queueTimeoutUrl) {
-//                this.queueTimeoutUrl = queueTimeoutUrl;
-//            }
-//
-//            public String getResultUrl() {
-//                return resultUrl;
-//            }
-//
-//            public void setResultUrl(String resultUrl) {
-//                this.resultUrl = resultUrl;
-//            }
-//        }
-//
-//        public static class B2C {
-//            private String queueTimeoutUrl;
-//            private String resultUrl;
-//
-//            public String getQueueTimeoutUrl() {
-//                return queueTimeoutUrl;
-//            }
-//
-//            public void setQueueTimeoutUrl(String queueTimeoutUrl) {
-//                this.queueTimeoutUrl = queueTimeoutUrl;
-//            }
-//
-//            public String getResultUrl() {
-//                return resultUrl;
-//            }
-//
-//            public void setResultUrl(String resultUrl) {
-//                this.resultUrl = resultUrl;
-//            }
-//        }
-//
-//        public static class Initiator {
-//            private String name;
-//            private String shortCode;
-//            private String securityCredential;
-//
-//            public String getName() {
-//                return name;
-//            }
-//
-//            public void setName(String name) {
-//                this.name = name;
-//            }
-//
-//            public String getShortCode() {
-//                return shortCode;
-//            }
-//
-//            public void setShortCode(String shortCode) {
-//                this.shortCode = shortCode;
-//            }
-//
-//            public String getSecurityCredential() {
-//                return securityCredential;
-//            }
-//
-//            public void setSecurityCredential(String securityCredential) {
-//                this.securityCredential = securityCredential;
-//            }
-//        }
-//
-//        public static class LipaNaMpesa {
-//            private String shortCode;
-//            private String passkey;
-//            private String callbackUrl;
-//
-//            public String getShortCode() {
-//                return shortCode;
-//            }
-//
-//            public void setShortCode(String shortCode) {
-//                this.shortCode = shortCode;
-//            }
-//
-//            public String getPasskey() {
-//                return passkey;
-//            }
-//
-//            public void setPasskey(String passkey) {
-//                this.passkey = passkey;
-//            }
-//
-//            public String getCallbackUrl() {
-//                return callbackUrl;
-//            }
-//
-//            public void setCallbackUrl(String callbackUrl) {
-//                this.callbackUrl = callbackUrl;
-//            }
-//        }
-//
-//        public static class TransactionQuery {
-//            private String queueTimeoutUrl;
-//            private String resultUrl;
-//
-//            public String getQueueTimeoutUrl() {
-//                return queueTimeoutUrl;
-//            }
-//
-//            public void setQueueTimeoutUrl(String queueTimeoutUrl) {
-//                this.queueTimeoutUrl = queueTimeoutUrl;
-//            }
-//
-//            public String getResultUrl() {
-//                return resultUrl;
-//            }
-//
-//            public void setResultUrl(String resultUrl) {
-//                this.resultUrl = resultUrl;
-//            }
-//        }
-//
-//        public static class TransactionReversal {
-//            private String queueTimeoutUrl;
-//            private String resultUrl;
-//
-//            public String getQueueTimeoutUrl() {
-//                return queueTimeoutUrl;
-//            }
-//
-//            public void setQueueTimeoutUrl(String queueTimeoutUrl) {
-//                this.queueTimeoutUrl = queueTimeoutUrl;
-//            }
-//
-//            public String getResultUrl() {
-//                return resultUrl;
-//            }
-//
-//            public void setResultUrl(String resultUrl) {
-//                this.resultUrl = resultUrl;
-//            }
+//        public void setResultUrl(String resultUrl) {
+//            this.resultUrl = resultUrl;
 //        }
 //    }
 //}
