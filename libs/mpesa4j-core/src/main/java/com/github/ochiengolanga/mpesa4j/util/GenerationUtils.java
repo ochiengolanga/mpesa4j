@@ -15,16 +15,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    id 'java'
-}
+package com.github.ochiengolanga.mpesa4j.util;
 
-dependencies {
-    implementation group: 'org.springframework.boot', name: 'spring-boot', version: '2.1.9.RELEASE'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: '2.1.9.RELEASE'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '2.1.9.RELEASE'
-    implementation group: 'commons-logging', name: 'commons-logging', version: '1.2'
-    implementation group: 'com.github.ochiengolanga', name: 'mpesa4j-core', version: '0.0.2'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-}
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Date;
 
+public class GenerationUtils {
+  public static String generateTimestamp() {
+    return new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+  }
+
+  public static String generatePassword(String shortCode, String passkey, String timestamp) {
+    return Base64.getEncoder()
+        .encodeToString((shortCode + passkey + timestamp).getBytes(StandardCharsets.UTF_8));
+  }
+}

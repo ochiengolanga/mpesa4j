@@ -15,16 +15,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    id 'java'
-}
+package com.github.ochiengolanga.mpesa4j.api;
 
-dependencies {
-    implementation group: 'org.springframework.boot', name: 'spring-boot', version: '2.1.9.RELEASE'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: '2.1.9.RELEASE'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '2.1.9.RELEASE'
-    implementation group: 'commons-logging', name: 'commons-logging', version: '1.2'
-    implementation group: 'com.github.ochiengolanga', name: 'mpesa4j-core', version: '0.0.2'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-}
+import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
+import com.github.ochiengolanga.mpesa4j.models.responses.AccountBalanceResponse;
 
+public interface AccountBalanceResource {
+  /**
+   * The Account Balance API requests for the account balance of a shortcode. <br>
+   * see https://developer.safaricom.co.ke/docs#account-balance-api
+   *
+   * @param description
+   * @return {@link AccountBalanceResponse}
+   * @throws MpesaApiException
+   */
+  AccountBalanceResponse queryBalance(String description) throws MpesaApiException;
+}

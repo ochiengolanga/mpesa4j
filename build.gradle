@@ -24,7 +24,7 @@ if (!project.hasProperty('bintrayUsername')) ext.bintrayUsername        = System
 if (!project.hasProperty('bintrayApiKey'))   ext.bintrayApiKey          = System.getenv('BINTRAY_APIKEY')
 if (!project.hasProperty('skipMavenSync')) ext.skipMavenSync            = System.getenv('MAVEN_SYNC_ENABLED')
 if (!project.hasProperty('sonatypeUsername')) ext.sonatypeUsername      = System.getenv('SONATYPE_USERNAME')
-if (!project.hasProperty('sonatypePassword'))   ext.sonatypePassword    =System.getenv('SONATYPE_PASSWORD')
+if (!project.hasProperty('sonatypePassword'))   ext.sonatypePassword    = System.getenv('SONATYPE_PASSWORD')
 
 config {
     release = (rootProject.findProperty('release') ?: false).toBoolean()
