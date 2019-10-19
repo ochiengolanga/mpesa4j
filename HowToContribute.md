@@ -43,7 +43,7 @@ Developing version naming convention is like `2.0.0-SNAPSHOT`. Release version n
 
 ## CI
 
-[CircleCi](https://circleci.com/gh/ochiengolanga/mpesa4j) CI is enabled.
+[CircleCi](https://circleci.com/gh/ochiengolanga/mpesa4j) is enabled.
 
 ## Contribution
 Code contribution is welcome. To contribute to existing code or add a new starter, please make sure below check list is checked.
