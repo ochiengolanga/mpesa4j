@@ -15,35 +15,9 @@ jobs: # a collection of steps
       - restore_cache:
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
       - run:
-          name: Run mpesa4j tests in parallel # See: https://circleci.com/docs/2.0/parallelism-faster-jobs/
-          # Use "./gradlew test" instead if tests are not run in parallel
+          name: Run mpesa4j
           command: |
-            cd libs/mpesa4j/src/test/java
-            # Get list of classnames of tests that should run on this node
-            CLASSNAMES=$(circleci tests glob "**/*.java" \
-              | cut -c 1- | sed 's@/@.@g' \
-              | sed 's/.\{5\}$//' \
-              | circleci tests split --split-by=timings --timings-type=classname)
-            cd ../../../../..
-            # Format the arguments to "./gradlew test"
-            GRADLE_ARGS=$(echo $CLASSNAMES | awk '{for (i=1; i<=NF; i++) print "--tests",$i}')
-            echo "Prepared arguments for Gradle: $GRADLE_ARGS"
-            ./gradlew test $GRADLE_ARGS
-      - run:
-          name: Run mpesa4j spring boot autoconfigure tests in parallel # See: https://circleci.com/docs/2.0/parallelism-faster-jobs/
-          # Use "./gradlew test" instead if tests are not run in parallel
-          command: |
-            cd libs/mpesa4j-spring-boot-autoconfigure/src/test/java
-            # Get list of classnames of tests that should run on this node
-            CLASSNAMES=$(circleci tests glob "**/*.java" \
-              | cut -c 1- | sed 's@/@.@g' \
-              | sed 's/.\{5\}$//' \
-              | circleci tests split --split-by=timings --timings-type=classname)
-            cd ../../../../..
-            # Format the arguments to "./gradlew test"
-            GRADLE_ARGS=$(echo $CLASSNAMES | awk '{for (i=1; i<=NF; i++) print "--tests",$i}')
-            echo "Prepared arguments for Gradle: $GRADLE_ARGS"
-            ./gradlew test $GRADLE_ARGS
+            ./gradlew test
       - save_cache:
           paths:
             - ~/.gradle/wrapper
