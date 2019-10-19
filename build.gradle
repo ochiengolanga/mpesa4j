@@ -20,11 +20,13 @@ plugins {
     id 'org.kordamp.gradle.bintray' version '0.27.0'
 }
 
-if (!project.hasProperty('bintrayUsername')) ext.bintrayUsername        = System.getenv('BINTRAY_USERNAME')
-if (!project.hasProperty('bintrayApiKey'))   ext.bintrayApiKey          = System.getenv('BINTRAY_APIKEY')
-if (!project.hasProperty('skipMavenSync')) ext.skipMavenSync            = System.getenv('MAVEN_SYNC_ENABLED')
-if (!project.hasProperty('sonatypeUsername')) ext.sonatypeUsername      = System.getenv('SONATYPE_USERNAME')
-if (!project.hasProperty('sonatypePassword'))   ext.sonatypePassword    = System.getenv('SONATYPE_PASSWORD')
+ext {
+    bintrayUsername = project.hasProperty('bintrayUsername') ? project.property('bintrayUsername') : System.getenv('BINTRAY_USERNAME')
+    bintrayApiKey   = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_APIKEY')
+    skipMavenSync   = project.hasProperty('skipMavenSync') ? project.property('skipMavenSync') : System.getenv('MAVEN_SYNC_ENABLED')
+    sonatypeUsername = project.hasProperty('sonatypeUsername') ? project.property('sonatypeUsername') : System.getenv('SONATYPE_USERNAME')
+    sonatypePassword = project.hasProperty('sonatypePassword') ? project.property('sonatypePassword') : System.getenv('SONATYPE_PASSWORD')
+}
 
 config {
     release = (rootProject.findProperty('release') ?: false).toBoolean()
