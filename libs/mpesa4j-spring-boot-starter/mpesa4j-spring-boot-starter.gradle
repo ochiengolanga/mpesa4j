@@ -20,7 +20,7 @@ plugins {
 }
 
 ext {
-    mpesa4jVersion = '0.0.5'
+    mpesa4jVersion = '0.0.4'
     springBootVersion = '2.2.0.RELEASE'
 }
 
