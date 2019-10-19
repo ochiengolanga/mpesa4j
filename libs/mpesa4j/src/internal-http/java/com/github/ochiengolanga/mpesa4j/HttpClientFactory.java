@@ -17,14 +17,15 @@
  */
 package com.github.ochiengolanga.mpesa4j;
 
+import com.github.ochiengolanga.mpesa4j.config.ConfigurationContext;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.ConcurrentHashMap;
-import com.github.ochiengolanga.mpesa4j.config.ConfigurationContext;
 
 public final class HttpClientFactory {
   private static final Constructor<?> HTTP_CLIENT_CONSTRUCTOR;
-  private static final String HTTP_CLIENT_IMPLEMENTATION = "com.github.ochiengolanga.mpesa4j.http.httpClient";
+  private static final String HTTP_CLIENT_IMPLEMENTATION =
+      "com.github.ochiengolanga.mpesa4j.http.httpClient";
 
   static {
     Class<?> clazz = null;

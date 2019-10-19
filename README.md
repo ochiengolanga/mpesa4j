@@ -4,9 +4,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/ochiengolanga/mpesa4j/badge.svg?branch=master)](https://coveralls.io/github/ochiengolanga/mpesa4j?branch=master)
 [ ![Download](https://api.bintray.com/packages/ochiengolanga/mpesa4j/mpesa4j/images/download.svg) ](https://bintray.com/ochiengolanga/mpesa4j/mpesa4j/_latestVersion)
 
-## Requirements ##
+## Prerequisites ##
 
-Java 11 or later.
+* Java 11 and above.
 
 ## Installation
 
@@ -18,7 +18,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.github.ochiengolanga</groupId>
   <artifactId>mpesa4j</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.4</version>
 </dependency>
 ```
 
@@ -27,15 +27,27 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.github.ochiengolanga:mpesa4j:0.0.2"
+compile "com.github.ochiengolanga:mpesa4j:0.0.4"
 ```
 
-## Feedback ##
+## How to Build and Contribute ##
 
-## Contributing ##
+This project welcomes contributions and suggestions via issues and pull requests.
 
-## Acknowledgement ##
+Please follow instructions here to build from source or contribute.
+
+## Filing Issues##
+
+If you encounter any bug, please file an issue here.
+
+To suggest a new feature or changes that could be made, file an issue the same way you would for a bug.
+
+## Pull Requests##
+
+Pull requests are welcome. To open your own pull request, click here. When creating a pull request, make sure you are pointing to the fork and branch that your changes were made in.
 
 ## TODOs
 
 * Error handling
+* Logging
+* Micrometer metrics

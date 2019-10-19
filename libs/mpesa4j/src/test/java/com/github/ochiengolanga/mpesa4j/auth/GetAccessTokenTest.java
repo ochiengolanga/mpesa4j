@@ -21,12 +21,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
-import com.github.ochiengolanga.mpesa4j.auth.OAuth2Token;
 import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class GetAccessTokenTest {
+class GetAccessTokenTest {
 
   @BeforeEach
   void init() {}

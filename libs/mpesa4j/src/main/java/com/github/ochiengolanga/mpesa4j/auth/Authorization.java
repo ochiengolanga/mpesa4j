@@ -17,17 +17,17 @@
  */
 package com.github.ochiengolanga.mpesa4j.auth;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import com.github.ochiengolanga.mpesa4j.HttpClient;
 import com.github.ochiengolanga.mpesa4j.HttpClientFactory;
 import com.github.ochiengolanga.mpesa4j.HttpParameter;
 import com.github.ochiengolanga.mpesa4j.config.Configuration;
 import com.github.ochiengolanga.mpesa4j.models.ApiResource;
 import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @EqualsAndHashCode(callSuper = false)
 @ToString

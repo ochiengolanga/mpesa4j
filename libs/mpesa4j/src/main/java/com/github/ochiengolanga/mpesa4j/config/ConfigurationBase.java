@@ -17,12 +17,12 @@
  */
 package com.github.ochiengolanga.mpesa4j.config;
 
+import com.github.ochiengolanga.mpesa4j.HttpClientConfiguration;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import com.github.ochiengolanga.mpesa4j.HttpClientConfiguration;
 
 @ToString
 class ConfigurationBase implements Configuration, java.io.Serializable {

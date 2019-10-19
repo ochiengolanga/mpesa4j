@@ -17,11 +17,10 @@
  */
 package com.github.ochiengolanga.mpesa4j;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.github.ochiengolanga.mpesa4j.models.ApiResource;
 import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class HttpClientBase implements HttpClient, java.io.Serializable {
   private static final long serialVersionUID = -8016974810651763053L;

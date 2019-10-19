@@ -26,7 +26,8 @@ import java.lang.reflect.InvocationTargetException;
 public final class ConfigurationContext {
   private static final String DEFAULT_CONFIGURATION_FACTORY =
       "com.github.ochiengolanga.mpesa4j.config.PropertyConfigurationFactory";
-  private static final String CONFIGURATION_IMPL = "com.github.ochiengolanga.mpesa4j.config.configurationFactory";
+  private static final String CONFIGURATION_IMPL =
+      "com.github.ochiengolanga.mpesa4j.config.configurationFactory";
   private static final ConfigurationFactory factory;
 
   static {

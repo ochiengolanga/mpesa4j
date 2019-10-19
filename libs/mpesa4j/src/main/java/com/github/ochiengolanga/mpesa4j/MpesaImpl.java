@@ -29,7 +29,6 @@ import com.github.ochiengolanga.mpesa4j.models.requests.*;
 import com.github.ochiengolanga.mpesa4j.models.responses.*;
 import com.github.ochiengolanga.mpesa4j.util.GenerationUtils;
 import com.github.ochiengolanga.mpesa4j.util.Preconditions;
-
 import java.math.BigDecimal;
 
 /**

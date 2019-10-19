@@ -17,52 +17,88 @@
  */
 package com.github.ochiengolanga.mpesa4j.spring.boot.autoconfigure;
 
-//import com.github.ochiengolanga.mpesa4j.Mpesa;
-//import com.github.ochiengolanga.mpesa4j.MpesaFactory;
-//import com.github.ochiengolanga.mpesa4j.config.ConfigurationBuilder;
-//import org.apache.commons.logging.Log;
-//import org.apache.commons.logging.LogFactory;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-//import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-//import org.springframework.boot.context.properties.EnableConfigurationProperties;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//
-//@Configuration
-//@ConditionalOnClass({ MpesaFactory.class, Mpesa.class })
-//@EnableConfigurationProperties(Mpesa4jProperties.class)
-//public class Mpesa4jAutoConfiguration {
-//
-//    private static Log log = LogFactory.getLog(Mpesa4jAutoConfiguration.class);
-//
-//    @Autowired
-//    private Mpesa4jProperties properties;
-//
-//    @Bean
-//    @ConditionalOnMissingBean
-//    public MpesaFactory mpesaFactory(){
-//        if (this.properties.getConsumerKey() == null || this.properties.getConsumerSecret() == null)
-//        {
-//            String msg = "Mpesa4j properties not configured properly." +
-//                    " Please check mpesa4j.* properties settings in configuration file.";
-//            log.error(msg);
-//            throw new RuntimeException(msg);
-//        }
-//
-//        ConfigurationBuilder cb = new ConfigurationBuilder();
-//        cb.setDebugEnabled(properties.getDebug())
-//                .setConsumerKey(properties.getConsumerKey())
-//                .setConsumerSecret(properties.getConsumerSecret())
-//                .setLipaNaMpesaKey(properties.getLipaNaMpesa().getPasskey());
-//
-//        return new MpesaFactory(cb.build());
-//    }
-//
-//    @Bean
-//    @ConditionalOnMissingBean
-//    public Mpesa mpesa(MpesaFactory mpesaFactory){
-//        return mpesaFactory.getInstance();
-//    }
-//
-//}
+import com.github.ochiengolanga.mpesa4j.Mpesa;
+import com.github.ochiengolanga.mpesa4j.MpesaFactory;
+import com.github.ochiengolanga.mpesa4j.config.ConfigurationBuilder;
+import com.github.ochiengolanga.mpesa4j.spring.boot.autoconfigure.properties.*;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
+@RequiredArgsConstructor
+@Configuration
+@ConditionalOnClass({MpesaFactory.class, Mpesa.class})
+@PropertySource("classpath:mpesa4j.properties")
+@EnableConfigurationProperties({
+  BaseProperties.class,
+  AccountBalanceProperties.class,
+  B2BProperties.class,
+  B2CProperties.class,
+  InitiatorProperties.class,
+  LipaNaMpesaProperties.class,
+  TransactionQueryProperties.class,
+  TransactionReversalProperties.class
+})
+public class Mpesa4jAutoConfiguration {
+
+  private static Log log = LogFactory.getLog(Mpesa4jAutoConfiguration.class);
+
+  private final BaseProperties baseProperties;
+  private final AccountBalanceProperties accountBalanceProperties;
+  private final B2BProperties b2bProperties;
+  private final B2CProperties b2cProperties;
+  private final InitiatorProperties initiatorProperties;
+  private final LipaNaMpesaProperties lipaNaMpesaProperties;
+  private final TransactionQueryProperties transactionQueryProperties;
+  private final TransactionReversalProperties transactionReversalProperties;
+
+  @Bean
+  @ConditionalOnMissingBean
+  public MpesaFactory mpesaFactory() {
+    if (this.baseProperties.getConsumerKey() == null
+        || this.baseProperties.getConsumerSecret() == null) {
+      String msg =
+          "Mpesa4j baseProperties not configured properly."
+              + " Please check mpesa4j.* baseProperties settings in configuration file.";
+      log.error(msg);
+      throw new RuntimeException(msg);
+    }
+
+    ConfigurationBuilder cb = new ConfigurationBuilder();
+    cb.setDebugEnabled(baseProperties.getDebug())
+        .setSandboxEnabled(baseProperties.getSandBoxEnabled())
+        .setHttpConnectionTimeout(baseProperties.getConnectionTimeout())
+        .setHttpReadTimeout(baseProperties.getReadTimeout())
+        .setAccountBalanceQueueTimeoutUrl(accountBalanceProperties.getQueueTimeoutUrl())
+        .setAccountBalanceResultUrl(accountBalanceProperties.getQueueTimeoutUrl())
+        .setB2BQueueTimeoutUrl(b2bProperties.getQueueTimeoutUrl())
+        .setB2BResultUrl(b2bProperties.getResultUrl())
+        .setB2CQueueTimeoutUrl(b2cProperties.getQueueTimeoutUrl())
+        .setB2CResultUrl(b2cProperties.getResultUrl())
+        .setConsumerKey(baseProperties.getConsumerKey())
+        .setConsumerSecret(baseProperties.getConsumerSecret())
+        .setInitiatorName(initiatorProperties.getName())
+        .setInitiatorShortCode(initiatorProperties.getShortCode())
+        .setInitiatorSecurityCredential(initiatorProperties.getSecurityCredential())
+        .setLipaNaMpesaShortCode(lipaNaMpesaProperties.getShortCode())
+        .setLipaNaMpesaPasskey(lipaNaMpesaProperties.getPasskey())
+        .setLipaNaMpesaCallbackUrl(lipaNaMpesaProperties.getCallbackUrl())
+        .setTransactionQueryQueueTimeoutUrl(transactionQueryProperties.getQueueTimeoutUrl())
+        .setTransactionQueryResultUrl(transactionQueryProperties.getResultUrl())
+        .setTransactionReversalQueueTimeoutUrl(transactionReversalProperties.getQueueTimeoutUrl())
+        .setTransactionReversalResultUrl(transactionReversalProperties.getResultUrl());
+    return new MpesaFactory(cb.build());
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public Mpesa mpesa(MpesaFactory mpesaFactory) {
+    return mpesaFactory.getInstance();
+  }
+}

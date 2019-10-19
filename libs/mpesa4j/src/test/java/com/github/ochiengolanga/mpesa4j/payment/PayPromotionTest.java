@@ -20,16 +20,16 @@ package com.github.ochiengolanga.mpesa4j.payment;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.math.BigDecimal;
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
 import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.responses.PromotionPaymentRequestResponse;
+import java.math.BigDecimal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class PayPromotionTest {
+class PayPromotionTest {
 
   @BeforeEach
   void init() {}

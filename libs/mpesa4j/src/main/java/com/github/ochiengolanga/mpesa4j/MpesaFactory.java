@@ -17,21 +17,21 @@
  */
 package com.github.ochiengolanga.mpesa4j;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 import com.github.ochiengolanga.mpesa4j.auth.Authorization;
 import com.github.ochiengolanga.mpesa4j.auth.AuthorizationFactory;
 import com.github.ochiengolanga.mpesa4j.config.Configuration;
 import com.github.ochiengolanga.mpesa4j.config.ConfigurationContext;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class MpesaFactory implements java.io.Serializable {
+  private static final long serialVersionUID = -563983536986910054L;
+
   private static final Constructor<Mpesa> MPESA_CONSTRUCTOR;
   static final Authorization DEFAULT_AUTHORIZATION =
       AuthorizationFactory.getInstance(ConfigurationContext.getInstance());
   private static final Mpesa SINGLETON;
-  private static final long serialVersionUID = -563983536986910054L;
   private final Configuration conf;
 
   static {

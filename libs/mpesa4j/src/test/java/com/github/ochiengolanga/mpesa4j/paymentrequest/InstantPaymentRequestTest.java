@@ -17,15 +17,15 @@
  */
 package com.github.ochiengolanga.mpesa4j.paymentrequest;
 
-import java.math.BigDecimal;
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
 import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
+import java.math.BigDecimal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class InstantPaymentRequestTest {
+class InstantPaymentRequestTest {
 
   @BeforeEach
   void init() {}

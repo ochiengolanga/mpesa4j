@@ -17,6 +17,9 @@
  */
 package com.github.ochiengolanga.mpesa4j;
 
+import com.github.ochiengolanga.mpesa4j.config.ConfigurationContext;
+import com.github.ochiengolanga.mpesa4j.models.ApiResource;
+import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
 import com.google.gson.JsonSyntaxException;
 import java.io.IOException;
 import java.net.URI;
@@ -24,9 +27,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
-import com.github.ochiengolanga.mpesa4j.config.ConfigurationContext;
-import com.github.ochiengolanga.mpesa4j.models.ApiResource;
-import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
 
 class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
   private static final long serialVersionUID = -403500272719330534L;

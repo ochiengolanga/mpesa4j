@@ -17,12 +17,12 @@
  */
 package com.github.ochiengolanga.mpesa4j.models.requests;
 
+import com.github.ochiengolanga.mpesa4j.models.ApiResource;
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import com.github.ochiengolanga.mpesa4j.models.ApiResource;
 
 @Getter
 @Setter

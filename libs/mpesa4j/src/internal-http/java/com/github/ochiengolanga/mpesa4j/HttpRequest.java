@@ -17,11 +17,11 @@
  */
 package com.github.ochiengolanga.mpesa4j;
 
+import com.github.ochiengolanga.mpesa4j.models.ApiResource;
 import java.util.Map;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import com.github.ochiengolanga.mpesa4j.models.ApiResource;
 
 @Getter
 @ToString
