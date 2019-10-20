@@ -36,8 +36,8 @@ public class Mpesa4jSpringBootSampleApplication implements CommandLineRunner {
 
 //@RequiredArgsConstructor
 //@Service
-//class MpesaService {
-//    private final Mpesa mpesa;
+//class PaymentService {
+//    private final PaymentService mpesa;
 //
 //    public SalaryPaymentRequestResponse paySalary(String phoneNumber, BigDecimal salary, String description, String remark) {
 //        return mpesa.paySalary(phoneNumber, salary, description, remark);
