@@ -17,7 +17,7 @@ jobs: # a collection of steps
       - run:
           name: Run mpesa4j tests
           command: |
-            ./gradlew test
+            ./gradlew -x mpesa4j-spring-boot-sample:test test
       - save_cache:
           paths:
             - ~/.gradle/wrapper
