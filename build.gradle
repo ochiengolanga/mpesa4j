@@ -144,6 +144,11 @@ subprojects {
                     tags        = ['mpesa', 'daraja', 'java', 'sdk', 'spring', 'spring-boot']
                 }
             }
+        } else if (project.name.endsWith('-sample')) {
+            config {
+                bintray { enabled = false }
+                publishing { enabled = false }
+            }
         }
     }
 }

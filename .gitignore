@@ -11,3 +11,5 @@ build
 /.settings/
 /TODOS.txt
 /mpesa4j-master.iml
+/samples/mpesa4j-sample/src/main/resources/mpesa4j.properties
+/samples/mpesa4j-spring-boot-sample/src/main/resources/application.properties

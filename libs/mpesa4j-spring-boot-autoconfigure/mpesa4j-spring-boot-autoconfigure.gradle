@@ -21,7 +21,7 @@ plugins {
 }
 
 ext {
-    mpesa4jVersion = '0.0.5'
+    mpesa4jVersion = '0.0.6'
     lombokVersion = '1.18.10'
     springBootVersion = '2.2.0.RELEASE'
 }
