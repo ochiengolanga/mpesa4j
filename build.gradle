@@ -147,6 +147,7 @@ subprojects {
         } else if (project.name.endsWith('-sample')) {
             config {
                 bintray { enabled = false }
+                licensing { enabled = false }
                 publishing { enabled = false }
             }
         }
