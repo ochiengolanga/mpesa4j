@@ -1,6 +1,7 @@
 version: 2 # use CircleCI 2.0
 jobs: # a collection of steps
   build:
+    working_directory: ~/repo
     environment:
       # Configure the JVM and Gradle to avoid OOM errors
       _JAVA_OPTIONS: "-Xmx3g"
@@ -17,7 +18,7 @@ jobs: # a collection of steps
       - run:
           name: Run mpesa4j tests
           command: |
-            ./gradlew -x mpesa4j-spring-boot-sample:test test
+            ./gradlew test
       - save_cache:
           paths:
             - ~/.gradle/wrapper
@@ -35,7 +36,11 @@ jobs: # a collection of steps
       - run:
           name: Assemble JARs
           command: |
-            ./gradlew -x mpesa4j:assemble -x mpesa4j-spring-boot-autoconfigure:assemble -x mpesa4j-sample:assemble -x mpesa4j-spring-boot-sample:assemble assemble mpesa4j-spring-boot-starter:bintrayUpload
+            ./gradlew assemble
+      - run:
+          name: Upload JARs to BinTray
+          command: |
+            ./gradlew bintrayUpload
       - store_artifacts:
           path: build/libs
 workflows:
