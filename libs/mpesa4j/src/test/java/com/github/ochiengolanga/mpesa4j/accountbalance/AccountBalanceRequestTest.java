@@ -17,6 +17,9 @@
  */
 package com.github.ochiengolanga.mpesa4j.accountbalance;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
 import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
@@ -24,9 +27,6 @@ import com.github.ochiengolanga.mpesa4j.models.responses.AccountBalanceResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AccountBalanceRequestTest {
 
