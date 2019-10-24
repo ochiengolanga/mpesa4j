@@ -13,7 +13,7 @@ Mpesa4j is a thread safe M-Pesa API aka "Daraja" client library based on Java 11
 Mpesa4j provides easy to use and straightforward APIs drawn from experience implementing clients over and over. Implemented Daraja features include:
 
 | M-Pesa "Daraja" API        | Implemented |
-| ------------- |:-------------:| -----:|
+| ------------- |:-------------:|
 | Account Balance Query      | yes|
 | Business To Business (B2B) | yes (Suspended by provider) |
 | Business To Customer (B2C) | yes |
