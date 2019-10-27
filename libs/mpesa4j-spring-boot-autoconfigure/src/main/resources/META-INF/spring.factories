@@ -1,0 +1,2 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.github.ochiengolanga.mpesa4j.spring.boot.autoconfigure.Mpesa4jAutoConfiguration

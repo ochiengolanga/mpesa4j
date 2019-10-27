@@ -1,0 +1,53 @@
+/*
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Copyright 2019 Daniel Ochieng' Olanga.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+plugins {
+    id 'java'
+    id "com.diffplug.gradle.spotless" version "3.24.3"
+}
+
+ext {
+    lombokVersion = '1.18.10'
+    springBootVersion = '2.2.0.RELEASE'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+    implementation project(':mpesa4j')
+    implementation group: 'org.springframework.boot', name: 'spring-boot', version: springBootVersion
+    implementation group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: springBootVersion
+    implementation group: 'org.springframework.boot', name: 'spring-boot-autoconfigure-processor', version: springBootVersion
+    implementation group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: springBootVersion
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: springBootVersion
+    implementation group: 'commons-logging', name: 'commons-logging', version: '1.2'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion
+}
+
+spotless {
+    java {
+        googleJavaFormat('1.7')
+        removeUnusedImports()
+    }
+}
