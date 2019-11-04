@@ -35,7 +35,7 @@ class PayBusinessTest {
   void init() {}
 
   @Test
-  void payBusinessTest() throws MpesaApiException {
+  void payBusinessTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     BusinessPaymentRequestResponse response =
@@ -48,40 +48,45 @@ class PayBusinessTest {
   }
 
   @Test
-  void zeroPayableAmount_PayBusinessTest() throws MpesaApiException {
+  void invalidPayableAmount_payBusinessTest() {
+    Mpesa mpesa = new MpesaFactory().getInstance();
+
+    Assertions.assertThrows(
+        MpesaApiException.class,
+        () ->
+            mpesa.payBusiness(
+                "254708374149", new BigDecimal(10000000.00), "Invalid business payment", ""));
+  }
+
+  @Test
+  void zeroPayableAmount_PayBusinessTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.payBusiness("254708374149", new BigDecimal(0.00), "Business payment", "");
-        });
+        () -> mpesa.payBusiness("254708374149", new BigDecimal(0.00), "Business payment", ""));
   }
 
   @Test
-  void negativePayableAmount_PayBusinessTest() throws MpesaApiException {
+  void negativePayableAmount_PayBusinessTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.payBusiness("254708374149", new BigDecimal(-10.00), "Business payment", "");
-        });
+        () -> mpesa.payBusiness("254708374149", new BigDecimal(-10.00), "Business payment", ""));
   }
 
   @Test
-  void nullPayableAmount_PayBusinessTest() throws MpesaApiException {
+  void nullPayableAmount_PayBusinessTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.payBusiness("254708374149", null, "Business payment", "");
-        });
+        () -> mpesa.payBusiness("254708374149", null, "Business payment", ""));
   }
 
   @Test
-  void nullOccasion_payBusinessTest() throws MpesaApiException {
+  void nullOccasion_payBusinessTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     mpesa.payBusiness("254708374149", new BigDecimal(100.00), "Business payment", null);
@@ -90,46 +95,38 @@ class PayBusinessTest {
   }
 
   @Test
-  void nullDestination_paymentRequestTest() throws MpesaApiException {
+  void nullDestination_paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.payBusiness(null, new BigDecimal(100.00), "Business payment", null);
-        });
+        () -> mpesa.payBusiness(null, new BigDecimal(100.00), "Business payment", null));
   }
 
   @Test
-  void emptyDestination_paymentRequestTest() throws MpesaApiException {
+  void emptyDestination_paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.payBusiness("", new BigDecimal(100.00), "Business payment", null);
-        });
+        () -> mpesa.payBusiness("", new BigDecimal(100.00), "Business payment", null));
   }
 
   @Test
-  void nullDescription_paymentRequestTest() throws MpesaApiException {
+  void nullDescription_paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.payBusiness("254708374149", new BigDecimal(100.00), null, "");
-        });
+        () -> mpesa.payBusiness("254708374149", new BigDecimal(100.00), null, ""));
   }
 
   @Test
-  void emptyDescription_paymentRequestTest() throws MpesaApiException {
+  void emptyDescription_paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.payBusiness("254708374149", new BigDecimal(100.00), "", "");
-        });
+        () -> mpesa.payBusiness("254708374149", new BigDecimal(100.00), "", ""));
   }
 }

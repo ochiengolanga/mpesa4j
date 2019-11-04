@@ -17,26 +17,19 @@
  */
 package com.github.ochiengolanga.mpesa4j.models.responses;
 
-import com.google.gson.annotations.SerializedName;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
 /** A data interface representing B2C PaySalary API response */
+@AllArgsConstructor
 @Getter
 @ToString
 public final class SalaryPaymentRequestResponse implements java.io.Serializable {
   private static final long serialVersionUID = 7092906238192790921L;
 
-  @SerializedName("ConversationID")
   private String conversationId;
-
-  @SerializedName("OriginatorConversationID")
   private String originatorConversationId;
-
-  @SerializedName("ResponseCode")
   private String responseCode;
-
-  @SerializedName("ResponseDescription")
   private String responseDescription;
-
 }

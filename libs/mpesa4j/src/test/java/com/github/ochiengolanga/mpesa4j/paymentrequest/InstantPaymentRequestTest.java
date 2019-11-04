@@ -17,9 +17,13 @@
  */
 package com.github.ochiengolanga.mpesa4j.paymentrequest;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
 import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
+import com.github.ochiengolanga.mpesa4j.models.responses.InstantPaymentRequestResponse;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,121 +34,125 @@ class InstantPaymentRequestTest {
   @BeforeEach
   void init() {}
 
-  //  @Test
-  //  void paymentRequestTest() throws MpesaApiException {
-  //    Mpesa mpesa = new MpesaFactory().getInstance();
-  //
-  //    InstantPaymentRequestResponse response =
-  //        mpesa.requestInstantPayment(
-  //            "254724488116", new BigDecimal(10.00), "TESTMPESA4J2", "Test from mpesa4j");
-  //
-  //    assertNotNull(response.getMerchantRequestId());
-  //    assertNotNull(response.getCheckoutRequestId());
-  //    assertNotNull(response.getResponseDescription());
-  //    assertNotNull(response.getCustomerMessage());
-  //    assertTrue(response.getResponseCode().equalsIgnoreCase("0"));
-  //  }
-
   @Test
-  void zeroPayableAmount_paymentRequestTest() throws MpesaApiException {
+  void paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> {
-          mpesa.requestInstantPayment(
-              "254724488116", new BigDecimal(0.00), "TEST", "Test from mpesa4j");
-        });
+    InstantPaymentRequestResponse response =
+        mpesa.requestInstantPayment(
+            "254724488116",
+            new BigDecimal(10.00),
+            "TESTMPESA4JRequest",
+            "Instant payment request test from mpesa4j");
+
+    assertNotNull(response.getMerchantRequestId());
+    assertNotNull(response.getCheckoutRequestId());
+    assertNotNull(response.getResponseDescription());
+    assertNotNull(response.getCustomerMessage());
+    assertTrue(response.getResponseCode().equalsIgnoreCase("0"));
   }
 
   @Test
-  void negativePayableAmount_paymentRequestTest() throws MpesaApiException {
+  void exceedMaxPayableAmount_paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> {
-          mpesa.requestInstantPayment(
-              "254724488116", new BigDecimal(-10.00), "TEST", "Test from mpesa4j");
-        });
+        MpesaApiException.class,
+        () ->
+            mpesa.requestInstantPayment(
+                "254724488116",
+                new BigDecimal(10000000.00),
+                "TEST",
+                "Invalid instant payment test from mpesa4j"));
   }
 
   @Test
-  void nullPayableAmount_paymentRequestTest() throws MpesaApiException {
+  void zeroPayableAmount_paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.requestInstantPayment("254724488116", null, "TEST", "Test from mpesa4j");
-        });
+        () ->
+            mpesa.requestInstantPayment(
+                "254724488116", new BigDecimal(0.00), "TEST", "Test from mpesa4j"));
   }
 
   @Test
-  void nullCustomerPhoneNumber_paymentRequestTest() throws MpesaApiException {
+  void negativePayableAmount_paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.requestInstantPayment(null, new BigDecimal(10.00), "TEST", "Test from mpesa4j");
-        });
+        () ->
+            mpesa.requestInstantPayment(
+                "254724488116", new BigDecimal(-10.00), "TEST", "Test from mpesa4j"));
   }
 
   @Test
-  void emptyCustomerPhoneNumber_paymentRequestTest() throws MpesaApiException {
+  void nullPayableAmount_paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.requestInstantPayment("", new BigDecimal(10.00), "TEST", "Test from mpesa4j");
-        });
+        () -> mpesa.requestInstantPayment("254724488116", null, "TEST", "Test from mpesa4j"));
   }
 
   @Test
-  void nullAccountReference_paymentRequestTest() throws MpesaApiException {
+  void nullCustomerPhoneNumber_paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.requestInstantPayment(
-              "254724488116", new BigDecimal(10.00), null, "Test from mpesa4j");
-        });
+        () ->
+            mpesa.requestInstantPayment(null, new BigDecimal(10.00), "TEST", "Test from mpesa4j"));
   }
 
   @Test
-  void emptyAccountReference_paymentRequestTest() throws MpesaApiException {
+  void emptyCustomerPhoneNumber_paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.requestInstantPayment(
-              "254724488116", new BigDecimal(10.00), "", "Test from mpesa4j");
-        });
+        () -> mpesa.requestInstantPayment("", new BigDecimal(10.00), "TEST", "Test from mpesa4j"));
   }
 
   @Test
-  void nullDescription_paymentRequestTest() throws MpesaApiException {
+  void nullAccountReference_paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.requestInstantPayment("254724488116", new BigDecimal(10.00), "TEST", null);
-        });
+        () ->
+            mpesa.requestInstantPayment(
+                "254724488116", new BigDecimal(10.00), null, "Test from mpesa4j"));
   }
 
   @Test
-  void emptyDescription_paymentRequestTest() throws MpesaApiException {
+  void emptyAccountReference_paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.requestInstantPayment("254724488116", new BigDecimal(10.00), "TEST", "");
-        });
+        () ->
+            mpesa.requestInstantPayment(
+                "254724488116", new BigDecimal(10.00), "", "Test from mpesa4j"));
+  }
+
+  @Test
+  void nullDescription_paymentRequestTest() {
+    Mpesa mpesa = new MpesaFactory().getInstance();
+
+    Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> mpesa.requestInstantPayment("254724488116", new BigDecimal(10.00), "TEST", null));
+  }
+
+  @Test
+  void emptyDescription_paymentRequestTest() {
+    Mpesa mpesa = new MpesaFactory().getInstance();
+
+    Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> mpesa.requestInstantPayment("254724488116", new BigDecimal(10.00), "TEST", ""));
   }
 }

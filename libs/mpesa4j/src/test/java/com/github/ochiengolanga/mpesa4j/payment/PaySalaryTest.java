@@ -35,7 +35,7 @@ class PaySalaryTest {
   void init() {}
 
   @Test
-  void paySalaryTest() throws MpesaApiException {
+  void paySalaryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     SalaryPaymentRequestResponse response =
@@ -48,40 +48,45 @@ class PaySalaryTest {
   }
 
   @Test
-  void zeroPayableAmount_PaySalaryTest() throws MpesaApiException {
+  void invalidPayableAmount_paySalaryTest() {
+    Mpesa mpesa = new MpesaFactory().getInstance();
+
+    Assertions.assertThrows(
+        MpesaApiException.class,
+        () ->
+            mpesa.paySalary(
+                "254708374149", new BigDecimal(10000000.00), "Invalid salary payment", ""));
+  }
+
+  @Test
+  void zeroPayableAmount_PaySalaryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.paySalary("254708374149", new BigDecimal(0.00), "Salary payment", "");
-        });
+        () -> mpesa.paySalary("254708374149", new BigDecimal(0.00), "Salary payment", ""));
   }
 
   @Test
-  void negativePayableAmount_PaySalaryTest() throws MpesaApiException {
+  void negativePayableAmount_PaySalaryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.paySalary("254708374149", new BigDecimal(-10.00), "Salary payment", "");
-        });
+        () -> mpesa.paySalary("254708374149", new BigDecimal(-10.00), "Salary payment", ""));
   }
 
   @Test
-  void nullPayableAmount_PaySalaryTest() throws MpesaApiException {
+  void nullPayableAmount_PaySalaryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.paySalary("254708374149", null, "Salary payment", "");
-        });
+        () -> mpesa.paySalary("254708374149", null, "Salary payment", ""));
   }
 
   @Test
-  void nullOccasion_paySalaryTest() throws MpesaApiException {
+  void nullOccasion_paySalaryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     mpesa.paySalary("254708374149", new BigDecimal(100.00), "Salary payment", null);
@@ -90,46 +95,38 @@ class PaySalaryTest {
   }
 
   @Test
-  void nullDestination_paySalaryTest() throws MpesaApiException {
+  void nullDestination_paySalaryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.paySalary(null, new BigDecimal(100.00), "Salary payment", null);
-        });
+        () -> mpesa.paySalary(null, new BigDecimal(100.00), "Salary payment", null));
   }
 
   @Test
-  void emptyDestination_paySalaryTest() throws MpesaApiException {
+  void emptyDestination_paySalaryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.paySalary("", new BigDecimal(100.00), "Salary payment", null);
-        });
+        () -> mpesa.paySalary("", new BigDecimal(100.00), "Salary payment", null));
   }
 
   @Test
-  void nullDescription_paySalaryTest() throws MpesaApiException {
+  void nullDescription_paySalaryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.paySalary("254708374149", new BigDecimal(100.00), null, "");
-        });
+        () -> mpesa.paySalary("254708374149", new BigDecimal(100.00), null, ""));
   }
 
   @Test
-  void emptyDescription_paySalaryTest() throws MpesaApiException {
+  void emptyDescription_paySalaryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.paySalary("254708374149", new BigDecimal(100.00), "", "");
-        });
+        () -> mpesa.paySalary("254708374149", new BigDecimal(100.00), "", ""));
   }
 }

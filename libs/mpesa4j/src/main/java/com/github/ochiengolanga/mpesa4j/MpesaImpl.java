@@ -24,12 +24,14 @@ import com.github.ochiengolanga.mpesa4j.models.ApiResource;
 import com.github.ochiengolanga.mpesa4j.models.enums.CommandID;
 import com.github.ochiengolanga.mpesa4j.models.enums.DefaultAction;
 import com.github.ochiengolanga.mpesa4j.models.enums.IdentifierType;
-import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.requests.*;
 import com.github.ochiengolanga.mpesa4j.models.responses.*;
 import com.github.ochiengolanga.mpesa4j.util.GenerationUtils;
 import com.github.ochiengolanga.mpesa4j.util.Preconditions;
+import io.vavr.control.Try;
 import java.math.BigDecimal;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A java representation of the <a href="https://developer.safaricom.co.ke/docs">Safaricom M-Pesa
@@ -38,6 +40,8 @@ import java.math.BigDecimal;
  */
 class MpesaImpl extends MpesaBaseImpl implements Mpesa {
   private static final long serialVersionUID = 9170943084096085770L;
+
+  private static final Logger LOG = LoggerFactory.getLogger(MpesaImpl.class);
 
   MpesaImpl(Configuration conf, Authorization auth) {
     super(conf, auth);
@@ -48,8 +52,7 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
       String customerPhoneNumber,
       BigDecimal payableAmount,
       String accountReference,
-      String description)
-      throws MpesaApiException {
+      String description) {
     checkInstantPayPreconditions(conf.getLipaNaMpesaShortCode(), conf.getLipaNaMpesaPasskey());
 
     Preconditions.checkNotNull(
@@ -57,37 +60,52 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
     Preconditions.checkEmptyString(
         conf.getLipaNaMpesaCallbackUrl(), "LipaNaMpesa callback URL missing");
 
-    return post(
-        conf.getLipaNaMpesaOnlinePaymentUrl(),
-        createInstantPaymentRequest(
-                conf.getLipaNaMpesaShortCode(),
-                conf.getLipaNaMpesaPasskey(),
-                customerPhoneNumber,
-                payableAmount,
-                accountReference,
-                description,
-                conf.getLipaNaMpesaCallbackUrl())
-            .toJson(),
-        InstantPaymentRequestResponse.class);
+    return Try.of(
+            () ->
+                createInstantPaymentRequest(
+                    conf.getLipaNaMpesaShortCode(),
+                    conf.getLipaNaMpesaPasskey(),
+                    customerPhoneNumber,
+                    payableAmount,
+                    accountReference,
+                    description,
+                    conf.getLipaNaMpesaCallbackUrl()))
+        .map(req -> post(conf.getLipaNaMpesaOnlinePaymentUrl(), req.toJson()))
+        .map(
+            res ->
+                new InstantPaymentRequestResponse(
+                    res.getMerchantRequestId(),
+                    res.getCheckoutRequestId(),
+                    res.getResponseCode(),
+                    res.getResponseDescription(),
+                    res.getCustomerMessage()))
+        .get();
   }
 
   @Override
-  public InstantPaymentQueryResponse queryInstantPayment(String paymentId)
-      throws MpesaApiException {
+  public InstantPaymentQueryResponse queryInstantPayment(String paymentId) {
     checkInstantPayPreconditions(conf.getLipaNaMpesaShortCode(), conf.getLipaNaMpesaPasskey());
 
-    return post(
-        conf.getLipaNaMpesaOnlineQueryUrl(),
-        createPaymentQueryRequest(
-                conf.getLipaNaMpesaShortCode(), conf.getLipaNaMpesaPasskey(), paymentId)
-            .toJson(),
-        InstantPaymentQueryResponse.class);
+    return Try.of(
+            () ->
+                createPaymentQueryRequest(
+                    conf.getLipaNaMpesaShortCode(), conf.getLipaNaMpesaPasskey(), paymentId))
+        .map(req -> post(conf.getLipaNaMpesaOnlineQueryUrl(), req.toJson()))
+        .map(
+            res ->
+                new InstantPaymentQueryResponse(
+                    res.getMerchantRequestId(),
+                    res.getCheckoutRequestId(),
+                    res.getResponseCode(),
+                    res.getResponseDescription(),
+                    res.getResultCode(),
+                    res.getResultDescription()))
+        .get();
   }
 
   @Override
   public BusinessPaymentRequestResponse payBusiness(
-      String destination, BigDecimal payableAmount, String description, String occasion)
-      throws MpesaApiException {
+      String destination, BigDecimal payableAmount, String description, String occasion) {
     checkInitiatorPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
@@ -99,26 +117,32 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
     Preconditions.checkNotNull(conf.getPayBusinessResultUrl(), "Result url missing");
     Preconditions.checkEmptyString(conf.getPayBusinessResultUrl(), "Result url missing");
 
-    return post(
-        conf.getBusinessToCustomerPaymentApiUrl(),
-        createPayBusinessRequest(
-                conf.getInitiatorShortCode(),
-                conf.getInitiatorName(),
-                conf.getInitiatorSecurityCredential(),
-                destination,
-                payableAmount,
-                description,
-                occasion,
-                conf.getPayBusinessQueueTimeoutUrl(),
-                conf.getPayBusinessResultUrl())
-            .toJson(),
-        BusinessPaymentRequestResponse.class);
+    return Try.of(
+            () ->
+                createPayBusinessRequest(
+                    conf.getInitiatorShortCode(),
+                    conf.getInitiatorName(),
+                    conf.getInitiatorSecurityCredential(),
+                    destination,
+                    payableAmount,
+                    description,
+                    occasion,
+                    conf.getPayBusinessQueueTimeoutUrl(),
+                    conf.getPayBusinessResultUrl()))
+        .map(req -> post(conf.getBusinessToCustomerPaymentApiUrl(), req.toJson()))
+        .map(
+            res ->
+                new BusinessPaymentRequestResponse(
+                    res.getConversationId(),
+                    res.getOriginatorConversationId(),
+                    res.getResponseCode(),
+                    res.getResponseDescription()))
+        .get();
   }
 
   @Override
   public PromotionPaymentRequestResponse payPromotion(
-      String destination, BigDecimal payableAmount, String description, String occasion)
-      throws MpesaApiException {
+      String destination, BigDecimal payableAmount, String description, String occasion) {
     checkInitiatorPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
@@ -130,26 +154,32 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
     Preconditions.checkNotNull(conf.getPayPromotionResultUrl(), "Result url missing");
     Preconditions.checkEmptyString(conf.getPayPromotionResultUrl(), "Result url missing");
 
-    return post(
-        conf.getBusinessToCustomerPaymentApiUrl(),
-        createPayPromotionRequest(
-                conf.getInitiatorShortCode(),
-                conf.getInitiatorName(),
-                conf.getInitiatorSecurityCredential(),
-                destination,
-                payableAmount,
-                description,
-                occasion,
-                conf.getPayPromotionQueueTimeoutUrl(),
-                conf.getPayPromotionResultUrl())
-            .toJson(),
-        PromotionPaymentRequestResponse.class);
+    return Try.of(
+            () ->
+                createPayPromotionRequest(
+                    conf.getInitiatorShortCode(),
+                    conf.getInitiatorName(),
+                    conf.getInitiatorSecurityCredential(),
+                    destination,
+                    payableAmount,
+                    description,
+                    occasion,
+                    conf.getPayPromotionQueueTimeoutUrl(),
+                    conf.getPayPromotionResultUrl()))
+        .map(req -> post(conf.getBusinessToCustomerPaymentApiUrl(), req.toJson()))
+        .map(
+            res ->
+                new PromotionPaymentRequestResponse(
+                    res.getConversationId(),
+                    res.getOriginatorConversationId(),
+                    res.getResponseCode(),
+                    res.getResponseDescription()))
+        .get();
   }
 
   @Override
   public SalaryPaymentRequestResponse paySalary(
-      String destination, BigDecimal payableAmount, String description, String occasion)
-      throws MpesaApiException {
+      String destination, BigDecimal payableAmount, String description, String occasion) {
     checkInitiatorPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
@@ -160,25 +190,32 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
     Preconditions.checkNotNull(conf.getPaySalaryResultUrl(), "Result url missing");
     Preconditions.checkEmptyString(conf.getPaySalaryResultUrl(), "Result url missing");
 
-    return post(
-        conf.getBusinessToCustomerPaymentApiUrl(),
-        createPaySalaryRequest(
-                conf.getInitiatorShortCode(),
-                conf.getInitiatorName(),
-                conf.getInitiatorSecurityCredential(),
-                destination,
-                payableAmount,
-                description,
-                occasion,
-                conf.getPaySalaryQueueTimeoutUrl(),
-                conf.getPaySalaryResultUrl())
-            .toJson(),
-        SalaryPaymentRequestResponse.class);
+    return Try.of(
+            () ->
+                createPaySalaryRequest(
+                    conf.getInitiatorShortCode(),
+                    conf.getInitiatorName(),
+                    conf.getInitiatorSecurityCredential(),
+                    destination,
+                    payableAmount,
+                    description,
+                    occasion,
+                    conf.getPaySalaryQueueTimeoutUrl(),
+                    conf.getPaySalaryResultUrl()))
+        .map(req -> post(conf.getBusinessToCustomerPaymentApiUrl(), req.toJson()))
+        .map(
+            res ->
+                new SalaryPaymentRequestResponse(
+                    res.getConversationId(),
+                    res.getOriginatorConversationId(),
+                    res.getResponseCode(),
+                    res.getResponseDescription()))
+        .get();
   }
 
   @Override
   public BusinessTransactionQueryResponse queryBusinessTransaction(
-      String transactionID, String description, String occasion) throws MpesaApiException {
+      String transactionID, String description, String occasion) {
     checkTransactionQueryPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
@@ -186,25 +223,31 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
         conf.getTransactionQueryQueueTimeoutUrl(),
         conf.getTransactionQueryResultUrl());
 
-    return post(
-        conf.getTransactionQueryUrl(),
-        createBusinessTransactionQueryRequest(
-                conf.getInitiatorName(),
-                conf.getInitiatorShortCode(),
-                conf.getInitiatorSecurityCredential(),
-                transactionID,
-                description,
-                occasion,
-                conf.getTransactionQueryQueueTimeoutUrl(),
-                conf.getTransactionQueryResultUrl())
-            .toJson(),
-        BusinessTransactionQueryResponse.class);
+    return Try.of(
+            () ->
+                createBusinessTransactionQueryRequest(
+                    conf.getInitiatorName(),
+                    conf.getInitiatorShortCode(),
+                    conf.getInitiatorSecurityCredential(),
+                    transactionID,
+                    description,
+                    occasion,
+                    conf.getTransactionQueryQueueTimeoutUrl(),
+                    conf.getTransactionQueryResultUrl()))
+        .map(req -> post(conf.getTransactionQueryUrl(), req.toJson()))
+        .map(
+            res ->
+                new BusinessTransactionQueryResponse(
+                    res.getConversationId(),
+                    res.getOriginatorConversationId(),
+                    res.getResponseCode(),
+                    res.getResponseDescription()))
+        .get();
   }
 
   @Override
   public CustomerTransactionQueryResponse queryCustomerTransaction(
-      String customerPhoneNumber, String transactionID, String description, String occasion)
-      throws MpesaApiException {
+      String customerPhoneNumber, String transactionID, String description, String occasion) {
     checkTransactionQueryPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
@@ -212,41 +255,53 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
         conf.getTransactionQueryQueueTimeoutUrl(),
         conf.getTransactionQueryResultUrl());
 
-    return post(
-        conf.getTransactionQueryUrl(),
-        createCustomerTransactionQueryRequest(
-                conf.getInitiatorName(),
-                conf.getInitiatorSecurityCredential(),
-                customerPhoneNumber,
-                transactionID,
-                description,
-                occasion,
-                conf.getTransactionQueryQueueTimeoutUrl(),
-                conf.getTransactionQueryResultUrl())
-            .toJson(),
-        CustomerTransactionQueryResponse.class);
+    return Try.of(
+            () ->
+                createCustomerTransactionQueryRequest(
+                    conf.getInitiatorName(),
+                    conf.getInitiatorSecurityCredential(),
+                    customerPhoneNumber,
+                    transactionID,
+                    description,
+                    occasion,
+                    conf.getTransactionQueryQueueTimeoutUrl(),
+                    conf.getTransactionQueryResultUrl()))
+        .map(req -> post(conf.getTransactionQueryUrl(), req.toJson()))
+        .map(
+            res ->
+                new CustomerTransactionQueryResponse(
+                    res.getConversationId(),
+                    res.getOriginatorConversationId(),
+                    res.getResponseCode(),
+                    res.getResponseDescription()))
+        .get();
   }
 
   @Override
   public CallbackUrlsRegistrationResponse registerCallbackUrls(
-      DefaultAction defaultAction, String validationUrl, String confirmationUrl)
-      throws MpesaApiException {
+      DefaultAction defaultAction, String validationUrl, String confirmationUrl) {
     checkInitiatorPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
         conf.getInitiatorSecurityCredential());
-    return post(
-        conf.getCallbackUrlRegistrationApiUrl(),
-        createCallbackUrlRegistrationRequest(
-                conf.getInitiatorShortCode(), defaultAction, validationUrl, confirmationUrl)
-            .toJson(),
-        CallbackUrlsRegistrationResponse.class);
+
+    return Try.of(
+            () ->
+                createCallbackUrlRegistrationRequest(
+                    conf.getInitiatorShortCode(), defaultAction, validationUrl, confirmationUrl))
+        .map(req -> post(conf.getCallbackUrlRegistrationApiUrl(), req.toJson()))
+        .map(
+            res ->
+                new CallbackUrlsRegistrationResponse(
+                    res.getConversationId(),
+                    res.getOriginatorConversationId(),
+                    res.getResponseDescription()))
+        .get();
   }
 
   @Override
   public BusinessTransactionReversalResponse reverseBusinessTransaction(
-      String transactionId, BigDecimal amount, String description, String occasion)
-      throws MpesaApiException {
+      String transactionId, BigDecimal amount, String description, String occasion) {
     checkReverseTransactionPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
@@ -254,20 +309,27 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
         conf.getTransactionReversalQueueTimeoutUrl(),
         conf.getTransactionReversalResultUrl());
 
-    return post(
-        conf.getTransactionReversalUrl(),
-        createBusinessTransactionReversalRequest(
-                conf.getInitiatorName(),
-                conf.getInitiatorShortCode(),
-                conf.getInitiatorSecurityCredential(),
-                transactionId,
-                amount,
-                description,
-                occasion,
-                conf.getTransactionReversalQueueTimeoutUrl(),
-                conf.getTransactionReversalResultUrl())
-            .toJson(),
-        BusinessTransactionReversalResponse.class);
+    return Try.of(
+            () ->
+                createBusinessTransactionReversalRequest(
+                    conf.getInitiatorName(),
+                    conf.getInitiatorShortCode(),
+                    conf.getInitiatorSecurityCredential(),
+                    transactionId,
+                    amount,
+                    description,
+                    occasion,
+                    conf.getTransactionReversalQueueTimeoutUrl(),
+                    conf.getTransactionReversalResultUrl()))
+        .map(req -> post(conf.getTransactionReversalUrl(), req.toJson()))
+        .map(
+            res ->
+                new BusinessTransactionReversalResponse(
+                    res.getConversationId(),
+                    res.getOriginatorConversationId(),
+                    res.getResponseCode(),
+                    res.getResponseDescription()))
+        .get();
   }
 
   @Override
@@ -276,8 +338,7 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
       String transactionId,
       BigDecimal amount,
       String description,
-      String occasion)
-      throws MpesaApiException {
+      String occasion) {
     checkReverseTransactionPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
@@ -285,24 +346,31 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
         conf.getTransactionReversalQueueTimeoutUrl(),
         conf.getTransactionReversalResultUrl());
 
-    return post(
-        conf.getTransactionReversalUrl(),
-        createCustomerTransactionReversalRequest(
-                conf.getInitiatorName(),
-                conf.getInitiatorSecurityCredential(),
-                customerPhoneNumber,
-                transactionId,
-                amount,
-                description,
-                occasion,
-                conf.getTransactionReversalQueueTimeoutUrl(),
-                conf.getTransactionReversalResultUrl())
-            .toJson(),
-        CustomerTransactionReversalResponse.class);
+    return Try.of(
+            () ->
+                createCustomerTransactionReversalRequest(
+                    conf.getInitiatorName(),
+                    conf.getInitiatorSecurityCredential(),
+                    customerPhoneNumber,
+                    transactionId,
+                    amount,
+                    description,
+                    occasion,
+                    conf.getTransactionReversalQueueTimeoutUrl(),
+                    conf.getTransactionReversalResultUrl()))
+        .map(req -> post(conf.getTransactionReversalUrl(), req.toJson()))
+        .map(
+            res ->
+                new CustomerTransactionReversalResponse(
+                    res.getConversationId(),
+                    res.getOriginatorConversationId(),
+                    res.getResponseCode(),
+                    res.getResponseDescription()))
+        .get();
   }
 
   @Override
-  public AccountBalanceResponse queryBalance(String description) throws MpesaApiException {
+  public AccountBalanceResponse queryBalance(String description) {
     checkInitiatorPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
@@ -317,17 +385,24 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
     Preconditions.checkEmptyString(
         conf.getAccountBalanceResultUrl(), "Account balance result url missing");
 
-    return post(
-        conf.getAccountBalanceApiUrl(),
-        createAccountBalanceRequest(
-                conf.getInitiatorName(),
-                conf.getInitiatorShortCode(),
-                conf.getInitiatorSecurityCredential(),
-                description,
-                conf.getAccountBalanceQueueTimeoutUrl(),
-                conf.getAccountBalanceResultUrl())
-            .toJson(),
-        AccountBalanceResponse.class);
+    return Try.of(
+            () ->
+                createAccountBalanceRequest(
+                    conf.getInitiatorName(),
+                    conf.getInitiatorShortCode(),
+                    conf.getInitiatorSecurityCredential(),
+                    description,
+                    conf.getAccountBalanceQueueTimeoutUrl(),
+                    conf.getAccountBalanceResultUrl()))
+        .map(req -> post(conf.getAccountBalanceApiUrl(), req.toJson()))
+        .map(
+            res ->
+                new AccountBalanceResponse(
+                    res.getConversationId(),
+                    res.getOriginatorConversationId(),
+                    res.getResponseCode(),
+                    res.getResponseDescription()))
+        .get();
   }
 
   @Override
@@ -724,21 +799,22 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
         .build();
   }
 
-  private <T> T post(String url, String json, Class<T> clazz) throws MpesaApiException {
+  private MpesaResponse post(String url, String json) {
     HttpParameter[] parameters = new HttpParameter[1];
     parameters[0] = new HttpParameter("payload", json);
 
-    return executeRequest(ApiResource.RequestMethod.POST, url, parameters, clazz);
+    return executeRequest(ApiResource.RequestMethod.POST, url, parameters);
   }
 
-  private <T> T executeRequest(
-      ApiResource.RequestMethod method, String url, HttpParameter[] parameters, Class<T> clazz)
-      throws MpesaApiException {
+  private MpesaResponse executeRequest(
+      ApiResource.RequestMethod method, String url, HttpParameter[] parameters) {
     if (auth.getBearerAuthorizationHeader() == null) {
-      getOAuth2Token();
+      Try.of(this::getOAuth2Token);
     }
 
-    return http.request(method, url, auth.getBearerAuthorizationHeader(), parameters, clazz);
+    return Try.of(() -> http.request(method, url, auth.getBearerAuthorizationHeader(), parameters))
+        .onFailure(exc -> LOG.error("{}", exc.getMessage()))
+        .get();
   }
 
   private static void checkInitiatorPreconditions(

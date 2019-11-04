@@ -35,7 +35,7 @@ class PayPromotionTest {
   void init() {}
 
   @Test
-  void payPromotionTest() throws MpesaApiException {
+  void payPromotionTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     PromotionPaymentRequestResponse response =
@@ -48,40 +48,45 @@ class PayPromotionTest {
   }
 
   @Test
-  void zeroPayableAmount_PayPromotionTest() throws MpesaApiException {
+  void invalidPayableAmount_payPromotionTest() {
+    Mpesa mpesa = new MpesaFactory().getInstance();
+
+    Assertions.assertThrows(
+        MpesaApiException.class,
+        () ->
+            mpesa.payPromotion(
+                "254708374149", new BigDecimal(10000000.00), "Invalid promotion payment", ""));
+  }
+
+  @Test
+  void zeroPayableAmount_PayPromotionTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.payPromotion("254708374149", new BigDecimal(0.00), "Promotion payment", "");
-        });
+        () -> mpesa.payPromotion("254708374149", new BigDecimal(0.00), "Promotion payment", ""));
   }
 
   @Test
-  void negativePayableAmount_PayPromotionTest() throws MpesaApiException {
+  void negativePayableAmount_PayPromotionTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.payPromotion("254708374149", new BigDecimal(-10.00), "Promotion payment", "");
-        });
+        () -> mpesa.payPromotion("254708374149", new BigDecimal(-10.00), "Promotion payment", ""));
   }
 
   @Test
-  void nullPayableAmount_PayPromotionTest() throws MpesaApiException {
+  void nullPayableAmount_PayPromotionTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.payPromotion("254708374149", null, "Promotion payment", "");
-        });
+        () -> mpesa.payPromotion("254708374149", null, "Promotion payment", ""));
   }
 
   @Test
-  void nullOccasion_payPromotionTest() throws MpesaApiException {
+  void nullOccasion_payPromotionTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     mpesa.payPromotion("254708374149", new BigDecimal(100.00), "Promotion payment", null);
@@ -90,46 +95,38 @@ class PayPromotionTest {
   }
 
   @Test
-  void nullDestination_paymentRequestTest() throws MpesaApiException {
+  void nullDestination_paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.payPromotion(null, new BigDecimal(100.00), "Promotion payment", null);
-        });
+        () -> mpesa.payPromotion(null, new BigDecimal(100.00), "Promotion payment", null));
   }
 
   @Test
-  void emptyDestination_paymentRequestTest() throws MpesaApiException {
+  void emptyDestination_paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.payPromotion("", new BigDecimal(100.00), "Promotion payment", null);
-        });
+        () -> mpesa.payPromotion("", new BigDecimal(100.00), "Promotion payment", null));
   }
 
   @Test
-  void nullDescription_paymentRequestTest() throws MpesaApiException {
+  void nullDescription_paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.payPromotion("254708374149", new BigDecimal(100.00), null, "");
-        });
+        () -> mpesa.payPromotion("254708374149", new BigDecimal(100.00), null, ""));
   }
 
   @Test
-  void emptyDescription_paymentRequestTest() throws MpesaApiException {
+  void emptyDescription_paymentRequestTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.payPromotion("254708374149", new BigDecimal(100.00), "", "");
-        });
+        () -> mpesa.payPromotion("254708374149", new BigDecimal(100.00), "", ""));
   }
 }

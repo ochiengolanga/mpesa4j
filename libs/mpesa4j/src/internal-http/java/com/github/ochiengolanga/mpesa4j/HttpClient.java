@@ -17,16 +17,16 @@
  */
 package com.github.ochiengolanga.mpesa4j;
 
-import com.github.ochiengolanga.mpesa4j.models.ApiResource;
 import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
+import com.github.ochiengolanga.mpesa4j.models.ApiResource;
+import com.github.ochiengolanga.mpesa4j.models.responses.MpesaResponse;
 
 public interface HttpClient {
-  <T> T request(
+  MpesaResponse request(
       ApiResource.RequestMethod method,
       String url,
       String authorizationHeader,
-      HttpParameter[] httpParameters,
-      Class<T> clazz)
+      HttpParameter[] httpParameters)
       throws MpesaApiException;
 
   <T> T oauthRequest(

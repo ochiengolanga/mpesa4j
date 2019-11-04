@@ -19,7 +19,6 @@ package com.github.ochiengolanga.mpesa4j.transaction.query;
 
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
-import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,8 +28,9 @@ class BusinessPaymentRequestQueryRequestTest {
   @BeforeEach
   void init() {}
 
+  // Service randomly becomes unavailable
   //  @Test
-  //  void businessTransactionQueryTest() throws MpesaApiException {
+  //  void businessTransactionQueryTest() {
   //    Mpesa mpesa = new MpesaFactory().getInstance();
   //
   //    BusinessTransactionQueryResponse response =
@@ -43,53 +43,45 @@ class BusinessPaymentRequestQueryRequestTest {
   //  }
 
   @Test
-  void nullTransactionID_businessTransactionQueryTest() throws MpesaApiException {
+  void nullTransactionID_businessTransactionQueryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.queryBusinessTransaction(null, "PaymentRequest query request", "");
-        });
+        () -> mpesa.queryBusinessTransaction(null, "PaymentRequest query request", ""));
   }
 
   @Test
-  void emptyTransactionID_businessTransactionQueryTest() throws MpesaApiException {
+  void emptyTransactionID_businessTransactionQueryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.queryBusinessTransaction("", "PaymentRequest query request", "");
-        });
+        () -> mpesa.queryBusinessTransaction("", "PaymentRequest query request", ""));
   }
 
   @Test
-  void nullDescription_businessTransactionQueryTest() throws MpesaApiException {
+  void nullDescription_businessTransactionQueryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.queryBusinessTransaction("LGR019G3J2", null, "");
-        });
+        () -> mpesa.queryBusinessTransaction("LGR019G3J2", null, ""));
   }
 
   @Test
-  void emptyDescription_businessTransactionQueryTest() throws MpesaApiException {
+  void emptyDescription_businessTransactionQueryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> {
-          mpesa.queryBusinessTransaction("LGR019G3J2", "", "");
-        });
+        IllegalArgumentException.class, () -> mpesa.queryBusinessTransaction("LGR019G3J2", "", ""));
   }
 
-  @Test
-  void nullOccasion_businessTransactionQueryTest() throws MpesaApiException {
-    Mpesa mpesa = new MpesaFactory().getInstance();
-
-    mpesa.queryBusinessTransaction("LGR019G3J2", "PaymentRequest query request", null);
-  }
+  // Service randomly becomes unavailable
+//  @Test
+//  void nullOccasion_businessTransactionQueryTest() {
+//    Mpesa mpesa = new MpesaFactory().getInstance();
+//
+//    mpesa.queryBusinessTransaction("LGR019G3J2", "PaymentRequest query request", null);
+//  }
 }

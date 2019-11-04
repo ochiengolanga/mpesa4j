@@ -17,13 +17,10 @@
  */
 package com.github.ochiengolanga.mpesa4j.config;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import org.junit.jupiter.api.Test;
 
 class ConfigurationTest {
@@ -35,39 +32,39 @@ class ConfigurationTest {
 
   @Test
   void configurationTest() {
-//    ConfigurationBase conf;
-//
-//    String test = "t";
-//    String override = "t-o";
-//
-//    System.getProperties().remove("MPESA4J_CONSUMER_KEY");
-//    conf = new PropertyConfiguration();
-//    assertNull(conf.getConsumerKey());
-//
-//    conf.setConsumerKey(test);
-//    assertEquals(test, conf.getConsumerKey());
-//
-//    System.setProperty("MPESA4J_CONSUMER_KEY", override);
-//    conf = new PropertyConfiguration();
-//    assertEquals(override, conf.getConsumerKey());
-//    conf.setConsumerKey(test);
-//    assertEquals(test, conf.getConsumerKey());
-//    System.getProperties().remove("MPESA4J_CONSUMER_KEY");
+    //    ConfigurationBase conf;
+    //
+    //    String test = "t";
+    //    String override = "t-o";
+    //
+    //    System.getProperties().remove("MPESA4J_CONSUMER_KEY");
+    //    conf = new PropertyConfiguration();
+    //    assertNull(conf.getConsumerKey());
+    //
+    //    conf.setConsumerKey(test);
+    //    assertEquals(test, conf.getConsumerKey());
+    //
+    //    System.setProperty("MPESA4J_CONSUMER_KEY", override);
+    //    conf = new PropertyConfiguration();
+    //    assertEquals(override, conf.getConsumerKey());
+    //    conf.setConsumerKey(test);
+    //    assertEquals(test, conf.getConsumerKey());
+    //    System.getProperties().remove("MPESA4J_CONSUMER_KEY");
   }
 
   @Test
   void propertiesFileConfigurationTest() throws IOException {
-//    ConfigurationBase conf;
-//
-//    writeFile("./mpesa4j.properties", "MPESA4J_HTTP_READ_TIMEOUT=1234");
-//    conf = new PropertyConfiguration();
-//    assertEquals(1234, conf.getHttpClientConfiguration().getHttpReadTimeout());
-//
-//    writeFile("./mpesa4j.properties", "MPESA4J_HTTP_READ_TIMEOUT=4321");
-//    conf = new PropertyConfiguration();
-//    assertEquals(4321, conf.getHttpClientConfiguration().getHttpReadTimeout());
-//
-//    deleteFile("./mpesa4j.properties");
+    //    ConfigurationBase conf;
+    //
+    //    writeFile("./mpesa4j.properties", "MPESA4J_HTTP_READ_TIMEOUT=1234");
+    //    conf = new PropertyConfiguration();
+    //    assertEquals(1234, conf.getHttpClientConfiguration().getHttpReadTimeout());
+    //
+    //    writeFile("./mpesa4j.properties", "MPESA4J_HTTP_READ_TIMEOUT=4321");
+    //    conf = new PropertyConfiguration();
+    //    assertEquals(4321, conf.getHttpClientConfiguration().getHttpReadTimeout());
+    //
+    //    deleteFile("./mpesa4j.properties");
   }
 
   @Test
@@ -191,13 +188,13 @@ class ConfigurationTest {
         "https://example.com/transactionreversal/result", conf.getTransactionReversalResultUrl());
   }
 
-//  private void writeFile(String path, String content) throws IOException {
-//    File file = new File(path);
-//    file.delete();
-//    BufferedWriter bw = Files.newBufferedWriter(file.toPath(), UTF_8);
-//    bw.write(content);
-//    bw.close();
-//  }
+  //  private void writeFile(String path, String content) throws IOException {
+  //    File file = new File(path);
+  //    file.delete();
+  //    BufferedWriter bw = Files.newBufferedWriter(file.toPath(), UTF_8);
+  //    bw.write(content);
+  //    bw.close();
+  //  }
 
   private void deleteFile(String path) throws IOException {
     File file = new File(path);

@@ -17,7 +17,6 @@
  */
 package com.github.ochiengolanga.mpesa4j.api;
 
-import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.responses.BusinessPaymentRequestResponse;
 import com.github.ochiengolanga.mpesa4j.models.responses.PromotionPaymentRequestResponse;
 import com.github.ochiengolanga.mpesa4j.models.responses.SalaryPaymentRequestResponse;
@@ -36,11 +35,9 @@ public interface PaymentResource {
    * @param description
    * @param occasion
    * @return {@link BusinessPaymentRequestResponse}
-   * @throws MpesaApiException
    */
   BusinessPaymentRequestResponse payBusiness(
-      String destination, BigDecimal payableAmount, String description, String occasion)
-      throws MpesaApiException;
+      String destination, BigDecimal payableAmount, String description, String occasion);
 
   /**
    * Enables Business to Customer (B2C) promotion payment transactions by a company carrying out
@@ -54,11 +51,9 @@ public interface PaymentResource {
    * @param description
    * @param occasion
    * @return {@link PromotionPaymentRequestResponse}
-   * @throws MpesaApiException
    */
   PromotionPaymentRequestResponse payPromotion(
-      String destination, BigDecimal payableAmount, String description, String occasion)
-      throws MpesaApiException;
+      String destination, BigDecimal payableAmount, String description, String occasion);
 
   /**
    * Enables Business to Customer (B2C) salary payment transactions between a company and employees
@@ -72,9 +67,7 @@ public interface PaymentResource {
    * @param description
    * @param occasion
    * @return {@link SalaryPaymentRequestResponse}
-   * @throws MpesaApiException
    */
   SalaryPaymentRequestResponse paySalary(
-      String destination, BigDecimal payableAmount, String description, String occasion)
-      throws MpesaApiException;
+      String destination, BigDecimal payableAmount, String description, String occasion);
 }

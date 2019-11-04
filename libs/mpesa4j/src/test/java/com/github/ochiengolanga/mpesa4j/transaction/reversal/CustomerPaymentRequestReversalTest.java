@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
-import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.responses.CustomerTransactionReversalResponse;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Assertions;
@@ -35,7 +34,7 @@ class CustomerPaymentRequestReversalTest {
   void init() {}
 
   @Test
-  void customerTransactionReversalTest() throws MpesaApiException {
+  void customerTransactionReversalTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     CustomerTransactionReversalResponse response =
@@ -53,123 +52,118 @@ class CustomerPaymentRequestReversalTest {
   }
 
   @Test
-  void nullCustomerPhoneNumber_CustomerTransactionReversalTest() throws MpesaApiException {
+  void nullCustomerPhoneNumber_CustomerTransactionReversalTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.reverseCustomerTransaction(
-              null, "LGR019G3J2", new BigDecimal(10.00), "PaymentRequest reversal request", "");
-        });
+        () ->
+            mpesa.reverseCustomerTransaction(
+                null, "LGR019G3J2", new BigDecimal(10.00), "PaymentRequest reversal request", ""));
   }
 
   @Test
-  void emptyCustomerPhoneNumber_CustomerTransactionReversalTest() throws MpesaApiException {
+  void emptyCustomerPhoneNumber_CustomerTransactionReversalTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.reverseCustomerTransaction(
-              "", "LGR019G3J2", new BigDecimal(10.00), "PaymentRequest reversal request", "");
-        });
+        () ->
+            mpesa.reverseCustomerTransaction(
+                "", "LGR019G3J2", new BigDecimal(10.00), "PaymentRequest reversal request", ""));
   }
 
   @Test
-  void nullTransactionId_CustomerTransactionReversalTest() throws MpesaApiException {
+  void nullTransactionId_CustomerTransactionReversalTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.reverseCustomerTransaction(
-              "254708374149", null, new BigDecimal(10.00), "PaymentRequest reversal request", "");
-        });
+        () ->
+            mpesa.reverseCustomerTransaction(
+                "254708374149",
+                null,
+                new BigDecimal(10.00),
+                "PaymentRequest reversal request",
+                ""));
   }
 
   @Test
-  void emptyTransactionId_CustomerTransactionReversalTest() throws MpesaApiException {
+  void emptyTransactionId_CustomerTransactionReversalTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.reverseCustomerTransaction(
-              "254708374149", "", new BigDecimal(10.00), "PaymentRequest reversal request", "");
-        });
+        () ->
+            mpesa.reverseCustomerTransaction(
+                "254708374149", "", new BigDecimal(10.00), "PaymentRequest reversal request", ""));
   }
 
   @Test
-  void zeroReversibleAmount_CustomerTransactionReversalTest() throws MpesaApiException {
+  void zeroReversibleAmount_CustomerTransactionReversalTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.reverseCustomerTransaction(
-              "254708374149",
-              "LGR019G3J2",
-              new BigDecimal(0.00),
-              "PaymentRequest reversal request",
-              "");
-        });
+        () ->
+            mpesa.reverseCustomerTransaction(
+                "254708374149",
+                "LGR019G3J2",
+                new BigDecimal(0.00),
+                "PaymentRequest reversal request",
+                ""));
   }
 
   @Test
-  void negativeReversibleAmount_CustomerTransactionReversalTest() throws MpesaApiException {
+  void negativeReversibleAmount_CustomerTransactionReversalTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.reverseCustomerTransaction(
-              "254708374149",
-              "LGR019G3J2",
-              new BigDecimal(-10.00),
-              "PaymentRequest reversal request",
-              "");
-        });
+        () ->
+            mpesa.reverseCustomerTransaction(
+                "254708374149",
+                "LGR019G3J2",
+                new BigDecimal(-10.00),
+                "PaymentRequest reversal request",
+                ""));
   }
 
   @Test
-  void nullReversibleAmount_CustomerTransactionReversalTest() throws MpesaApiException {
+  void nullReversibleAmount_CustomerTransactionReversalTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.reverseCustomerTransaction(
-              "254708374149", "LGR019G3J2", null, "PaymentRequest reversal request", "");
-        });
+        () ->
+            mpesa.reverseCustomerTransaction(
+                "254708374149", "LGR019G3J2", null, "PaymentRequest reversal request", ""));
   }
 
   @Test
-  void nullDescription_CustomerTransactionReversalTest() throws MpesaApiException {
+  void nullDescription_CustomerTransactionReversalTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.reverseCustomerTransaction(
-              "254708374149", "LGR019G3J2", new BigDecimal(10.00), null, "");
-        });
+        () ->
+            mpesa.reverseCustomerTransaction(
+                "254708374149", "LGR019G3J2", new BigDecimal(10.00), null, ""));
   }
 
   @Test
-  void emptyDescription_CustomerTransactionReversalTest() throws MpesaApiException {
+  void emptyDescription_CustomerTransactionReversalTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.reverseCustomerTransaction(
-              "254708374149", "LGR019G3J2", new BigDecimal(10.00), "", "");
-        });
+        () ->
+            mpesa.reverseCustomerTransaction(
+                "254708374149", "LGR019G3J2", new BigDecimal(10.00), "", ""));
   }
 
   @Test
-  void nullOccasion_CustomerTransactionReversalTest() throws MpesaApiException {
+  void nullOccasion_CustomerTransactionReversalTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     mpesa.reverseCustomerTransaction(

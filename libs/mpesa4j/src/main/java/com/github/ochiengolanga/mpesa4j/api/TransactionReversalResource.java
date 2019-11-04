@@ -17,7 +17,6 @@
  */
 package com.github.ochiengolanga.mpesa4j.api;
 
-import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.responses.BusinessTransactionReversalResponse;
 import com.github.ochiengolanga.mpesa4j.models.responses.CustomerTransactionReversalResponse;
 import java.math.BigDecimal;
@@ -33,11 +32,9 @@ public interface TransactionReversalResource {
    * @param description
    * @param occasion
    * @return {@link BusinessTransactionReversalResponse}
-   * @throws MpesaApiException
    */
   BusinessTransactionReversalResponse reverseBusinessTransaction(
-      String transactionId, BigDecimal reversibleAmount, String description, String occasion)
-      throws MpesaApiException;
+      String transactionId, BigDecimal reversibleAmount, String description, String occasion);
 
   /**
    * Enables one to reverse a C2B M-Pesa transaction. <br>
@@ -50,13 +47,11 @@ public interface TransactionReversalResource {
    * @param description
    * @param occasion
    * @return {@link CustomerTransactionReversalResponse}
-   * @throws MpesaApiException
    */
   CustomerTransactionReversalResponse reverseCustomerTransaction(
       String customerPhoneNumber,
       String transactionId,
       BigDecimal reversibleAmount,
       String description,
-      String occasion)
-      throws MpesaApiException;
+      String occasion);
 }

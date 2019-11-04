@@ -17,22 +17,18 @@
  */
 package com.github.ochiengolanga.mpesa4j.models.responses;
 
-import com.google.gson.annotations.SerializedName;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
 /** A data interface representing a callbackUrls registration M-Pesa API response */
+@AllArgsConstructor
 @Getter
 @ToString
 public final class CallbackUrlsRegistrationResponse implements java.io.Serializable {
   private static final long serialVersionUID = 7092906238192790921L;
 
-  @SerializedName("ConversationID")
   private String conversationId;
-
-  @SerializedName("OriginatorCoversationID")
   private String originatorConversationId;
-
-  @SerializedName("ResponseDescription")
   private String responseDescription;
 }

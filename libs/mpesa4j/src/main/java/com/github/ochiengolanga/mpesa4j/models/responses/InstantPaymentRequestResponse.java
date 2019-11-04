@@ -17,28 +17,20 @@
  */
 package com.github.ochiengolanga.mpesa4j.models.responses;
 
-import com.google.gson.annotations.SerializedName;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
 /** A data interface representing B2C PayBusiness API response */
+@AllArgsConstructor
 @Getter
 @ToString
 public final class InstantPaymentRequestResponse implements java.io.Serializable {
   private static final long serialVersionUID = 7092906238192790921L;
 
-  @SerializedName("MerchantRequestID")
   private String merchantRequestId;
-
-  @SerializedName("CheckoutRequestID")
   private String checkoutRequestId;
-
-  @SerializedName("ResponseCode")
   private String responseCode;
-
-  @SerializedName("ResponseDescription")
   private String responseDescription;
-
-  @SerializedName("CustomerMessage")
   private String customerMessage;
 }

@@ -15,10 +15,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.ochiengolanga.mpesa4j.util;
+package com.github.ochiengolanga.mpesa4j.models.responses;
 
-public abstract class PhoneNumberUtils {
-  public static void checkPhoneNumber(String str) {
-    throw new IllegalArgumentException("Invalid phone number: " + str);
-  }
+import com.google.gson.annotations.SerializedName;
+import lombok.Getter;
+import lombok.ToString;
+
+/** A data interface representing an error response from M-Pesa API */
+@Getter
+@ToString
+public class MpesaErrorResponse extends MpesaResponse implements java.io.Serializable {
+  private static final long serialVersionUID = 7092906238192790951L;
+
+  @SerializedName("requestId")
+  private String requestId;
+
+  @SerializedName("errorCode")
+  private String errorCode;
+
+  @SerializedName("errorMessage")
+  private String errorMessage;
 }

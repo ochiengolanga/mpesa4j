@@ -19,7 +19,6 @@ package com.github.ochiengolanga.mpesa4j.paymentrequest;
 
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
-import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,44 +28,41 @@ class InstantPaymentQueryRequestTest {
   @BeforeEach
   void init() {}
 
-  //  @Test
-  //  void paymentQueryTest() throws MpesaApiException {
-  //    Mpesa mpesa = new MpesaFactory().getInstance();
+  //    @Test
+  //    void paymentQueryTest() {
+  //      Mpesa mpesa = new MpesaFactory().getInstance();
   //
-  //    InstantPaymentRequestResponse paymentRequestResponse =
-  //        mpesa.requestInstantPayment(
-  //            "254724488116", new BigDecimal(10.00), "TESTMPESA4J", "Test from mpesa4j");
+  //      InstantPaymentRequestResponse paymentRequestResponse =
+  //          mpesa.requestInstantPayment(
+  //              "254724488116",
+  //              new BigDecimal(10.00),
+  //              "TESTMPESA4J4Query",
+  //              "Instant payment query test from mpesa4j");
   //
-  //    InstantPaymentQueryResponse response =
-  //        mpesa.queryInstantPayment(paymentRequestResponse.getCheckoutRequestId());
+  //      assertNotNull(paymentRequestResponse.getCheckoutRequestId());
   //
-  //    assertNotNull(response.getMerchantRequestId());
-  //    assertNotNull(response.getCheckoutRequestId());
-  //    assertNotNull(response.getResponseDescription());
-  //    assertNotNull(response.getResultCode());
-  //    assertNotNull(response.getResultDescription());
-  //    assertTrue(response.getResponseCode().equalsIgnoreCase("0"));
-  //  }
+  //      InstantPaymentQueryResponse response =
+  //          mpesa.queryInstantPayment(paymentRequestResponse.getCheckoutRequestId());
+  //
+  //      assertNotNull(response.getMerchantRequestId());
+  //      assertNotNull(response.getCheckoutRequestId());
+  //      assertNotNull(response.getResponseDescription());
+  //      assertNotNull(response.getResultCode());
+  //      assertNotNull(response.getResultDescription());
+  //      assertTrue(response.getResponseCode().equalsIgnoreCase("0"));
+  //    }
 
   @Test
-  void nullPaymentId_paymentQueryTest() throws MpesaApiException {
+  void nullPaymentId_paymentQueryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> {
-          mpesa.queryInstantPayment(null);
-        });
+    Assertions.assertThrows(IllegalArgumentException.class, () -> mpesa.queryInstantPayment(null));
   }
 
   @Test
-  void emptyPaymentId_paymentQueryTest() throws MpesaApiException {
+  void emptyPaymentId_paymentQueryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> {
-          mpesa.queryInstantPayment("");
-        });
+    Assertions.assertThrows(IllegalArgumentException.class, () -> mpesa.queryInstantPayment(""));
   }
 }

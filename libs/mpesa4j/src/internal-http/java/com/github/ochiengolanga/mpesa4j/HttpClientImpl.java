@@ -20,14 +20,20 @@ package com.github.ochiengolanga.mpesa4j;
 import com.github.ochiengolanga.mpesa4j.config.ConfigurationContext;
 import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.ApiResource;
+import com.github.ochiengolanga.mpesa4j.models.responses.MpesaErrorResponse;
+import com.github.ochiengolanga.mpesa4j.models.responses.MpesaResponse;
 import com.google.gson.JsonSyntaxException;
 
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.github.ochiengolanga.mpesa4j.HttpResponseCode.*;
+import static io.vavr.API.*;
 
 class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
   private static final long serialVersionUID = -403500272719330534L;
@@ -52,10 +58,9 @@ class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
   }
 
   @Override
-  <T> T handleRequest(HttpRequest req, Class<T> clazz) throws MpesaApiException {
+  MpesaResponse handleRequest(HttpRequest req) throws MpesaApiException {
     return staticRequest(
         req,
-        clazz,
         httpClientConfiguration.getHttpConnectionTimeout(),
         httpClientConfiguration.getHttpReadTimeout());
   }
@@ -69,12 +74,11 @@ class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
         httpClientConfiguration.getHttpReadTimeout());
   }
 
-  private static <T> T staticRequest(
-      HttpRequest req, Class<T> clazz, int connectionTimeout, int readTimeout)
-      throws MpesaApiException {
+  private static MpesaResponse staticRequest(
+      HttpRequest req, int connectionTimeout, int readTimeout) throws MpesaApiException {
     long requestStartMs = System.currentTimeMillis();
 
-    HttpResponse response =
+    HttpResponse res =
         rawRequest(
             req.getMethod(),
             req.getUrl(),
@@ -84,19 +88,24 @@ class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
             readTimeout);
 
     long requestDurationMs = System.currentTimeMillis() - requestStartMs;
-    String responseBody = response.getBody();
-    int responseCode = response.getStatusCode();
 
-    T resource = null;
+    System.out.println("Request duration in ms " + requestDurationMs);
+
+    String responseBody = res.getBody();
+    int responseCode = res.getStatusCode();
+
+    if (responseCode < 200 || responseCode >= 300) {
+      handleError(responseBody, responseCode, req);
+    }
+
+    MpesaResponse mpesaResponse = null;
     try {
-      resource = ApiResource.GSON.fromJson(response.getBody(), clazz);
+      mpesaResponse = ApiResource.GSON.fromJson(res.getBody(), MpesaResponse.class);
     } catch (JsonSyntaxException e) {
       raiseMalformedJsonError(responseBody, responseCode);
     }
 
-    System.out.println("Request duration in ms " + requestDurationMs);
-
-    return resource;
+    return mpesaResponse;
   }
 
   private static <T> T staticOAuthRequest(
@@ -114,7 +123,7 @@ class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
     int responseCode = response.getStatusCode();
 
     if (responseCode < 200 || responseCode >= 300) {
-      handleOAuthError(responseBody, responseCode);
+      handleOAuthError(responseBody);
     }
 
     T resource = null;
@@ -176,11 +185,45 @@ class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
     return res;
   }
 
-  private static void handleOAuthError(String responseBody, int responseCode)
+  private static void handleError(String responseBody, int statusCode, HttpRequest req)
       throws MpesaApiException {
+    MpesaErrorResponse errorResponse =
+        ApiResource.GSON.fromJson(responseBody, MpesaErrorResponse.class);
+
+    String message =
+        Match(statusCode)
+            .of(
+                Case($(BAD_REQUEST), "Oops!"),
+                Case(
+                    $(UNAUTHORIZED),
+                    "Invalid or missing authentication credentials. Ensure that you have set valid consumer key/secret and the system clock is in sync."),
+                Case($(FORBIDDEN), "The request is understood, but it has been refused."),
+                Case(
+                    $(NOT_FOUND),
+                    "The URI requested is invalid or the resource requested. Also returned when the requested format is not supported by the requested method."),
+                Case($(METHOD_NOT_ALLOWED), "The request is not allowed."),
+                Case(
+                    $(NOT_ACCEPTABLE),
+                    "The request is not acceptable. Probably requested a format that is not json."),
+                Case(
+                    $(TOO_MANY_REQUESTS),
+                    "Returned when a request cannot be served due to the application's rate limit having been exhausted for the resource."),
+                Case(
+                    $(INTERNAL_SERVER_ERROR),
+                    "Something is broken. Please post to the group (https://developer.safaricom.co.ke/) so the Safaricom Daraja team can investigate."),
+                Case($(SERVICE_UNAVAILABLE), "Service unavailable. Try again later."),
+                Case($(), ""));
+
     throw new MpesaApiException(
         String.format(
-            "Unable to authenticate: %s. (HTTP response code was %d)", responseBody, responseCode));
+            "%s %s. Request: %s",
+            message,
+            errorResponse.getErrorMessage() != null ? errorResponse.getErrorMessage() : "",
+            Arrays.toString(req.getParameters())));
+  }
+
+  private static void handleOAuthError(String responseBody) throws MpesaApiException {
+    throw new MpesaApiException(String.format("Unable to authenticate: %s", responseBody));
   }
 
   private static void raiseMalformedJsonError(String responseBody, int responseCode)

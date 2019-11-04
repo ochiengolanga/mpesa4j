@@ -17,7 +17,6 @@
  */
 package com.github.ochiengolanga.mpesa4j.api;
 
-import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.responses.InstantPaymentQueryResponse;
 import com.github.ochiengolanga.mpesa4j.models.responses.InstantPaymentRequestResponse;
 import java.math.BigDecimal;
@@ -36,14 +35,12 @@ public interface PaymentRequestResource {
    * @param accountReference
    * @param description
    * @return {@link InstantPaymentRequestResponse}
-   * @throws MpesaApiException
    */
   InstantPaymentRequestResponse requestInstantPayment(
       String customerPhoneNumber,
       BigDecimal payableAmount,
       String accountReference,
-      String description)
-      throws MpesaApiException;
+      String description);
 
   /**
    * Enables Business / Organization to query transactions initiated via STKPush. <br>
@@ -51,7 +48,6 @@ public interface PaymentRequestResource {
    *
    * @param paymentId
    * @return {@link InstantPaymentQueryResponse}
-   * @throws MpesaApiException
    */
-  InstantPaymentQueryResponse queryInstantPayment(String paymentId) throws MpesaApiException;
+  InstantPaymentQueryResponse queryInstantPayment(String paymentId);
 }

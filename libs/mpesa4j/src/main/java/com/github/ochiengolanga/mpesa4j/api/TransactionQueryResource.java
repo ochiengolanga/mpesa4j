@@ -17,7 +17,6 @@
  */
 package com.github.ochiengolanga.mpesa4j.api;
 
-import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.responses.BusinessTransactionQueryResponse;
 import com.github.ochiengolanga.mpesa4j.models.responses.CustomerTransactionQueryResponse;
 
@@ -30,10 +29,9 @@ public interface TransactionQueryResource {
    * @param description
    * @param occasion
    * @return {@link BusinessTransactionQueryResponse}
-   * @throws MpesaApiException
    */
   BusinessTransactionQueryResponse queryBusinessTransaction(
-      String transactionID, String description, String occasion) throws MpesaApiException;
+      String transactionID, String description, String occasion);
 
   /**
    * PaymentRequest Status API checks the status of a B2B, B2C and C2B APIs transactions. <br>
@@ -44,9 +42,7 @@ public interface TransactionQueryResource {
    * @param description
    * @param occasion
    * @return {@link CustomerTransactionQueryResponse}
-   * @throws MpesaApiException
    */
   CustomerTransactionQueryResponse queryCustomerTransaction(
-      String customerPhoneNumber, String transactionID, String description, String occasion)
-      throws MpesaApiException;
+      String customerPhoneNumber, String transactionID, String description, String occasion);
 }

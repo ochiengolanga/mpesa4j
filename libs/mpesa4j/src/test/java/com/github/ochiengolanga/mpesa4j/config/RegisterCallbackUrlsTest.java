@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
 import com.github.ochiengolanga.mpesa4j.models.enums.DefaultAction;
-import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.responses.CallbackUrlsRegistrationResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,7 +34,7 @@ class RegisterCallbackUrlsTest {
   void init() {}
 
   @Test
-  void registerCallbackUrlsTest() throws MpesaApiException {
+  void registerCallbackUrlsTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     CallbackUrlsRegistrationResponse response =
@@ -51,64 +50,63 @@ class RegisterCallbackUrlsTest {
   }
 
   @Test
-  void nullDefaultAction_registerCallbackUrlsTest() throws MpesaApiException {
+  void nullDefaultAction_registerCallbackUrlsTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.registerCallbackUrls(
-              null,
-              "https://peternjeru.co.ke/safdaraja/api/callback.php",
-              "https://peternjeru.co.ke/safdaraja/api/callback.php");
-        });
+        () ->
+            mpesa.registerCallbackUrls(
+                null,
+                "https://peternjeru.co.ke/safdaraja/api/callback.php",
+                "https://peternjeru.co.ke/safdaraja/api/callback.php"));
   }
 
   @Test
-  void nullValidationUrl_registerCallbackUrlsTest() throws MpesaApiException {
+  void nullValidationUrl_registerCallbackUrlsTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.registerCallbackUrls(
-              DefaultAction.COMPLETE, null, "https://peternjeru.co.ke/safdaraja/api/callback.php");
-        });
+        () ->
+            mpesa.registerCallbackUrls(
+                DefaultAction.COMPLETE,
+                null,
+                "https://peternjeru.co.ke/safdaraja/api/callback.php"));
   }
 
   @Test
-  void emptyValidationUrl_accountBalanceTest() throws MpesaApiException {
+  void emptyValidationUrl_accountBalanceTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.registerCallbackUrls(
-              DefaultAction.COMPLETE, "", "https://peternjeru.co.ke/safdaraja/api/callback.php");
-        });
+        () ->
+            mpesa.registerCallbackUrls(
+                DefaultAction.COMPLETE, "", "https://peternjeru.co.ke/safdaraja/api/callback.php"));
   }
 
   @Test
-  void nullConfirmationUrl_registerCallbackUrlsTest() throws MpesaApiException {
+  void nullConfirmationUrl_registerCallbackUrlsTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.registerCallbackUrls(
-              DefaultAction.COMPLETE, "https://peternjeru.co.ke/safdaraja/api/callback.php", null);
-        });
+        () ->
+            mpesa.registerCallbackUrls(
+                DefaultAction.COMPLETE,
+                "https://peternjeru.co.ke/safdaraja/api/callback.php",
+                null));
   }
 
   @Test
-  void emptyConfirmationUrl_accountBalanceTest() throws MpesaApiException {
+  void emptyConfirmationUrl_accountBalanceTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          mpesa.registerCallbackUrls(
-              DefaultAction.COMPLETE, "https://peternjeru.co.ke/safdaraja/api/callback.php", "");
-        });
+        () ->
+            mpesa.registerCallbackUrls(
+                DefaultAction.COMPLETE, "https://peternjeru.co.ke/safdaraja/api/callback.php", ""));
   }
 }

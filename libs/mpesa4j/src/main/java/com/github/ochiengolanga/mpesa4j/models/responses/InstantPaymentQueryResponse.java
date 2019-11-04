@@ -17,31 +17,19 @@
  */
 package com.github.ochiengolanga.mpesa4j.models.responses;
 
-import com.google.gson.annotations.SerializedName;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 /** A data interface representing Lipa Na Mpesa Payment query API response */
+@AllArgsConstructor
 @Getter
 @ToString
 public final class InstantPaymentQueryResponse implements java.io.Serializable {
   private static final long serialVersionUID = 7092906238192790921L;
 
-  @SerializedName("MerchantRequestID")
   private String merchantRequestId;
-
-  @SerializedName("CheckoutRequestID")
   private String checkoutRequestId;
-
-  @SerializedName("ResponseCode")
   private String responseCode;
-
-  @SerializedName("ResponseDescription")
   private String responseDescription;
-
-  @SerializedName("ResultCode")
   private String resultCode;
-
-  @SerializedName("ResultDesc")
   private String resultDescription;
 }

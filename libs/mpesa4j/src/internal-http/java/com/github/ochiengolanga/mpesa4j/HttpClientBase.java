@@ -17,8 +17,9 @@
  */
 package com.github.ochiengolanga.mpesa4j;
 
-import com.github.ochiengolanga.mpesa4j.models.ApiResource;
 import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
+import com.github.ochiengolanga.mpesa4j.models.ApiResource;
+import com.github.ochiengolanga.mpesa4j.models.responses.MpesaResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,20 +40,19 @@ public abstract class HttpClientBase implements HttpClient, java.io.Serializable
     requestHeaders.put(MpesaApiConstants.CACHE_CONTROL_HEADER_NAME, "no-cache");
   }
 
-  abstract <T> T handleRequest(HttpRequest req, Class<T> clazz) throws MpesaApiException;
+  abstract MpesaResponse handleRequest(HttpRequest req) throws MpesaApiException;
 
   abstract <T> T handleOAuthRequest(HttpRequest req, Class<T> clazz) throws MpesaApiException;
 
   @Override
-  public <T> T request(
+  public MpesaResponse request(
       ApiResource.RequestMethod method,
       String url,
       String authorizationHeader,
-      HttpParameter[] httpParameters,
-      Class<T> clazz)
+      HttpParameter[] httpParameters)
       throws MpesaApiException {
     requestHeaders.put(MpesaApiConstants.AUTHORIZATION_HEADER_NAME, authorizationHeader);
-    return handleRequest(new HttpRequest(method, url, requestHeaders, httpParameters), clazz);
+    return handleRequest(new HttpRequest(method, url, requestHeaders, httpParameters));
   }
 
   @Override

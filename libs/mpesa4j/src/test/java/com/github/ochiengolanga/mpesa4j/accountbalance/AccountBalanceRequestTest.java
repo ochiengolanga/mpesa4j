@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
-import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.responses.AccountBalanceResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +33,7 @@ class AccountBalanceRequestTest {
   void init() {}
 
   @Test
-  void accountBalanceTest() throws MpesaApiException {
+  void accountBalanceTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     AccountBalanceResponse response = mpesa.queryBalance("Account balance request");
@@ -46,24 +45,16 @@ class AccountBalanceRequestTest {
   }
 
   @Test
-  void nullDescription_accountBalanceTest() throws MpesaApiException {
+  void nullDescription_accountBalanceTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> {
-          mpesa.queryBalance(null);
-        });
+    Assertions.assertThrows(IllegalArgumentException.class, () -> mpesa.queryBalance(null));
   }
 
   @Test
-  void emptyDescription_accountBalanceTest() throws MpesaApiException {
+  void emptyDescription_accountBalanceTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> {
-          mpesa.queryBalance("");
-        });
+    Assertions.assertThrows(IllegalArgumentException.class, () -> mpesa.queryBalance(""));
   }
 }
