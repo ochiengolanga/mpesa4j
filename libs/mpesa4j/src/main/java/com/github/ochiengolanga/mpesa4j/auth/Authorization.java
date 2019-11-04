@@ -22,7 +22,7 @@ import com.github.ochiengolanga.mpesa4j.HttpClientFactory;
 import com.github.ochiengolanga.mpesa4j.HttpParameter;
 import com.github.ochiengolanga.mpesa4j.config.Configuration;
 import com.github.ochiengolanga.mpesa4j.models.ApiResource;
-import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
+import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;

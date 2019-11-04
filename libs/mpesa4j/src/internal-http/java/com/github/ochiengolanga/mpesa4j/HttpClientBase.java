@@ -18,7 +18,7 @@
 package com.github.ochiengolanga.mpesa4j;
 
 import com.github.ochiengolanga.mpesa4j.models.ApiResource;
-import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
+import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import java.util.HashMap;
 import java.util.Map;
 

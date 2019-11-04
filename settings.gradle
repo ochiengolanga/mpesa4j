@@ -32,5 +32,5 @@ buildscript {
 apply plugin: 'org.kordamp.gradle.settings'
 
 projects {
-    directories = ['docs', 'libs', 'samples']
+    directories = ['docs', 'libs']
 }

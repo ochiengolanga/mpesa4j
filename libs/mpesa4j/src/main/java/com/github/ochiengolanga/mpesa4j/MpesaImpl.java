@@ -24,7 +24,7 @@ import com.github.ochiengolanga.mpesa4j.models.ApiResource;
 import com.github.ochiengolanga.mpesa4j.models.enums.CommandID;
 import com.github.ochiengolanga.mpesa4j.models.enums.DefaultAction;
 import com.github.ochiengolanga.mpesa4j.models.enums.IdentifierType;
-import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
+import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.requests.*;
 import com.github.ochiengolanga.mpesa4j.models.responses.*;
 import com.github.ochiengolanga.mpesa4j.util.GenerationUtils;

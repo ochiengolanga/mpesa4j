@@ -57,6 +57,7 @@ configurations.all {
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'io.vavr:vavr:0.10.2'
     errorprone group: 'com.google.errorprone', name: 'error_prone_core', version: '2.3.3'
     errorproneJavac group: 'com.google.errorprone', name: 'javac', version:'9+181-r4173-1'
     implementation 'com.google.guava:guava:28.0-jre'

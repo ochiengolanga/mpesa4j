@@ -42,7 +42,14 @@ Mpesa4j provides easy to use and straightforward APIs drawn from experience impl
 ### Gradle
 
 ```groovy
-compile "com.github.ochiengolanga.mpesa4j:mpesa4j:0.0.1"
+
+maven {
+    url  "https://dl.bintray.com/ochiengolanga/mpesa4j"
+}
+
+dependencies {
+    compile "com.github.ochiengolanga.mpesa4j:mpesa4j:0.0.1"
+}
 ```
 
 ## Usage
@@ -52,7 +59,7 @@ package sample;
 
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
-import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
+import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.responses.SalaryPaymentRequestResponse;
 
 import java.math.BigDecimal;

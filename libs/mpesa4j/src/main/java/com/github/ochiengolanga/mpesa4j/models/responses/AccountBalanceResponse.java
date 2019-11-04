@@ -21,7 +21,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.ToString;
 
-/** A data interface representing an AccountBalanceRequest M-Pesa API response */
+/** A data interface representing an AccountBalanceResponse M-Pesa API response */
 @Getter
 @ToString
 public final class AccountBalanceResponse implements java.io.Serializable {

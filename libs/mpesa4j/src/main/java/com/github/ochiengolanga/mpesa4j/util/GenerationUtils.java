@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 
-public class GenerationUtils {
+public abstract class GenerationUtils {
   public static String generateTimestamp() {
     return new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
   }

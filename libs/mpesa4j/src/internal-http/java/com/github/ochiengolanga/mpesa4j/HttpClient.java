@@ -18,7 +18,7 @@
 package com.github.ochiengolanga.mpesa4j;
 
 import com.github.ochiengolanga.mpesa4j.models.ApiResource;
-import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
+import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 
 public interface HttpClient {
   <T> T request(

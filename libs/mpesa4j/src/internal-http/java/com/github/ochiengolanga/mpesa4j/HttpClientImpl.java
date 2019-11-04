@@ -18,9 +18,10 @@
 package com.github.ochiengolanga.mpesa4j;
 
 import com.github.ochiengolanga.mpesa4j.config.ConfigurationContext;
+import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.ApiResource;
-import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
 import com.google.gson.JsonSyntaxException;
+
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
@@ -73,7 +74,7 @@ class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
       throws MpesaApiException {
     long requestStartMs = System.currentTimeMillis();
 
-    MpesaApiResponse response =
+    HttpResponse response =
         rawRequest(
             req.getMethod(),
             req.getUrl(),
@@ -101,7 +102,7 @@ class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
   private static <T> T staticOAuthRequest(
       HttpRequest req, Class<T> clazz, int httpConnectionTimeout, int httpReadTimeout)
       throws MpesaApiException {
-    MpesaApiResponse response =
+    HttpResponse response =
         rawRequest(
             req.getMethod(),
             req.getUrl(),
@@ -126,7 +127,7 @@ class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
     return resource;
   }
 
-  private static MpesaApiResponse rawRequest(
+  private static HttpResponse rawRequest(
       ApiResource.RequestMethod method,
       String url,
       Map<String, String> requestHeaders,
@@ -134,7 +135,7 @@ class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
       int connectionTimeout,
       int readTimeout)
       throws MpesaApiException {
-    MpesaApiResponse res;
+    HttpResponse res;
 
     java.net.http.HttpClient httpClient =
         java.net.http.HttpClient.newBuilder()
@@ -167,7 +168,7 @@ class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
     try {
       java.net.http.HttpResponse<String> httpResponse =
           httpClient.send(httpRequest, java.net.http.HttpResponse.BodyHandlers.ofString());
-      res = new MpesaApiResponse(httpResponse.statusCode(), httpResponse.body());
+      res = new HttpResponse(httpResponse.statusCode(), httpResponse.body());
     } catch (InterruptedException | IOException e) {
       throw new MpesaApiException(e.getMessage(), e);
     }

@@ -22,7 +22,7 @@ import com.github.ochiengolanga.mpesa4j.auth.AuthorizationCache;
 import com.github.ochiengolanga.mpesa4j.auth.OAuth2Support;
 import com.github.ochiengolanga.mpesa4j.auth.OAuth2Token;
 import com.github.ochiengolanga.mpesa4j.config.Configuration;
-import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
+import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 
 abstract class MpesaBaseImpl implements MpesaBase, OAuth2Support, java.io.Serializable {
   private static final long serialVersionUID = -7824361938865528554L;

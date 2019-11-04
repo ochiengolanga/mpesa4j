@@ -15,17 +15,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    id 'java'
-}
+package com.github.ochiengolanga.mpesa4j;
 
-ext {
-    springBootVersion = '2.2.0.RELEASE'
-}
+import lombok.Getter;
+import lombok.ToString;
 
-dependencies {
-    implementation project(':mpesa4j')
-    implementation project(':mpesa4j-spring-boot-autoconfigure')
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: springBootVersion
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+/** A data class representing HTTP Response */
+@Getter
+@ToString
+public class HttpResponse {
+  private int statusCode;
+  private String body;
+
+  public HttpResponse(int statusCode, String body) {
+    this.statusCode = statusCode;
+    this.body = body;
+  }
 }

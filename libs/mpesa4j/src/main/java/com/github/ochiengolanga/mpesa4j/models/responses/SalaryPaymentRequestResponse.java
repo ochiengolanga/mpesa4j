@@ -38,4 +38,5 @@ public final class SalaryPaymentRequestResponse implements java.io.Serializable 
 
   @SerializedName("ResponseDescription")
   private String responseDescription;
+
 }

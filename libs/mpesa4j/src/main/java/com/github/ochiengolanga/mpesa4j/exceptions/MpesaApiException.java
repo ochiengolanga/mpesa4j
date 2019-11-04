@@ -15,9 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.ochiengolanga.mpesa4j.models.exceptions;
+package com.github.ochiengolanga.mpesa4j.exceptions;
 
 import com.github.ochiengolanga.mpesa4j.HttpResponseCode;
+
+import static io.vavr.API.*;
 
 /**
  * An exception class that will be thrown when M-Pesa API calls are failed.<br>
@@ -55,45 +57,19 @@ public class MpesaApiException extends Exception implements HttpResponseCode {
     }
   }
 
+  // https://developer.safaricom.co.ke/docs#errors
   private static String getCause(int statusCode) {
-    String cause;
-    // https://developer.safaricom.co.ke/docs#errors
-    switch (statusCode) {
-      case BAD_REQUEST:
-        cause = "The request was invalid. An accompanying error message will explain why.";
-        break;
-      case UNAUTHORIZED:
-        cause =
-            "Authentication credentials (https://developer.safaricom.co.ke/docs#authentication) were missing or incorrect. Ensure that you have set valid consumer key/secret and the system clock is in sync.";
-        break;
-      case FORBIDDEN:
-        cause =
-            "The request is understood, but it has been refused. An accompanying error message will explain why.";
-        break;
-      case NOT_FOUND:
-        cause =
-            "The URI requested is invalid or the resource requested. Also returned when the requested format is not supported by the requested method.";
-        break;
-      case METHOD_NOT_ALLOWED:
-        cause = "The request is not allowed.";
-        break;
-      case NOT_ACCEPTABLE:
-        cause = "The request is not acceptable. Probably requested a format that is not json.";
-        break;
-      case TOO_MANY_REQUESTS:
-        cause =
-            "Returned when a request cannot be served due to the application's rate limit having been exhausted for the resource.";
-        break;
-      case INTERNAL_SERVER_ERROR:
-        cause =
-            "Something is broken. Please post to the group (https://developer.safaricom.co.ke/) so the Safaricom Daraja team can investigate.";
-        break;
-      case SERVICE_UNAVAILABLE:
-        cause = "The M-Pesa servers are offline for maintenance. Try again later.";
-        break;
-      default:
-        cause = "";
-    }
-    return statusCode + ":" + cause;
+    return Match(statusCode).of(
+            Case($(BAD_REQUEST), "The request was invalid. An accompanying error message will explain why."),
+            Case($(UNAUTHORIZED), "Authentication credentials (https://developer.safaricom.co.ke/docs#authentication) were missing or incorrect. Ensure that you have set valid consumer key/secret and the system clock is in sync."),
+            Case($(FORBIDDEN), "The request is understood, but it has been refused. An accompanying error message will explain why."),
+            Case($(NOT_FOUND), "The URI requested is invalid or the resource requested. Also returned when the requested format is not supported by the requested method."),
+            Case($(METHOD_NOT_ALLOWED), "The request is not allowed."),
+            Case($(NOT_ACCEPTABLE), "The request is not acceptable. Probably requested a format that is not json."),
+            Case($(TOO_MANY_REQUESTS), "Returned when a request cannot be served due to the application's rate limit having been exhausted for the resource."),
+            Case($(INTERNAL_SERVER_ERROR), "Something is broken. Please post to the group (https://developer.safaricom.co.ke/) so the Safaricom Daraja team can investigate."),
+            Case($(SERVICE_UNAVAILABLE), "The M-Pesa servers are offline for maintenance. Try again later."),
+            Case($(), "")
+    );
   }
 }

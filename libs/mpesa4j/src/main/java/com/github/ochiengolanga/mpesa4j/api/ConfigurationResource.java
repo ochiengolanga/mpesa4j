@@ -18,7 +18,7 @@
 package com.github.ochiengolanga.mpesa4j.api;
 
 import com.github.ochiengolanga.mpesa4j.models.enums.DefaultAction;
-import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
+import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.responses.CallbackUrlsRegistrationResponse;
 
 public interface ConfigurationResource {

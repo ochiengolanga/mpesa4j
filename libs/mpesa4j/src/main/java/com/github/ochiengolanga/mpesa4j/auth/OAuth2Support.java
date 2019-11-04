@@ -17,7 +17,7 @@
  */
 package com.github.ochiengolanga.mpesa4j.auth;
 
-import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
+import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 
 public interface OAuth2Support {
   /**

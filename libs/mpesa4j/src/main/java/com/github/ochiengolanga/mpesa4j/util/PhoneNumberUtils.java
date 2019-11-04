@@ -17,4 +17,8 @@
  */
 package com.github.ochiengolanga.mpesa4j.util;
 
-public class PhoneNumberUtils {}
+public abstract class PhoneNumberUtils {
+    public static void checkPhoneNumber(String str) {
+        throw new IllegalArgumentException("Invalid phone number: " + str);
+    }
+}

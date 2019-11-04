@@ -17,7 +17,7 @@
  */
 package com.github.ochiengolanga.mpesa4j.api;
 
-import com.github.ochiengolanga.mpesa4j.models.exceptions.MpesaApiException;
+import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.responses.BusinessPaymentRequestResponse;
 import com.github.ochiengolanga.mpesa4j.models.responses.PromotionPaymentRequestResponse;
 import com.github.ochiengolanga.mpesa4j.models.responses.SalaryPaymentRequestResponse;
