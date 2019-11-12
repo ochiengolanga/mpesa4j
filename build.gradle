@@ -135,6 +135,9 @@ subprojects {
                     description = 'The unofficial MPesa4j\'s Spring boot'
                     tags        = ['mpesa', 'daraja', 'java', 'sdk', 'spring', 'spring-boot']
                 }
+                licensing {
+                    enabled = false
+                }
             }
         }
     }

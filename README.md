@@ -74,7 +74,7 @@ Add dependency entry to pom.xml file.
 <dependency>
   <groupId>com.github.ochiengolanga.mpesa4j</groupId>
   <artifactId>mpesa4j</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
 </dependency>
 ```
 
@@ -87,7 +87,7 @@ maven {
 }
 
 dependencies {
-    compile "com.github.ochiengolanga.mpesa4j:mpesa4j:0.1.0"
+    compile "com.github.ochiengolanga.mpesa4j:mpesa4j:0.1.1"
 }
 ```
 
@@ -191,7 +191,7 @@ java -DMPESA4J_DEBUG=true
     -DMPESA4J_HTTP_READ_TIMEOUT=120000
     -DMPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL=https://example.com/accountbalance/queuetimeout
     ...
-    -cp mpesa4j-0.0.1.jar:yourApp.jar yourpackage.Main
+    -cp mpesa4j-0.1.1.jar:yourApp.jar yourpackage.Main
 ```
 
 via Environment variables:

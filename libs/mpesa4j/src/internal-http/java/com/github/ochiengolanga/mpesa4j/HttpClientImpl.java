@@ -17,13 +17,15 @@
  */
 package com.github.ochiengolanga.mpesa4j;
 
+import static com.github.ochiengolanga.mpesa4j.HttpResponseCode.*;
+import static io.vavr.API.*;
+
 import com.github.ochiengolanga.mpesa4j.config.ConfigurationContext;
 import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.ApiResource;
 import com.github.ochiengolanga.mpesa4j.models.responses.MpesaErrorResponse;
 import com.github.ochiengolanga.mpesa4j.models.responses.MpesaResponse;
 import com.google.gson.JsonSyntaxException;
-
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
@@ -31,9 +33,6 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.github.ochiengolanga.mpesa4j.HttpResponseCode.*;
-import static io.vavr.API.*;
 
 class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
   private static final long serialVersionUID = -403500272719330534L;

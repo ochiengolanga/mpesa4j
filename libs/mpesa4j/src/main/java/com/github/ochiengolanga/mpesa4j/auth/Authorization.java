@@ -20,6 +20,7 @@ package com.github.ochiengolanga.mpesa4j.auth;
 import com.github.ochiengolanga.mpesa4j.HttpClient;
 import com.github.ochiengolanga.mpesa4j.HttpClientFactory;
 import com.github.ochiengolanga.mpesa4j.HttpParameter;
+import com.github.ochiengolanga.mpesa4j.MpesaApiConstants;
 import com.github.ochiengolanga.mpesa4j.config.Configuration;
 import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.ApiResource;
@@ -51,7 +52,8 @@ public class Authorization implements OAuth2Support, java.io.Serializable {
   @Override
   public OAuth2Token getOAuth2Token() throws MpesaApiException {
     HttpParameter[] params = new HttpParameter[1];
-    params[0] = new HttpParameter("grant_type", "client_credentials");
+    params[0] =
+        new HttpParameter(MpesaApiConstants.GRANT_TYPE, MpesaApiConstants.CLIENT_CREDENTIALS);
 
     OAuth2Token oAuth2Token =
         executeOAuthRequest(
@@ -92,7 +94,7 @@ public class Authorization implements OAuth2Support, java.io.Serializable {
 
   private static String generateBearerAuthenticationString(String accessToken) {
     String encoded = URLEncoder.encode(accessToken, StandardCharsets.UTF_8);
-    return "Bearer " + encoded;
+    return MpesaApiConstants.BEARER + " " + encoded;
   }
 
   private static String generateBasicAuthenticationString(
@@ -103,7 +105,8 @@ public class Authorization implements OAuth2Support, java.io.Serializable {
               + ":"
               + URLEncoder.encode(consumerSecret, StandardCharsets.UTF_8);
 
-      return "Basic "
+      return MpesaApiConstants.BASIC
+          + " "
           + Base64.getEncoder().encodeToString(credentials.getBytes(StandardCharsets.UTF_8));
     }
     return null;

@@ -509,9 +509,7 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
     Preconditions.checkNotNull(description, "Description missing");
     Preconditions.checkEmptyString(description, "Description missing");
     Preconditions.checkNotNull(payableAmount, "Payable amount missing");
-
-    if (payableAmount.compareTo(new BigDecimal(0)) <= 0)
-      throw new IllegalArgumentException("Invalid payable amount");
+    Preconditions.checkPositiveNumber(payableAmount, "Invalid payable amount");
 
     String timestamp = GenerationUtils.generateTimestamp();
 
@@ -615,9 +613,7 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
     Preconditions.checkNotNull(description, "Description missing");
     Preconditions.checkEmptyString(description, "Description missing");
     Preconditions.checkNotNull(amount, "Payable amount missing");
-
-    if (amount.compareTo(new BigDecimal(0)) <= 0)
-      throw new IllegalArgumentException("Invalid payable amount");
+    Preconditions.checkPositiveNumber(amount, "Invalid payable amount");
 
     if (occasion == null) occasion = "";
 
@@ -778,9 +774,7 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
     Preconditions.checkNotNull(description, "Description missing");
     Preconditions.checkEmptyString(description, "Description missing");
     Preconditions.checkNotNull(amount, "Amount to reverse missing");
-
-    if (amount.compareTo(new BigDecimal(0)) <= 0)
-      throw new IllegalArgumentException("Invalid reversible amount");
+    Preconditions.checkPositiveNumber(amount, "Invalid reversible amount");
 
     if (occasion == null) occasion = "";
 

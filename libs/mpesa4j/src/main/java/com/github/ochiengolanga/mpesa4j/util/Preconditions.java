@@ -17,6 +17,8 @@
  */
 package com.github.ochiengolanga.mpesa4j.util;
 
+import java.math.BigDecimal;
+
 /** Utils for checking preconditions and invariants */
 public abstract class Preconditions {
 
@@ -42,6 +44,10 @@ public abstract class Preconditions {
    */
   public static void checkEmptyString(String string, String errorMsg) {
     check(hasText(string), errorMsg);
+  }
+
+  public static void checkPositiveNumber(BigDecimal bigDecimal, String errorMsg) {
+    check(bigDecimal.compareTo(new BigDecimal(0)) > 0, errorMsg);
   }
 
   public static boolean hasText(String str) {

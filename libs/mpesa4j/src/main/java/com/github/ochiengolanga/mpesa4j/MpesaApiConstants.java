@@ -21,10 +21,8 @@ package com.github.ochiengolanga.mpesa4j;
 public interface MpesaApiConstants {
   String BEARER = "Bearer";
   String BASIC = "Basic";
-  String ACCESS_TOKEN = "access_token";
-  String CLIENT_ID = "client_id";
-  String CLIENT_SECRET = "client_secret";
   String GRANT_TYPE = "grant_type";
+  String CLIENT_CREDENTIALS = "client_credentials";
 
   // not OAuth specific
   String ACCEPT_ENCODING_HEADER_NAME = "Accept-Encoding";

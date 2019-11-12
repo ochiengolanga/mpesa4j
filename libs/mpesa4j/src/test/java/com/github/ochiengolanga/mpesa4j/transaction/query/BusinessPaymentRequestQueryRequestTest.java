@@ -78,10 +78,10 @@ class BusinessPaymentRequestQueryRequestTest {
   }
 
   // Service randomly becomes unavailable
-//  @Test
-//  void nullOccasion_businessTransactionQueryTest() {
-//    Mpesa mpesa = new MpesaFactory().getInstance();
-//
-//    mpesa.queryBusinessTransaction("LGR019G3J2", "PaymentRequest query request", null);
-//  }
+  //  @Test
+  //  void nullOccasion_businessTransactionQueryTest() {
+  //    Mpesa mpesa = new MpesaFactory().getInstance();
+  //
+  //    mpesa.queryBusinessTransaction("LGR019G3J2", "PaymentRequest query request", null);
+  //  }
 }

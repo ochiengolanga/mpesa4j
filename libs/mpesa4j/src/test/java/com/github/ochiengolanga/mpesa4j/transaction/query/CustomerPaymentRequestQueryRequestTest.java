@@ -102,11 +102,11 @@ class CustomerPaymentRequestQueryRequestTest {
   }
 
   // Service randomly becomes unavailable
-//  @Test
-//  void nullOccasion_customerTransactionQueryTest() {
-//    Mpesa mpesa = new MpesaFactory().getInstance();
-//
-//    mpesa.queryCustomerTransaction(
-//        "254708374149", "LGR019G3J2", "PaymentRequest query request", null);
-//  }
+  //  @Test
+  //  void nullOccasion_customerTransactionQueryTest() {
+  //    Mpesa mpesa = new MpesaFactory().getInstance();
+  //
+  //    mpesa.queryCustomerTransaction(
+  //        "254708374149", "LGR019G3J2", "PaymentRequest query request", null);
+  //  }
 }
