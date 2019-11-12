@@ -222,7 +222,7 @@ class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
   }
 
   private static void handleOAuthError(String responseBody) throws MpesaApiException {
-    throw new MpesaApiException(String.format("Unable to authenticate: %s", responseBody));
+    throw new MpesaApiException(String.format("Unable to authenticate: %s", responseBody.isEmpty() ? "Invalid credentials" : responseBody));
   }
 
   private static void raiseMalformedJsonError(String responseBody, int responseCode)

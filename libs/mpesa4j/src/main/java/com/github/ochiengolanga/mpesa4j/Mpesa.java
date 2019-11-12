@@ -18,11 +18,9 @@
 package com.github.ochiengolanga.mpesa4j;
 
 import com.github.ochiengolanga.mpesa4j.api.*;
-import com.github.ochiengolanga.mpesa4j.auth.OAuth2Support;
 
 public interface Mpesa
     extends java.io.Serializable,
-        OAuth2Support,
         AccountBalanceResource,
         ConfigurationResource,
         PaymentResource,

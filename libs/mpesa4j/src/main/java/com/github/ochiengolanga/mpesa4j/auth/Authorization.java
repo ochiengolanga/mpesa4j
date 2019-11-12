@@ -24,15 +24,16 @@ import com.github.ochiengolanga.mpesa4j.MpesaApiConstants;
 import com.github.ochiengolanga.mpesa4j.config.Configuration;
 import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.ApiResource;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
 @EqualsAndHashCode(callSuper = false)
 @ToString
-public class Authorization implements OAuth2Support, java.io.Serializable {
+public class Authorization implements java.io.Serializable {
   private static final long serialVersionUID = -2895232598422218647L;
   private final Configuration conf;
   private final HttpClient http;
@@ -49,8 +50,7 @@ public class Authorization implements OAuth2Support, java.io.Serializable {
     authorizationCache = AuthorizationCache.getInstance();
   }
 
-  @Override
-  public OAuth2Token getOAuth2Token() throws MpesaApiException {
+  private synchronized OAuth2Token getOAuth2Token() throws MpesaApiException {
     HttpParameter[] params = new HttpParameter[1];
     params[0] =
         new HttpParameter(MpesaApiConstants.GRANT_TYPE, MpesaApiConstants.CLIENT_CREDENTIALS);
@@ -84,12 +84,13 @@ public class Authorization implements OAuth2Support, java.io.Serializable {
    *
    * @return String
    */
-  public String getBearerAuthorizationHeader() {
-    OAuth2Token ot = authorizationCache.get();
-    if (ot != null) {
-      return generateBearerAuthenticationString(ot.getAccessToken());
+  public String getBearerAuthorizationHeader() throws MpesaApiException {
+    if (authorizationCache.isEmpty()) {
+      this.getOAuth2Token();
     }
-    return null;
+
+    OAuth2Token ot2 = authorizationCache.get();
+    return generateBearerAuthenticationString(ot2.getAccessToken());
   }
 
   private static String generateBearerAuthenticationString(String accessToken) {

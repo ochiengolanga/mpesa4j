@@ -19,12 +19,9 @@ package com.github.ochiengolanga.mpesa4j;
 
 import com.github.ochiengolanga.mpesa4j.auth.Authorization;
 import com.github.ochiengolanga.mpesa4j.auth.AuthorizationCache;
-import com.github.ochiengolanga.mpesa4j.auth.OAuth2Support;
-import com.github.ochiengolanga.mpesa4j.auth.OAuth2Token;
 import com.github.ochiengolanga.mpesa4j.config.Configuration;
-import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 
-abstract class MpesaBaseImpl implements MpesaBase, OAuth2Support, java.io.Serializable {
+abstract class MpesaBaseImpl implements MpesaBase, java.io.Serializable {
   private static final long serialVersionUID = -7824361938865528554L;
   transient HttpClient http;
   transient AuthorizationCache authCache;
@@ -45,17 +42,5 @@ abstract class MpesaBaseImpl implements MpesaBase, OAuth2Support, java.io.Serial
   @Override
   public Configuration getConfiguration() {
     return this.conf;
-  }
-
-  @Override
-  public synchronized OAuth2Token getOAuth2Token() throws MpesaApiException {
-    return getOAuth2().getOAuth2Token();
-  }
-
-  private OAuth2Support getOAuth2() {
-    if (auth == null) {
-      throw new IllegalStateException("OAuth consumer key/secret combination not supplied");
-    }
-    return auth;
   }
 }

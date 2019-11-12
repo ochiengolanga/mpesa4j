@@ -36,6 +36,8 @@ public class AuthorizationCache implements java.io.Serializable {
     cache = Caffeine.newBuilder().expireAfterWrite(3599, TimeUnit.SECONDS).maximumSize(1).build();
   }
 
+  public boolean isEmpty() { return cache.getIfPresent(OAUTH2_TOKEN) == null; }
+
   public void put(OAuth2Token token) {
     cache.put(OAUTH2_TOKEN, token);
   }

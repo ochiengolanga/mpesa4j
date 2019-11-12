@@ -802,10 +802,6 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
 
   private MpesaResponse executeRequest(
       ApiResource.RequestMethod method, String url, HttpParameter[] parameters) {
-    if (auth.getBearerAuthorizationHeader() == null) {
-      Try.of(this::getOAuth2Token);
-    }
-
     return Try.of(() -> http.request(method, url, auth.getBearerAuthorizationHeader(), parameters))
         .onFailure(exc -> LOG.error("{}", exc.getMessage()))
         .get();

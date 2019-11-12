@@ -81,7 +81,6 @@ Add dependency entry to pom.xml file.
 ### Gradle
 
 ```groovy
-
 maven {
     url  "https://dl.bintray.com/ochiengolanga/mpesa4j"
 }
@@ -203,6 +202,122 @@ export MPESA4J_HTTP_CONNECTION_TIMEOUT=20000
 export MPESA4J_HTTP_READ_TIMEOUT=120000
 export MPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL=https://peternjeru.co.ke/safdaraja/api/callback.php
 ...
+```
+
+### Spring Boot
+
+#### Dependencies
+
+Maven
+
+```xml
+<dependency>
+  <groupId>com.github.ochiengolanga.mpesa4j</groupId>
+  <artifactId>mpesa4j-spring-boot</artifactId>
+  <version>0.1.1</version>
+  <type>pom</type>
+</dependency>
+```
+
+Gradle
+
+```groovy
+maven {
+    url  "https://dl.bintray.com/ochiengolanga/mpesa4j"
+}
+
+dependencies {
+    compile 'com.github.ochiengolanga.mpesa4j:mpesa4j:0.1.1'
+    compile 'com.github.ochiengolanga.mpesa4j:mpesa4j-spring-boot:0.1.1'
+}
+```
+
+#### Usage
+
+```java
+package sample;
+
+import com.github.ochiengolanga.mpesa4j.Mpesa;
+import com.github.ochiengolanga.mpesa4j.models.responses.SalaryPaymentRequestResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+
+/**
+ * Sample spring application using Mpesa4j spring boot starter to do a Business to Customer (B2C) salary payment transactions between
+ * a company and its employees
+ *
+ * @author Daniel Ochieng' Olanga
+ */
+@RequiredArgsConstructor
+@Slf4j
+@SpringBootApplication
+public class Mpesa4jSpringBootSampleApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(Mpesa4jSpringBootSampleApplication.class, args);
+    }
+
+    @Bean
+    CommandLineRunner run(PaymentService paymentService) {
+        return args -> paymentService.paySalary();
+    }
+}
+
+@Slf4j
+@RequiredArgsConstructor
+@Service
+class PaymentService {
+    private final Mpesa mpesa;
+
+    public void paySalary() {
+        log.info(mpesa.toString());
+        SalaryPaymentRequestResponse response = mpesa.paySalary(
+                "254708374149",
+                new BigDecimal(100.00),
+                "Salary payment (JUL-AUG)",
+                ""
+        );
+
+        System.out.println("Response Description: " + response.getResponseDescription());
+        System.out.println("Response Code: " + response.getResponseCode());
+        System.out.println("ConversationID: " + response.getConversationId());
+        System.out.println("OriginatorConversationID: " + response.getOriginatorConversationId());
+    }
+}
+```
+
+#### Configuration
+
+```yaml
+mpesa4j.debug=true
+mpesa4j.sandbox-enabled=true
+mpesa4j.connection-timeout=20000
+mpesa4j.read-timeout=120000
+mpesa4j.account-balance.queue-timeout-url=https://example.com/accountBalance/queueTimeout
+mpesa4j.account-balance.result-url=https://example.com/accountBalance/result
+mpesa4j.b2b.queue-timeout-url=https://example.com/b2b/queueTimeout
+mpesa4j.b2b.result-url=https://example.com/b2b/result
+mpesa4j.b2c.queue-timeout-url=https://example.com/b2c/queueTimeout
+mpesa4j.b2c.result-url=https://example.com/b2c/result
+mpesa4j.consumer-key=demo
+mpesa4j.consumer-secret=demo
+mpesa4j.initiator.name=abcdemo
+mpesa4j.initiator.short-code=12345
+mpesa4j.initiator.security-credential=Aafs234we
+mpesa4j.lipa-na-mpesa.short-code=98868
+mpesa4j.lipa-na-mpesa.passkey=wert3434
+mpesa4j.lipa-na-mpesa.callback-url=https://example.com/lnm/callback
+mpesa4j.transaction-query.queue-timeout-url=https://example.com/transactionQuery/queueTimeout
+mpesa4j.transaction-query.result-url=https://example.com/transactionQuery/result
+mpesa4j.transaction-reversal.queue-timeout-url=https://example.com/transactionReversal/queueTimeout
+mpesa4j.transaction-reversal.result-url=https://example.com/transactionReversal/result
 ```
 
 ## How to Build and Contribute
