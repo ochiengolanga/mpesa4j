@@ -34,9 +34,9 @@ jobs: # a collection of steps
           path: build/test-results/test
           when: always
       - run:
-          name: Assemble JARs
+          name: Build JARs
           command: |
-            ./gradlew assemble
+            ./gradlew build
       - run:
           name: Upload JARs to BinTray
           command: |
