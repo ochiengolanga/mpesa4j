@@ -35,31 +35,31 @@ class InstantPaymentQueryRequestTest {
   @BeforeEach
   void init() {}
 
-      @Test
-      void paymentQueryTest() throws InterruptedException {
-        Mpesa mpesa = new MpesaFactory().getInstance();
-
-        InstantPaymentRequestResponse paymentRequestResponse =
-            mpesa.requestInstantPayment(
-                "254724488116",
-                new BigDecimal(10.00),
-                "TESTMPESA4J4Query",
-                "Instant payment query test from mpesa4j");
-
-        assertNotNull(paymentRequestResponse.getCheckoutRequestId());
-
-        Thread.sleep(10000L);
-
-        InstantPaymentQueryResponse response =
-            mpesa.queryInstantPayment(paymentRequestResponse.getCheckoutRequestId());
-
-        assertNotNull(response.getMerchantRequestId());
-        assertNotNull(response.getCheckoutRequestId());
-        assertNotNull(response.getResponseDescription());
-        assertNotNull(response.getResultCode());
-        assertNotNull(response.getResultDescription());
-        assertTrue(response.getResponseCode().equalsIgnoreCase("0"));
-      }
+//      @Test
+//      void paymentQueryTest() throws InterruptedException {
+//        Mpesa mpesa = new MpesaFactory().getInstance();
+//
+//        InstantPaymentRequestResponse paymentRequestResponse =
+//            mpesa.requestInstantPayment(
+//                "254724488116",
+//                new BigDecimal(10.00),
+//                "TESTMPESA4J4Query",
+//                "Instant payment query test from mpesa4j");
+//
+//        assertNotNull(paymentRequestResponse.getCheckoutRequestId());
+//
+//        Thread.sleep(10000L);
+//
+//        InstantPaymentQueryResponse response =
+//            mpesa.queryInstantPayment(paymentRequestResponse.getCheckoutRequestId());
+//
+//        assertNotNull(response.getMerchantRequestId());
+//        assertNotNull(response.getCheckoutRequestId());
+//        assertNotNull(response.getResponseDescription());
+//        assertNotNull(response.getResultCode());
+//        assertNotNull(response.getResultDescription());
+//        assertTrue(response.getResponseCode().equalsIgnoreCase("0"));
+//      }
 
   @Test
   void nullPaymentId_paymentQueryTest() {
