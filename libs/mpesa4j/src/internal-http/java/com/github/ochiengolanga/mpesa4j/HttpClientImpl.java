@@ -30,7 +30,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,7 +93,7 @@ class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
     int responseCode = res.getStatusCode();
 
     if (responseCode < 200 || responseCode >= 300) {
-      handleError(responseBody, responseCode, req);
+      handleError(responseBody, responseCode);
     }
 
     MpesaResponse mpesaResponse = null;
@@ -165,7 +164,7 @@ class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
     if (method == ApiResource.RequestMethod.POST) {
       byte[] bytes = parameters[0].getValue().getBytes(StandardCharsets.UTF_8);
 
-      requestBuilder.header(MpesaApiConstants.CONTENT_TYPE_HEADER_NAME, "application/json");
+      requestBuilder.header(MpesaApiConstants.CONTENT_TYPE_HEADER_NAME, MpesaApiConstants.CONTENT_TYPE_JSON);
       requestBuilder.POST(java.net.http.HttpRequest.BodyPublishers.ofByteArray(bytes));
     } else {
       requestBuilder.GET();
@@ -184,45 +183,48 @@ class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
     return res;
   }
 
-  private static void handleError(String responseBody, int statusCode, HttpRequest req)
-      throws MpesaApiException {
+  private static void handleError(String responseBody, int statusCode) throws MpesaApiException {
     MpesaErrorResponse errorResponse =
         ApiResource.GSON.fromJson(responseBody, MpesaErrorResponse.class);
 
-    String message =
-        Match(statusCode)
-            .of(
-                Case($(BAD_REQUEST), "Oops!"),
-                Case(
-                    $(UNAUTHORIZED),
-                    "Invalid or missing authentication credentials. Ensure that you have set valid consumer key/secret and the system clock is in sync."),
-                Case($(FORBIDDEN), "The request is understood, but it has been refused."),
-                Case(
-                    $(NOT_FOUND),
-                    "The URI requested is invalid or the resource requested. Also returned when the requested format is not supported by the requested method."),
-                Case($(METHOD_NOT_ALLOWED), "The request is not allowed."),
-                Case(
-                    $(NOT_ACCEPTABLE),
-                    "The request is not acceptable. Probably requested a format that is not json."),
-                Case(
-                    $(TOO_MANY_REQUESTS),
-                    "Returned when a request cannot be served due to the application's rate limit having been exhausted for the resource."),
-                Case(
-                    $(INTERNAL_SERVER_ERROR),
-                    "Something is broken. Please post to the group (https://developer.safaricom.co.ke/) so the Safaricom Daraja team can investigate."),
-                Case($(SERVICE_UNAVAILABLE), "Service unavailable. Try again later."),
-                Case($(), ""));
+    String message;
 
-    throw new MpesaApiException(
-        String.format(
-            "%s %s. Request: %s",
-            message,
-            errorResponse.getErrorMessage() != null ? errorResponse.getErrorMessage() : "",
-            Arrays.toString(req.getParameters())));
+    if (errorResponse.getErrorMessage() != null && !errorResponse.getErrorMessage().isEmpty()) {
+      message = errorResponse.getErrorMessage();
+    } else {
+      message =
+          Match(statusCode)
+              .of(
+                  Case($(BAD_REQUEST), "Oops!"),
+                  Case(
+                      $(UNAUTHORIZED),
+                      "Invalid or missing authentication credentials. Ensure that you have set valid consumer key/secret and the system clock is in sync."),
+                  Case($(FORBIDDEN), "The request is understood, but it has been refused."),
+                  Case(
+                      $(NOT_FOUND),
+                      "The URI requested is invalid or the resource requested. Also returned when the requested format is not supported by the requested method."),
+                  Case($(METHOD_NOT_ALLOWED), "The request is not allowed."),
+                  Case(
+                      $(NOT_ACCEPTABLE),
+                      "The request is not acceptable. Probably requested a format that is not json."),
+                  Case(
+                      $(TOO_MANY_REQUESTS),
+                      "Returned when a request cannot be served due to the application's rate limit having been exhausted for the resource."),
+                  Case(
+                      $(INTERNAL_SERVER_ERROR),
+                      "Something is broken. Please post to the group (https://developer.safaricom.co.ke/) so the Safaricom Daraja team can investigate."),
+                  Case($(SERVICE_UNAVAILABLE), "Service unavailable. Try again later."),
+                  Case($(), ""));
+    }
+
+    throw new MpesaApiException(String.format("%s", message));
   }
 
   private static void handleOAuthError(String responseBody) throws MpesaApiException {
-    throw new MpesaApiException(String.format("Unable to authenticate: %s", responseBody.isEmpty() ? "Invalid credentials" : responseBody));
+    throw new MpesaApiException(
+        String.format(
+            "Unable to authenticate: %s",
+            responseBody.isEmpty() ? "Invalid credentials" : responseBody));
   }
 
   private static void raiseMalformedJsonError(String responseBody, int responseCode)

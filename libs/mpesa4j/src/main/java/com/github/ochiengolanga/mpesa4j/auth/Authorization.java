@@ -24,12 +24,11 @@ import com.github.ochiengolanga.mpesa4j.MpesaApiConstants;
 import com.github.ochiengolanga.mpesa4j.config.Configuration;
 import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.ApiResource;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @EqualsAndHashCode(callSuper = false)
 @ToString

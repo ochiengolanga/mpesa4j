@@ -31,4 +31,5 @@ public interface MpesaApiConstants {
   String CACHE_CONTROL_HEADER_NAME = "Cache-Control";
   String CONTENT_TYPE_HEADER_NAME = "Content-Type";
   String USER_AGENT_HEADER_NAME = "User-Agent";
+  String CONTENT_TYPE_JSON = "application/json";
 }

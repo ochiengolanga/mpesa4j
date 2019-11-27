@@ -39,9 +39,7 @@ class RegisterCallbackUrlsTest {
 
     CallbackUrlsRegistrationResponse response =
         mpesa.registerCallbackUrls(
-            DefaultAction.COMPLETE,
-            "https://peternjeru.co.ke/safdaraja/api/callback.php",
-            "https://peternjeru.co.ke/safdaraja/api/callback.php");
+            DefaultAction.COMPLETE, "https://example.com/callback", "https://example.com/callback");
 
     assertNotNull(response.getConversationId());
     assertNotNull(response.getOriginatorConversationId());
@@ -57,9 +55,7 @@ class RegisterCallbackUrlsTest {
         IllegalArgumentException.class,
         () ->
             mpesa.registerCallbackUrls(
-                null,
-                "https://peternjeru.co.ke/safdaraja/api/callback.php",
-                "https://peternjeru.co.ke/safdaraja/api/callback.php"));
+                null, "https://example.com/callback", "https://example.com/callback"));
   }
 
   @Test
@@ -70,9 +66,7 @@ class RegisterCallbackUrlsTest {
         IllegalArgumentException.class,
         () ->
             mpesa.registerCallbackUrls(
-                DefaultAction.COMPLETE,
-                null,
-                "https://peternjeru.co.ke/safdaraja/api/callback.php"));
+                DefaultAction.COMPLETE, null, "https://example.com/callback"));
   }
 
   @Test
@@ -82,8 +76,7 @@ class RegisterCallbackUrlsTest {
     Assertions.assertThrows(
         IllegalArgumentException.class,
         () ->
-            mpesa.registerCallbackUrls(
-                DefaultAction.COMPLETE, "", "https://peternjeru.co.ke/safdaraja/api/callback.php"));
+            mpesa.registerCallbackUrls(DefaultAction.COMPLETE, "", "https://example.com/callback"));
   }
 
   @Test
@@ -94,9 +87,7 @@ class RegisterCallbackUrlsTest {
         IllegalArgumentException.class,
         () ->
             mpesa.registerCallbackUrls(
-                DefaultAction.COMPLETE,
-                "https://peternjeru.co.ke/safdaraja/api/callback.php",
-                null));
+                DefaultAction.COMPLETE, "https://example.com/callback", null));
   }
 
   @Test
@@ -106,7 +97,6 @@ class RegisterCallbackUrlsTest {
     Assertions.assertThrows(
         IllegalArgumentException.class,
         () ->
-            mpesa.registerCallbackUrls(
-                DefaultAction.COMPLETE, "https://peternjeru.co.ke/safdaraja/api/callback.php", ""));
+            mpesa.registerCallbackUrls(DefaultAction.COMPLETE, "https://example.com/callback", ""));
   }
 }

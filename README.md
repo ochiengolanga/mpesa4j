@@ -74,7 +74,7 @@ Add dependency entry to pom.xml file.
 <dependency>
   <groupId>com.github.ochiengolanga.mpesa4j</groupId>
   <artifactId>mpesa4j</artifactId>
-  <version>0.1.1</version>
+  <version>0.1.2</version>
 </dependency>
 ```
 
@@ -86,7 +86,7 @@ maven {
 }
 
 dependencies {
-    compile "com.github.ochiengolanga.mpesa4j:mpesa4j:0.1.1"
+    compile "com.github.ochiengolanga.mpesa4j:mpesa4j:0.1.2"
 }
 ```
 
@@ -143,12 +143,12 @@ MPESA4J_DEBUG=true
 MPESA4J_SANDBOX_ENABLED=true
 MPESA4J_HTTP_CONNECTION_TIMEOUT=20000
 MPESA4J_HTTP_READ_TIMEOUT=120000
-MPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL=https://peternjeru.co.ke/safdaraja/api/callback.php
-MPESA4J_ACCOUNT_BALANCE_RESULT_URL=https://peternjeru.co.ke/safdaraja/api/callback.php
-MPESA4J_B2B_QUEUE_TIMEOUT_URL=https://peternjeru.co.ke/safdaraja/api/callback.php
-MPESA4J_B2B_BALANCE_RESULT_URL=https://peternjeru.co.ke/safdaraja/api/callback.php
-MPESA4J_B2C_QUEUE_TIMEOUT_URL=https://peternjeru.co.ke/safdaraja/api/callback.php
-MPESA4J_B2C_BALANCE_RESULT_URL=https://peternjeru.co.ke/safdaraja/api/callback.php
+MPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL=https://example.com/callback
+MPESA4J_ACCOUNT_BALANCE_RESULT_URL=https://example.com/callback
+MPESA4J_B2B_QUEUE_TIMEOUT_URL=https://example.com/callback
+MPESA4J_B2B_BALANCE_RESULT_URL=https://example.com/callback
+MPESA4J_B2C_QUEUE_TIMEOUT_URL=https://example.com/callback
+MPESA4J_B2C_BALANCE_RESULT_URL=https://example.com/callback
 MPESA4J_CONSUMER_KEY=test # from M-Pesa Developer portal
 MPESA4J_CONSUMER_SECRET=test # from M-Pesa Developer portal
 MPESA4J_INITIATOR_NAME=test # from M-Pesa Developer portal
@@ -156,11 +156,11 @@ MPESA4J_INITIATOR_SHORTCODE=12345 # from M-Pesa Developer portal
 MPESA4J_INITIATOR_SECURITY_CREDENTIAL=test # from M-Pesa Developer portal
 MPESA4J_LIPA_NA_MPESA_SHORTCODE=12345 # from M-Pesa Developer portal
 MPESA4J_LIPA_NA_MPESA_PASSKEY=test # from M-Pesa Developer portal
-MPESA4J_LIPA_NA_MPESA_CALLBACK_URL=https://peternjeru.co.ke/safdaraja/api/callback.php
-MPESA4J_TRANSACTION_QUERY_QUEUE_TIMEOUT_URL=https://peternjeru.co.ke/safdaraja/api/callback.php
-MPESA4J_TRANSACTION_QUERY_RESULT_URL=https://peternjeru.co.ke/safdaraja/api/callback.php
-MPESA4J_TRANSACTION_REVERSAL_QUEUE_TIMEOUT_URL=https://peternjeru.co.ke/safdaraja/api/callback.php
-MPESA4J_TRANSACTION_REVERSAL_RESULT_URL=https://peternjeru.co.ke/safdaraja/api/callback.php
+MPESA4J_LIPA_NA_MPESA_CALLBACK_URL=https://example.com/callback
+MPESA4J_TRANSACTION_QUERY_QUEUE_TIMEOUT_URL=https://example.com/callback
+MPESA4J_TRANSACTION_QUERY_RESULT_URL=https://example.com/callback
+MPESA4J_TRANSACTION_REVERSAL_QUEUE_TIMEOUT_URL=https://example.com/callback
+MPESA4J_TRANSACTION_REVERSAL_RESULT_URL=https://example.com/callback
 ```
 
 via ConfigurationBuiler:
@@ -190,7 +190,7 @@ java -DMPESA4J_DEBUG=true
     -DMPESA4J_HTTP_READ_TIMEOUT=120000
     -DMPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL=https://example.com/accountbalance/queuetimeout
     ...
-    -cp mpesa4j-0.1.1.jar:yourApp.jar yourpackage.Main
+    -cp mpesa4j-0.1.2.jar:yourApp.jar yourpackage.Main
 ```
 
 via Environment variables:
@@ -200,7 +200,7 @@ export MPESA4J_DEBUG=true
 export MPESA4J_SANDBOX_ENABLED=true
 export MPESA4J_HTTP_CONNECTION_TIMEOUT=20000
 export MPESA4J_HTTP_READ_TIMEOUT=120000
-export MPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL=https://peternjeru.co.ke/safdaraja/api/callback.php
+export MPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL=https://example.com/callback
 ...
 ```
 
@@ -214,7 +214,7 @@ Maven
 <dependency>
   <groupId>com.github.ochiengolanga.mpesa4j</groupId>
   <artifactId>mpesa4j-spring-boot</artifactId>
-  <version>0.1.1</version>
+  <version>0.1.2</version>
   <type>pom</type>
 </dependency>
 ```
@@ -227,8 +227,8 @@ maven {
 }
 
 dependencies {
-    compile 'com.github.ochiengolanga.mpesa4j:mpesa4j:0.1.1'
-    compile 'com.github.ochiengolanga.mpesa4j:mpesa4j-spring-boot:0.1.1'
+    compile 'com.github.ochiengolanga.mpesa4j:mpesa4j:0.1.2'
+    compile 'com.github.ochiengolanga.mpesa4j:mpesa4j-spring-boot:0.1.2'
 }
 ```
 
