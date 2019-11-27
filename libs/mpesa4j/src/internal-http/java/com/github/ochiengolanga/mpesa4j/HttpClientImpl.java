@@ -164,7 +164,8 @@ class HttpClientImpl extends HttpClientBase implements java.io.Serializable {
     if (method == ApiResource.RequestMethod.POST) {
       byte[] bytes = parameters[0].getValue().getBytes(StandardCharsets.UTF_8);
 
-      requestBuilder.header(MpesaApiConstants.CONTENT_TYPE_HEADER_NAME, MpesaApiConstants.CONTENT_TYPE_JSON);
+      requestBuilder.header(
+          MpesaApiConstants.CONTENT_TYPE_HEADER_NAME, MpesaApiConstants.CONTENT_TYPE_JSON);
       requestBuilder.POST(java.net.http.HttpRequest.BodyPublishers.ofByteArray(bytes));
     } else {
       requestBuilder.GET();

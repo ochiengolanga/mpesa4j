@@ -19,13 +19,9 @@ package com.github.ochiengolanga.mpesa4j.transaction.query;
 
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
-import com.github.ochiengolanga.mpesa4j.models.responses.BusinessTransactionQueryResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BusinessPaymentRequestQueryRequestTest {
 
@@ -33,18 +29,18 @@ class BusinessPaymentRequestQueryRequestTest {
   void init() {}
 
   // Service randomly becomes unavailable
-//    @Test
-//    void businessTransactionQueryTest() {
-//      Mpesa mpesa = new MpesaFactory().getInstance();
-//
-//      BusinessTransactionQueryResponse response =
-//          mpesa.queryBusinessTransaction("LGR019G3J2", "PaymentRequest query request", "");
-//
-//      assertNotNull(response.getConversationId());
-//      assertNotNull(response.getOriginatorConversationId());
-//      assertNotNull(response.getResponseDescription());
-//      assertTrue(response.getResponseCode().equalsIgnoreCase("0"));
-//    }
+  //    @Test
+  //    void businessTransactionQueryTest() {
+  //      Mpesa mpesa = new MpesaFactory().getInstance();
+  //
+  //      BusinessTransactionQueryResponse response =
+  //          mpesa.queryBusinessTransaction("LGR019G3J2", "PaymentRequest query request", "");
+  //
+  //      assertNotNull(response.getConversationId());
+  //      assertNotNull(response.getOriginatorConversationId());
+  //      assertNotNull(response.getResponseDescription());
+  //      assertTrue(response.getResponseCode().equalsIgnoreCase("0"));
+  //    }
 
   @Test
   void nullTransactionID_businessTransactionQueryTest() {

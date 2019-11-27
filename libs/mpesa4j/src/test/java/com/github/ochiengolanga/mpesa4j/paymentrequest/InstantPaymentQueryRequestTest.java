@@ -19,47 +19,40 @@ package com.github.ochiengolanga.mpesa4j.paymentrequest;
 
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
-import com.github.ochiengolanga.mpesa4j.models.responses.InstantPaymentQueryResponse;
-import com.github.ochiengolanga.mpesa4j.models.responses.InstantPaymentRequestResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.math.BigDecimal;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class InstantPaymentQueryRequestTest {
 
   @BeforeEach
   void init() {}
 
-//      @Test
-//      void paymentQueryTest() throws InterruptedException {
-//        Mpesa mpesa = new MpesaFactory().getInstance();
-//
-//        InstantPaymentRequestResponse paymentRequestResponse =
-//            mpesa.requestInstantPayment(
-//                "254724488116",
-//                new BigDecimal(10.00),
-//                "TESTMPESA4J4Query",
-//                "Instant payment query test from mpesa4j");
-//
-//        assertNotNull(paymentRequestResponse.getCheckoutRequestId());
-//
-//        Thread.sleep(10000L);
-//
-//        InstantPaymentQueryResponse response =
-//            mpesa.queryInstantPayment(paymentRequestResponse.getCheckoutRequestId());
-//
-//        assertNotNull(response.getMerchantRequestId());
-//        assertNotNull(response.getCheckoutRequestId());
-//        assertNotNull(response.getResponseDescription());
-//        assertNotNull(response.getResultCode());
-//        assertNotNull(response.getResultDescription());
-//        assertTrue(response.getResponseCode().equalsIgnoreCase("0"));
-//      }
+  //      @Test
+  //      void paymentQueryTest() throws InterruptedException {
+  //        Mpesa mpesa = new MpesaFactory().getInstance();
+  //
+  //        InstantPaymentRequestResponse paymentRequestResponse =
+  //            mpesa.requestInstantPayment(
+  //                "254724488116",
+  //                new BigDecimal(10.00),
+  //                "TESTMPESA4J4Query",
+  //                "Instant payment query test from mpesa4j");
+  //
+  //        assertNotNull(paymentRequestResponse.getCheckoutRequestId());
+  //
+  //        Thread.sleep(10000L);
+  //
+  //        InstantPaymentQueryResponse response =
+  //            mpesa.queryInstantPayment(paymentRequestResponse.getCheckoutRequestId());
+  //
+  //        assertNotNull(response.getMerchantRequestId());
+  //        assertNotNull(response.getCheckoutRequestId());
+  //        assertNotNull(response.getResponseDescription());
+  //        assertNotNull(response.getResultCode());
+  //        assertNotNull(response.getResultDescription());
+  //        assertTrue(response.getResponseCode().equalsIgnoreCase("0"));
+  //      }
 
   @Test
   void nullPaymentId_paymentQueryTest() {

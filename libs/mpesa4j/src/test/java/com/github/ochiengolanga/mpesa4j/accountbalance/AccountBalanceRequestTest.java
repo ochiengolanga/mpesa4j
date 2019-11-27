@@ -28,18 +28,19 @@ class AccountBalanceRequestTest {
   @BeforeEach
   void init() {}
 
-  // 27th November 2019 API error  Activity timed out Job-2097071 Error in [GenericWrapper/Business Processes/SubProcesses/AccountBalance.process/BrokerProxy]
-//  @Test
-//  void accountBalanceTest() {
-//    Mpesa mpesa = new MpesaFactory().getInstance();
-//
-//    AccountBalanceResponse response = mpesa.queryBalance("Account balance request");
-//
-//    assertNotNull(response.getConversationId());
-//    assertNotNull(response.getOriginatorConversationId());
-//    assertNotNull(response.getResponseDescription());
-//    assertTrue(response.getResponseCode().equalsIgnoreCase("0"));
-//  }
+  // 27th November 2019 API error  Activity timed out Job-2097071 Error in [GenericWrapper/Business
+  // Processes/SubProcesses/AccountBalance.process/BrokerProxy]
+  //  @Test
+  //  void accountBalanceTest() {
+  //    Mpesa mpesa = new MpesaFactory().getInstance();
+  //
+  //    AccountBalanceResponse response = mpesa.queryBalance("Account balance request");
+  //
+  //    assertNotNull(response.getConversationId());
+  //    assertNotNull(response.getOriginatorConversationId());
+  //    assertNotNull(response.getResponseDescription());
+  //    assertTrue(response.getResponseCode().equalsIgnoreCase("0"));
+  //  }
 
   @Test
   void nullDescription_accountBalanceTest() {
