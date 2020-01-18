@@ -4,13 +4,13 @@
 [![Coverage Status](https://coveralls.io/repos/github/ochiengolanga/mpesa4j/badge.svg?branch=master)](https://coveralls.io/github/ochiengolanga/mpesa4j?branch=master)
 [ ![Download](https://api.bintray.com/packages/ochiengolanga/mpesa4j/mpesa4j/images/download.svg) ](https://bintray.com/ochiengolanga/mpesa4j/mpesa4j/_latestVersion)
 
-Mpesa4j is a thread safe M-Pesa API aka "Daraja" client library based on Java 11. For more details, see details below with example on how to use the library.
+Mpesa4j is a thread safe M-Pesa API aka "Daraja" client library based on Java 11. For more details, see below with examples on how to use the library.
 
 > "The goal of library design is to give application developers ready-to-use tools that cover their most frequent use-cases and solve the most popular problems. If something is needed all the time by any kind of application, it should be simple and straightforward to code." --Roman Elizarov (JetBrains)
 
 ## Features at a glance
 
-Mpesa4j provides easy to use and straightforward APIs drawn from experience implementing clients over and over. Implemented Daraja features include:
+Mpesa4j provides easy to use and straightforward APIs drawn from experience implementing clients over and over again. Mpesa4j features include:
 
 | M-Pesa "Daraja" API        | Implemented |
 | ------------- |:-------------:|
@@ -27,7 +27,7 @@ Mpesa4j provides easy to use and straightforward APIs drawn from experience impl
 
 * Java 11 and above.
 
-## Installation
+## Vanilla Java Installation
 
 ### Maven
 
@@ -90,7 +90,7 @@ dependencies {
 }
 ```
 
-## Usage
+## Vanilla Java Usage
 
 ```java
 package sample;
@@ -132,11 +132,13 @@ public final class Mpesa4jSampleApplication {
 
 See the project's [functional tests](https://github.com/ochiengolanga/mpesa4j/tree/master/libs/mpesa4j/src/test/java/com/github/ochiengolanga/mpesa4j/) for more examples.
 
-### Configuration
+## Configuration
 
-Mpesa4j can read configuration properties from ConfigurationBuilder, environment variables, system properties and properties file named "mpesa4j.properties".
+Mpesa4j accepts configuration properties from ConfigurationBuilder, environment variables, system properties and properties file named "mpesa4j.properties".
 
-An example of configurable properties via file name "mpesa4j.properties":
+Examples of configurable properties:
+
+* Via properties file named "mpesa4j.properties":
 
 ```yaml
 MPESA4J_DEBUG=true
@@ -163,7 +165,7 @@ MPESA4J_TRANSACTION_REVERSAL_QUEUE_TIMEOUT_URL=https://example.com/callback
 MPESA4J_TRANSACTION_REVERSAL_RESULT_URL=https://example.com/callback
 ```
 
-via ConfigurationBuiler:
+* Via ConfigurationBuiler:
 
 ```java
 ConfigurationBuilder builder = new ConfigurationBuilder();
@@ -181,7 +183,7 @@ builder.setDebugEnabled(true)
 Mpesa mpesa = new MpesaFactory(builder.build()).getInstance();
 ```
 
-via System Properties:
+* Via System Properties:
 
 ```bash
 java -DMPESA4J_DEBUG=true
@@ -193,7 +195,7 @@ java -DMPESA4J_DEBUG=true
     -cp mpesa4j-0.1.2.jar:yourApp.jar yourpackage.Main
 ```
 
-via Environment variables:
+* Via Environment variables:
 
 ```bash
 export MPESA4J_DEBUG=true
@@ -204,11 +206,9 @@ export MPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL=https://example.com/callback
 ...
 ```
 
-### Spring Boot
+## Spring Boot Installation
 
-#### Dependencies
-
-Maven
+### Maven
 
 ```xml
 <dependency>
@@ -219,7 +219,7 @@ Maven
 </dependency>
 ```
 
-Gradle
+### Gradle
 
 ```groovy
 maven {
@@ -232,7 +232,7 @@ dependencies {
 }
 ```
 
-#### Usage
+#### Spring Boot Usage
 
 ```java
 package sample;
@@ -264,24 +264,37 @@ public class Mpesa4jSpringBootSampleApplication {
         SpringApplication.run(Mpesa4jSpringBootSampleApplication.class, args);
     }
 
+    /**
+    * Execute salary payment after application has started
+    *
+    * @param paymentService
+    */
     @Bean
     CommandLineRunner run(PaymentService paymentService) {
-        return args -> paymentService.paySalary();
+        return args -> paymentService.paySalary(
+            "254708374149",
+            new BigDecimal(100.00),
+            "Salary payment (JUL-AUG)"
+        );
     }
+}
+
+interface PaymentService {
+    void paySalary(String employeePhoneNumber, BigDecimal payableAmount, String comment);
 }
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
-class PaymentService {
+class PaymentServiceImpl implements PaymentService {
     private final Mpesa mpesa;
 
-    public void paySalary() {
-        log.info(mpesa.toString());
+    @override
+    public void paySalary(String employeePhoneNumber, BigDecimal payableAmount, String comment) {
         SalaryPaymentRequestResponse response = mpesa.paySalary(
-                "254708374149",
-                new BigDecimal(100.00),
-                "Salary payment (JUL-AUG)",
+                employeePhoneNumber,
+                payableAmount,
+                comment,
                 ""
         );
 
@@ -294,6 +307,8 @@ class PaymentService {
 ```
 
 #### Configuration
+
+Add the following properties to your Spring application.properties file
 
 ```yaml
 mpesa4j.debug=true

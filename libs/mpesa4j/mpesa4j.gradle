@@ -56,29 +56,31 @@ configurations.all {
 }
 
 ext {
-    caffeineVersion = '2.8.0'
-    errorProneCoreVersion = '2.3.3'
-    errorProneJavacVersion = '9+181-r4173-1'
-    guavaVersion = '28.0-jre'
-    gsonVersion = '2.8.5'
-    junitVersion = '5.5.2'
-    logbackVersion = '1.2.3'
-    slf4jVersion = '1.7.28'
-    vavrVersion = '0.10.2'
+    caffeineVersion         = '2.8.0'
+    errorProneCoreVersion   = '2.3.3'
+    errorProneJavacVersion  = '9+181-r4173-1'
+    guavaVersion            = '28.0-jre'
+    gsonVersion             = '2.8.5'
+    junitVersion            = '5.5.2'
+    logbackVersion          = '1.2.3'
+    micrometerVersion       = 'latest.release'
+    slf4jVersion            = '1.7.28'
+    vavrVersion             = '0.10.2'
 }
 
 dependencies {
-    implementation group: 'com.google.code.gson', name: 'gson', version: gsonVersion
-    implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
-    implementation group: 'io.vavr', name: 'vavr', version: vavrVersion
-    errorprone group: 'com.google.errorprone', name: 'error_prone_core', version: errorProneCoreVersion
-    errorproneJavac group: 'com.google.errorprone', name: 'javac', version: errorProneJavacVersion
-    implementation group: 'com.google.guava', name: 'guava', version: guavaVersion
-    implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: caffeineVersion
-    testRuntimeOnly group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
-    testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitVersion
+    implementation      group: 'com.google.code.gson', name: 'gson', version: gsonVersion
+    implementation      group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
+    implementation      group: 'io.micrometer', name: 'micrometer-core', version: micrometerVersion
+    implementation      group: 'io.vavr', name: 'vavr', version: vavrVersion
+    errorprone          group: 'com.google.errorprone', name: 'error_prone_core', version: errorProneCoreVersion
+    errorproneJavac     group: 'com.google.errorprone', name: 'javac', version: errorProneJavacVersion
+    implementation      group: 'com.google.guava', name: 'guava', version: guavaVersion
+    implementation      group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: caffeineVersion
+    testRuntimeOnly     group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
+    testImplementation  group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
+    testImplementation  group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
+    testRuntimeOnly     group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitVersion
 }
 
 test {
