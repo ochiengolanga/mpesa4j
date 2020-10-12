@@ -26,6 +26,7 @@ Mpesa4j provides easy to use and straightforward APIs drawn from experience impl
 ## Prerequisites
 
 * Java 11 and above.
+* Valid M-Pesa Daraja API credentials (https://developer.safaricom.co.ke/login-register)
 
 ## Usage
 
