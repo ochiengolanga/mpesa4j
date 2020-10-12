@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/ochiengolanga/mpesa4j/badge.svg?branch=master)](https://coveralls.io/github/ochiengolanga/mpesa4j?branch=master)
 [ ![Download](https://api.bintray.com/packages/ochiengolanga/mpesa4j/mpesa4j/images/download.svg) ](https://bintray.com/ochiengolanga/mpesa4j/mpesa4j/_latestVersion)
 
-Mpesa4j is a thread safe M-Pesa API aka "Daraja" client library based on Java 11. For more details, see details below with example on how to use the library.
+Mpesa4j is a thread safe M-Pesa API aka "Daraja" client library based on Java 11.
 
 > "The goal of library design is to give application developers ready-to-use tools that cover their most frequent use-cases and solve the most popular problems. If something is needed all the time by any kind of application, it should be simple and straightforward to code." --Roman Elizarov (JetBrains)
 
