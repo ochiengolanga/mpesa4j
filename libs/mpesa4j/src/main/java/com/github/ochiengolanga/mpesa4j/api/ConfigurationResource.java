@@ -25,9 +25,9 @@ public interface ConfigurationResource {
    * your paybill / till number. <br>
    * see https://developer.safaricom.co.ke/docs?java#b2c-api
    *
-   * @param defaultAction
-   * @param validationUrl
-   * @param confirmationUrl
+   * @param defaultAction of type {@link DefaultAction}
+   * @param validationUrl of type {@link String}
+   * @param confirmationUrl of type {@link String}
    * @return {@link CallbackUrlsRegistrationResponse}
    */
   CallbackUrlsRegistrationResponse registerCallbackUrls(

@@ -28,10 +28,10 @@ public interface PaymentRequestResource {
    * asks them to enter their PIN. <br>
    * https://developer.safaricom.co.ke/docs#lipa-na-m-pesa-online-payment
    *
-   * @param customerPhoneNumber
-   * @param payableAmount
-   * @param accountReference
-   * @param description
+   * @param customerPhoneNumber represents Customer Phone number
+   * @param payableAmount represents the amount payable
+   * @param accountReference represents an account reference
+   * @param description represents description
    * @return {@link InstantPaymentRequestResponse}
    */
   InstantPaymentRequestResponse requestInstantPayment(
@@ -44,7 +44,7 @@ public interface PaymentRequestResource {
    * Enables Business / Organization to query transactions initiated via STKPush. <br>
    * https://developer.safaricom.co.ke/docs#lipa-na-m-pesa-online-query-request
    *
-   * @param paymentId
+   * @param paymentId represents Payment Identifier
    * @return {@link InstantPaymentQueryResponse}
    */
   InstantPaymentQueryResponse queryInstantPayment(String paymentId);

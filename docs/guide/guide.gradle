@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 plugins {
-    id 'org.kordamp.gradle.guide'   version '0.27.0'
-    id 'org.ajoberstar.git-publish' version "2.1.1"
+    id 'org.kordamp.gradle.guide'   version '0.40.0'
+    id 'org.ajoberstar.git-publish' version "3.0.0"
 }
 
 configurations {
@@ -23,7 +23,7 @@ configurations {
 }
 
 dependencies {
-    asciidoctorExtensions 'com.bmuschko:asciidoctorj-tabbed-code-extension:0.2'
+    asciidoctorExtensions 'com.bmuschko:asciidoctorj-tabbed-code-extension:0.3'
 }
 
 guide {

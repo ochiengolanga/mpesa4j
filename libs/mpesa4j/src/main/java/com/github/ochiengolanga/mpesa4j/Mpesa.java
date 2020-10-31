@@ -27,24 +27,52 @@ public interface Mpesa
         TransactionReversalResource,
         TransferResource {
 
-  /** @return {@link AccountBalanceResource} */
+  /**
+   * AccountBalanceResource
+   *
+   * @return {@link AccountBalanceResource}
+   */
   AccountBalanceResource balances();
 
-  /** @return {@link ConfigurationResource} */
+  /**
+   * ConfigurationResource
+   *
+   * @return {@link ConfigurationResource}
+   */
   ConfigurationResource configurations();
 
-  /** @return {@link PaymentResource} */
+  /**
+   * PaymentResource
+   *
+   * @return {@link PaymentResource}
+   */
   PaymentResource payments();
 
-  /** @return {@link PaymentRequestResource} */
+  /**
+   * PaymentRequestResource
+   *
+   * @return {@link PaymentRequestResource}
+   */
   PaymentRequestResource paymentRequests();
 
-  /** @return {@link TransactionQueryResource} */
+  /**
+   * TransactionQueryResource
+   *
+   * @return {@link TransactionQueryResource}
+   */
   TransactionQueryResource transactionQueries();
 
-  /** @return {@link TransactionReversalResource} */
+  /**
+   * TransactionReversalResource
+   *
+   * @return {@link TransactionReversalResource}
+   */
   TransactionReversalResource transactionReversals();
 
-  /** @return {@link TransferResource} */
+  /**
+   * TransferResource
+   *
+   * @return {@link TransferResource}
+   */
   TransferResource transfers();
 }

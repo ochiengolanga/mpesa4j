@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 plugins {
-    id 'org.kordamp.gradle.project' version '0.27.0'
-    id 'org.kordamp.gradle.bintray' version '0.27.0'
+    id 'org.kordamp.gradle.project' version '0.40.0'
+    id 'org.kordamp.gradle.bintray' version '0.40.0'
 }
 
 ext {
@@ -72,12 +72,14 @@ config {
         }
     }
 
-    javadoc {
-        enabled = true
-    }
+    docs {
+        groovydoc {
+            enabled = false
+        }
 
-    groovydoc {
-        enabled = false
+        javadoc {
+            enabled = true
+        }
     }
 
     licensing {

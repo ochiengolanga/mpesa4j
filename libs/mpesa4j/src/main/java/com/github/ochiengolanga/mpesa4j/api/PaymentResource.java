@@ -28,10 +28,10 @@ public interface PaymentResource {
    * <br>
    * see https://developer.safaricom.co.ke/docs?java#b2c-api
    *
-   * @param destination
-   * @param payableAmount
-   * @param description
-   * @param occasion
+   * @param destination of type {@link String}
+   * @param payableAmount of type {@link BigDecimal}
+   * @param description of type {@link String}
+   * @param occasion of type {@link String}
    * @return {@link BusinessPaymentRequestResponse}
    */
   BusinessPaymentRequestResponse payBusiness(
@@ -44,10 +44,10 @@ public interface PaymentResource {
    * <br>
    * see https://developer.safaricom.co.ke/docs?java#b2c-api
    *
-   * @param destination
-   * @param payableAmount
-   * @param description
-   * @param occasion
+   * @param destination of type {@link String}
+   * @param payableAmount of type {@link BigDecimal}
+   * @param description of type {@link String}
+   * @param occasion of type {@link String}
    * @return {@link PromotionPaymentRequestResponse}
    */
   PromotionPaymentRequestResponse payPromotion(
@@ -60,10 +60,10 @@ public interface PaymentResource {
    * <br>
    * see https://developer.safaricom.co.ke/docs?java#b2c-api
    *
-   * @param destination
-   * @param payableAmount
-   * @param description
-   * @param occasion
+   * @param destination of type {@link String}
+   * @param payableAmount of type {@link BigDecimal}
+   * @param description of type {@link String}
+   * @param occasion of type {@link String}
    * @return {@link SalaryPaymentRequestResponse}
    */
   SalaryPaymentRequestResponse paySalary(

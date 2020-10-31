@@ -22,7 +22,7 @@ public interface AccountBalanceResource {
    * The Account Balance API requests for the account balance of a shortcode. <br>
    * see https://developer.safaricom.co.ke/docs#account-balance-api
    *
-   * @param description
+   * @param description of
    * @return {@link AccountBalanceResponse}
    */
   AccountBalanceResponse queryBalance(String description);

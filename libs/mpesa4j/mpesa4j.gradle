@@ -16,11 +16,11 @@
 plugins {
     id 'java'
     id 'maven'
-    id "com.diffplug.gradle.spotless" version "3.24.3"
-    id "io.franzbecker.gradle-lombok" version "3.2.0"
-    id "net.ltgt.errorprone" version "0.8.1"
-    id 'net.saliman.cobertura' version '2.6.1'
-    id 'com.github.kt3k.coveralls' version '2.8.4'
+    id "com.diffplug.spotless" version "5.7.0"
+    id "io.franzbecker.gradle-lombok" version "4.0.0"
+    id "net.ltgt.errorprone" version "1.3.0"
+    id 'net.saliman.cobertura' version '3.0.0'
+    id "com.github.kt3k.coveralls"
 }
 
 group = project.group
@@ -55,15 +55,15 @@ configurations.all {
 
 ext {
     caffeineVersion         = '2.8.0'
-    errorProneCoreVersion   = '2.3.3'
+    errorProneCoreVersion   = '2.4.0'
     errorProneJavacVersion  = '9+181-r4173-1'
     guavaVersion            = '28.0-jre'
-    gsonVersion             = '2.8.5'
+    gsonVersion             = '2.8.6'
     junitVersion            = '5.5.2'
     logbackVersion          = '1.2.3'
-    micrometerVersion       = 'latest.release'
-    slf4jVersion            = '1.7.28'
-    vavrVersion             = '0.10.2'
+    micrometerVersion       = '1.5.5'
+    slf4jVersion            = '1.7.30'
+    vavrVersion             = '0.10.3'
 }
 
 dependencies {
