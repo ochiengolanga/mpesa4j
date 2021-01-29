@@ -1,4 +1,4 @@
-# Mpesa4j - Unofficial M-Pesa java library
+# Mpesa4j - The unofficial M-Pesa java library
 
 [![CircleCI](https://circleci.com/gh/ochiengolanga/mpesa4j/tree/master.svg?style=svg)](https://circleci.com/gh/ochiengolanga/mpesa4j/tree/master)
 [![Coverage Status](https://coveralls.io/repos/github/ochiengolanga/mpesa4j/badge.svg?branch=master)](https://coveralls.io/github/ochiengolanga/mpesa4j?branch=master)
