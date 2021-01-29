@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 Daniel Ochieng' Olanga.
+ * Copyright 2019-2021 Daniel Ochieng' Olanga.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package com.github.ochiengolanga.mpesa4j.models.enums;
 import lombok.Getter;
 
 /**
- * Identifier types - both sender and receiver - identify an M-Pesa transaction’s sending and
+ * Identifier types - both sender and receiver - identify an M-Pesa transaction???s sending and
  * receiving party as either a shortcode, a till number or a MSISDN (phone number). There are three
  * identifier types that can be used with M-Pesa APIs. <br>
  * https://developer.safaricom.co.ke/docs#identifier-types
