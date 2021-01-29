@@ -34,3 +34,4 @@ libs/mpesa4j/.settings/
 **/.classpath
 **/.project
 **/.settings/
+.circleci/
