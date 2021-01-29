@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 plugins {
-    id 'maven-publish' apply false
+    id 'maven-publish'
     id 'org.kordamp.gradle.project' version '0.40.0'
     id 'org.kordamp.gradle.bintray' version '0.40.0'
 }
@@ -126,11 +126,6 @@ subprojects {
                         username = project.githubUsername
                         password = project.githubPassword
                     }
-                }
-            }
-            publications {
-                gpr(MavenPublication) {
-                    from(components.java)
                 }
             }
         }
