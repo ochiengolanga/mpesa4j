@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  test_build_and_publish:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -49,6 +49,29 @@ jobs:
       # Run tests
       - name: Run tests
         run: ./gradlew test
+        env:
+          MPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL: ${{ secrets.MPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL }}
+          MPESA4J_ACCOUNT_BALANCE_RESULT_URL: ${{ secrets.MPESA4J_ACCOUNT_BALANCE_RESULT_URL }}
+          MPESA4J_B2B_BALANCE_RESULT_URL: ${{ secrets.MPESA4J_B2B_BALANCE_RESULT_URL }}
+          MPESA4J_B2B_QUEUE_TIMEOUT_URL: ${{ secrets.MPESA4J_B2B_QUEUE_TIMEOUT_URL }}
+          MPESA4J_B2C_BALANCE_RESULT_URL: ${{ secrets.MPESA4J_B2C_BALANCE_RESULT_URL }}
+          MPESA4J_B2C_QUEUE_TIMEOUT_URL: ${{ secrets.MPESA4J_B2C_QUEUE_TIMEOUT_URL }}
+          MPESA4J_CONSUMER_KEY: ${{ secrets.MPESA4J_CONSUMER_KEY }}
+          MPESA4J_CONSUMER_SECRET: ${{ secrets.MPESA4J_CONSUMER_SECRET }}
+          MPESA4J_DEBUG: ${{ secrets.MPESA4J_DEBUG }}
+          MPESA4J_HTTP_CONNECTION_TIMEOUT: ${{ secrets.MPESA4J_HTTP_CONNECTION_TIMEOUT }}
+          MPESA4J_HTTP_READ_TIMEOUT: ${{ secrets.MPESA4J_HTTP_READ_TIMEOUT }}
+          MPESA4J_INITIATOR_NAME: ${{ secrets.MPESA4J_INITIATOR_NAME }}
+          MPESA4J_INITIATOR_SECURITY_CREDENTIAL: ${{ secrets.MPESA4J_INITIATOR_SECURITY_CREDENTIAL }}
+          MPESA4J_INITIATOR_SHORTCODE: ${{ secrets.MPESA4J_INITIATOR_SHORTCODE }}
+          MPESA4J_LIPA_NA_MPESA_CALLBACK_URL: ${{ secrets.MPESA4J_LIPA_NA_MPESA_CALLBACK_URL }}
+          MPESA4J_LIPA_NA_MPESA_PASSKEY: ${{ secrets.MPESA4J_LIPA_NA_MPESA_PASSKEY }}
+          MPESA4J_LIPA_NA_MPESA_SHORTCODE: ${{ secrets.MPESA4J_LIPA_NA_MPESA_SHORTCODE }}
+          MPESA4J_SANDBOX_ENABLED: ${{ secrets.MPESA4J_SANDBOX_ENABLED }}
+          MPESA4J_TRANSACTION_QUERY_QUEUE_TIMEOUT_URL: ${{ secrets.MPESA4J_TRANSACTION_QUERY_QUEUE_TIMEOUT_URL }}
+          MPESA4J_TRANSACTION_QUERY_RESULT_URL: ${{ secrets.MPESA4J_TRANSACTION_QUERY_RESULT_URL }}
+          MPESA4J_TRANSACTION_REVERSAL_QUEUE_TIMEOUT_URL: ${{ secrets.MPESA4J_TRANSACTION_REVERSAL_QUEUE_TIMEOUT_URL }}
+          MPESA4J_TRANSACTION_REVERSAL_RESULT_URL: ${{ secrets.MPESA4J_TRANSACTION_REVERSAL_RESULT_URL }}
 
       # Build with gradlew
       - name: Build with gradlew
