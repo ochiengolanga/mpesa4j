@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 plugins {
+    id 'maven-publish' apply false
     id 'org.kordamp.gradle.project' version '0.40.0'
     id 'org.kordamp.gradle.bintray' version '0.40.0'
 }
@@ -21,6 +22,8 @@ plugins {
 ext {
     bintrayUsername = project.hasProperty('bintrayUsername') ? project.property('bintrayUsername') : System.getenv('BINTRAY_USERNAME')
     bintrayApiKey   = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_APIKEY')
+    githubUsername  = project.hasProperty('githubUsername') ? project.property('githubUsername') : System.getenv('GITHUB_USERNAME')
+    githubPassword  = project.hasProperty('githubToken') ? project.property('githubToken') : System.getenv('GITHUB_TOKEN')
     skipMavenSync   = project.hasProperty('skipMavenSync') ? project.property('skipMavenSync') : System.getenv('MAVEN_SYNC_ENABLED')
     sonatypeUsername = project.hasProperty('sonatypeUsername') ? project.property('sonatypeUsername') : System.getenv('SONATYPE_USERNAME')
     sonatypePassword = project.hasProperty('sonatypePassword') ? project.property('sonatypePassword') : System.getenv('SONATYPE_PASSWORD')
@@ -113,6 +116,24 @@ allprojects {
 
 subprojects {
     if (project.name.startsWith('mpesa4j')) {
+        apply plugin: "maven-publish"
+        publishing {
+            repositories {
+                maven {
+                    name = "GitHubPackages"
+                    url = uri("https://maven.pkg.github.com/ochiengolanga/mpesa4j")
+                    credentials {
+                        username = project.githubUsername
+                        password = project.githubPassword
+                    }
+                }
+            }
+            publications {
+                gpr(MavenPublication) {
+                    from(components.java)
+                }
+            }
+        }
         
         config {
             bintray {
