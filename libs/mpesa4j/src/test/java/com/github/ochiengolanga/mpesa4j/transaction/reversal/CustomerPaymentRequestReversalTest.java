@@ -21,6 +21,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
 import com.github.ochiengolanga.mpesa4j.models.responses.CustomerTransactionReversalResponse;
+import com.github.ochiengolanga.mpesa4j.models.types.Description;
+import com.github.ochiengolanga.mpesa4j.models.types.Occasion;
+import com.github.ochiengolanga.mpesa4j.models.types.TransactionAmount;
+import com.github.ochiengolanga.mpesa4j.models.types.TransactionId;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,10 +42,10 @@ class CustomerPaymentRequestReversalTest {
     CustomerTransactionReversalResponse response =
         mpesa.reverseCustomerTransaction(
             "254708374149",
-            "LGR019G3J2",
-            new BigDecimal(10.00),
-            "PaymentRequest reversal request",
-            "");
+            TransactionId.of("LGR019G3J2"),
+            TransactionAmount.of(new BigDecimal("100.00")),
+            Description.of("PaymentRequest reversal request"),
+            Occasion.none());
 
     assertNotNull(response.getConversationId());
     assertNotNull(response.getOriginatorConversationId());
@@ -57,7 +61,11 @@ class CustomerPaymentRequestReversalTest {
         IllegalArgumentException.class,
         () ->
             mpesa.reverseCustomerTransaction(
-                null, "LGR019G3J2", new BigDecimal(10.00), "PaymentRequest reversal request", ""));
+                null,
+                TransactionId.of("LGR019G3J2"),
+                TransactionAmount.of(new BigDecimal("100.00")),
+                Description.of("PaymentRequest reversal request"),
+                Occasion.none()));
   }
 
   @Test
@@ -68,7 +76,11 @@ class CustomerPaymentRequestReversalTest {
         IllegalArgumentException.class,
         () ->
             mpesa.reverseCustomerTransaction(
-                "", "LGR019G3J2", new BigDecimal(10.00), "PaymentRequest reversal request", ""));
+                "",
+                TransactionId.of("LGR019G3J2"),
+                TransactionAmount.of(new BigDecimal("100.00")),
+                Description.of("PaymentRequest reversal request"),
+                Occasion.none()));
   }
 
   @Test
@@ -81,9 +93,9 @@ class CustomerPaymentRequestReversalTest {
             mpesa.reverseCustomerTransaction(
                 "254708374149",
                 null,
-                new BigDecimal(10.00),
-                "PaymentRequest reversal request",
-                ""));
+                TransactionAmount.of(new BigDecimal("100.00")),
+                Description.of("PaymentRequest reversal request"),
+                Occasion.none()));
   }
 
   @Test
@@ -94,7 +106,11 @@ class CustomerPaymentRequestReversalTest {
         IllegalArgumentException.class,
         () ->
             mpesa.reverseCustomerTransaction(
-                "254708374149", "", new BigDecimal(10.00), "PaymentRequest reversal request", ""));
+                "254708374149",
+                TransactionId.of(""),
+                TransactionAmount.of(new BigDecimal("100.00")),
+                Description.of("PaymentRequest reversal request"),
+                Occasion.none()));
   }
 
   @Test
@@ -106,10 +122,10 @@ class CustomerPaymentRequestReversalTest {
         () ->
             mpesa.reverseCustomerTransaction(
                 "254708374149",
-                "LGR019G3J2",
-                new BigDecimal(0.00),
-                "PaymentRequest reversal request",
-                ""));
+                TransactionId.of("LGR019G3J2"),
+                TransactionAmount.of(new BigDecimal("0.00")),
+                Description.of("PaymentRequest reversal request"),
+                Occasion.none()));
   }
 
   @Test
@@ -121,10 +137,10 @@ class CustomerPaymentRequestReversalTest {
         () ->
             mpesa.reverseCustomerTransaction(
                 "254708374149",
-                "LGR019G3J2",
-                new BigDecimal(-10.00),
-                "PaymentRequest reversal request",
-                ""));
+                TransactionId.of("LGR019G3J2"),
+                TransactionAmount.of(new BigDecimal("-10.00")),
+                Description.of("PaymentRequest reversal request"),
+                Occasion.none()));
   }
 
   @Test
@@ -135,7 +151,11 @@ class CustomerPaymentRequestReversalTest {
         IllegalArgumentException.class,
         () ->
             mpesa.reverseCustomerTransaction(
-                "254708374149", "LGR019G3J2", null, "PaymentRequest reversal request", ""));
+                "254708374149",
+                TransactionId.of("LGR019G3J2"),
+                null,
+                Description.of("PaymentRequest reversal request"),
+                Occasion.none()));
   }
 
   @Test
@@ -146,7 +166,11 @@ class CustomerPaymentRequestReversalTest {
         IllegalArgumentException.class,
         () ->
             mpesa.reverseCustomerTransaction(
-                "254708374149", "LGR019G3J2", new BigDecimal(10.00), null, ""));
+                "254708374149",
+                TransactionId.of("LGR019G3J2"),
+                TransactionAmount.of(new BigDecimal("100.00")),
+                null,
+                Occasion.none()));
   }
 
   @Test
@@ -157,7 +181,11 @@ class CustomerPaymentRequestReversalTest {
         IllegalArgumentException.class,
         () ->
             mpesa.reverseCustomerTransaction(
-                "254708374149", "LGR019G3J2", new BigDecimal(10.00), "", ""));
+                "254708374149",
+                TransactionId.of("LGR019G3J2"),
+                TransactionAmount.of(new BigDecimal("100.00")),
+                Description.of(""),
+                Occasion.none()));
   }
 
   @Test
@@ -166,9 +194,9 @@ class CustomerPaymentRequestReversalTest {
 
     mpesa.reverseCustomerTransaction(
         "254708374149",
-        "LGR019G3J2",
-        new BigDecimal(10.00),
-        "PaymentRequest reversal request",
+        TransactionId.of("LGR019G3J2"),
+        TransactionAmount.of(new BigDecimal("100.00")),
+        Description.of("PaymentRequest reversal request"),
         null);
   }
 }

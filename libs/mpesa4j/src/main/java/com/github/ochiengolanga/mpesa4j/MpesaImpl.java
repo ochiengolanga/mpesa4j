@@ -15,6 +15,9 @@
  */
 package com.github.ochiengolanga.mpesa4j;
 
+import static com.github.ochiengolanga.mpesa4j.util.Preconditions.checkEmptyString;
+import static com.github.ochiengolanga.mpesa4j.util.Preconditions.checkNotNull;
+
 import com.github.ochiengolanga.mpesa4j.api.*;
 import com.github.ochiengolanga.mpesa4j.auth.Authorization;
 import com.github.ochiengolanga.mpesa4j.config.Configuration;
@@ -24,10 +27,10 @@ import com.github.ochiengolanga.mpesa4j.models.enums.DefaultAction;
 import com.github.ochiengolanga.mpesa4j.models.enums.IdentifierType;
 import com.github.ochiengolanga.mpesa4j.models.requests.*;
 import com.github.ochiengolanga.mpesa4j.models.responses.*;
+import com.github.ochiengolanga.mpesa4j.models.types.*;
 import com.github.ochiengolanga.mpesa4j.util.GenerationUtils;
-import com.github.ochiengolanga.mpesa4j.util.Preconditions;
 import io.vavr.control.Try;
-import java.math.BigDecimal;
+import lombok.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,16 +50,17 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
 
   @Override
   public InstantPaymentRequestResponse requestInstantPayment(
-      String customerPhoneNumber,
-      BigDecimal payableAmount,
-      String accountReference,
-      String description) {
+      @NonNull String customerPhoneNumber,
+      @NonNull TransactionAmount payableAmount,
+      @NonNull AccountReference accountReference,
+      Description description) {
+
     checkInstantPayPreconditions(conf.getLipaNaMpesaShortCode(), conf.getLipaNaMpesaPasskey());
 
-    Preconditions.checkNotNull(
-        conf.getLipaNaMpesaCallbackUrl(), "LipaNaMpesa callback URL missing");
-    Preconditions.checkEmptyString(
-        conf.getLipaNaMpesaCallbackUrl(), "LipaNaMpesa callback URL missing");
+    checkNotNull(conf.getLipaNaMpesaCallbackUrl(), "LipaNaMpesa callback URL missing");
+    checkEmptyString(conf.getLipaNaMpesaCallbackUrl(), "LipaNaMpesa callback URL missing");
+    checkNotNull(accountReference, "Account reference is missing");
+    checkNotNull(description, "Description is missing.");
 
     return Try.of(
             () ->
@@ -81,8 +85,9 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
   }
 
   @Override
-  public InstantPaymentQueryResponse queryInstantPayment(String paymentId) {
+  public InstantPaymentQueryResponse queryInstantPayment(PaymentId paymentId) {
     checkInstantPayPreconditions(conf.getLipaNaMpesaShortCode(), conf.getLipaNaMpesaPasskey());
+    checkNotNull(paymentId, "Payment Id missing");
 
     return Try.of(
             () ->
@@ -103,17 +108,21 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
 
   @Override
   public BusinessPaymentRequestResponse payBusiness(
-      String destination, BigDecimal payableAmount, String description, String occasion) {
+      @NonNull PhoneNumber payee,
+      @NonNull TransactionAmount payableAmount,
+      @NonNull Description description,
+      Occasion occasion) {
+
     checkInitiatorPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
         conf.getInitiatorSecurityCredential());
 
-    Preconditions.checkNotNull(conf.getPayBusinessQueueTimeoutUrl(), "Queue timeout url missing");
-    Preconditions.checkEmptyString(
-        conf.getPayBusinessQueueTimeoutUrl(), "Queue timeout url missing");
-    Preconditions.checkNotNull(conf.getPayBusinessResultUrl(), "Result url missing");
-    Preconditions.checkEmptyString(conf.getPayBusinessResultUrl(), "Result url missing");
+    checkNotNull(conf.getPayBusinessQueueTimeoutUrl(), "Queue timeout url missing");
+    checkEmptyString(conf.getPayBusinessQueueTimeoutUrl(), "Queue timeout url missing");
+    checkNotNull(conf.getPayBusinessResultUrl(), "Result url missing");
+    checkEmptyString(conf.getPayBusinessResultUrl(), "Result url missing");
+    checkNotNull(description, "Description is missing");
 
     return Try.of(
             () ->
@@ -121,7 +130,7 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
                     conf.getInitiatorShortCode(),
                     conf.getInitiatorName(),
                     conf.getInitiatorSecurityCredential(),
-                    destination,
+                    payee,
                     payableAmount,
                     description,
                     occasion,
@@ -140,17 +149,20 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
 
   @Override
   public PromotionPaymentRequestResponse payPromotion(
-      String destination, BigDecimal payableAmount, String description, String occasion) {
+      @NonNull PhoneNumber payee,
+      @NonNull TransactionAmount payableAmount,
+      @NonNull Description description,
+      Occasion occasion) {
     checkInitiatorPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
         conf.getInitiatorSecurityCredential());
 
-    Preconditions.checkNotNull(conf.getPayPromotionQueueTimeoutUrl(), "Queue timeout url missing");
-    Preconditions.checkEmptyString(
-        conf.getPayPromotionQueueTimeoutUrl(), "Queue timeout url missing");
-    Preconditions.checkNotNull(conf.getPayPromotionResultUrl(), "Result url missing");
-    Preconditions.checkEmptyString(conf.getPayPromotionResultUrl(), "Result url missing");
+    checkNotNull(conf.getPayPromotionQueueTimeoutUrl(), "Queue timeout url missing");
+    checkEmptyString(conf.getPayPromotionQueueTimeoutUrl(), "Queue timeout url missing");
+    checkNotNull(conf.getPayPromotionResultUrl(), "Result url missing");
+    checkEmptyString(conf.getPayPromotionResultUrl(), "Result url missing");
+    checkNotNull(description, "Description is missing");
 
     return Try.of(
             () ->
@@ -158,7 +170,7 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
                     conf.getInitiatorShortCode(),
                     conf.getInitiatorName(),
                     conf.getInitiatorSecurityCredential(),
-                    destination,
+                    payee,
                     payableAmount,
                     description,
                     occasion,
@@ -177,16 +189,20 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
 
   @Override
   public SalaryPaymentRequestResponse paySalary(
-      String destination, BigDecimal payableAmount, String description, String occasion) {
+      @NonNull PhoneNumber payee,
+      @NonNull TransactionAmount payableAmount,
+      @NonNull Description description,
+      Occasion occasion) {
     checkInitiatorPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
         conf.getInitiatorSecurityCredential());
 
-    Preconditions.checkNotNull(conf.getPaySalaryQueueTimeoutUrl(), "Queue timeout url missing");
-    Preconditions.checkEmptyString(conf.getPaySalaryQueueTimeoutUrl(), "Queue timeout url missing");
-    Preconditions.checkNotNull(conf.getPaySalaryResultUrl(), "Result url missing");
-    Preconditions.checkEmptyString(conf.getPaySalaryResultUrl(), "Result url missing");
+    checkNotNull(conf.getPaySalaryQueueTimeoutUrl(), "Queue timeout url missing");
+    checkEmptyString(conf.getPaySalaryQueueTimeoutUrl(), "Queue timeout url missing");
+    checkNotNull(conf.getPaySalaryResultUrl(), "Result url missing");
+    checkEmptyString(conf.getPaySalaryResultUrl(), "Result url missing");
+    checkNotNull(description, "Description is missing");
 
     return Try.of(
             () ->
@@ -194,7 +210,7 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
                     conf.getInitiatorShortCode(),
                     conf.getInitiatorName(),
                     conf.getInitiatorSecurityCredential(),
-                    destination,
+                    payee,
                     payableAmount,
                     description,
                     occasion,
@@ -213,13 +229,15 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
 
   @Override
   public BusinessTransactionQueryResponse queryBusinessTransaction(
-      String transactionID, String description, String occasion) {
+      TransactionId transactionID, Description description, Occasion occasion) {
     checkTransactionQueryPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
         conf.getInitiatorSecurityCredential(),
         conf.getTransactionQueryQueueTimeoutUrl(),
         conf.getTransactionQueryResultUrl());
+    checkNotNull(transactionID, "Transaction ID is missing");
+    checkNotNull(description, "Description is missing.");
 
     return Try.of(
             () ->
@@ -245,13 +263,18 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
 
   @Override
   public CustomerTransactionQueryResponse queryCustomerTransaction(
-      String customerPhoneNumber, String transactionID, String description, String occasion) {
+      String customerPhoneNumber,
+      TransactionId transactionID,
+      Description description,
+      Occasion occasion) {
     checkTransactionQueryPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
         conf.getInitiatorSecurityCredential(),
         conf.getTransactionQueryQueueTimeoutUrl(),
         conf.getTransactionQueryResultUrl());
+    checkNotNull(description, "Description is missing.");
+    checkNotNull(transactionID, "Transaction ID is missing");
 
     return Try.of(
             () ->
@@ -277,7 +300,7 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
 
   @Override
   public CallbackUrlsRegistrationResponse registerCallbackUrls(
-      DefaultAction defaultAction, String validationUrl, String confirmationUrl) {
+      DefaultAction defaultAction, ValidationUrl validationUrl, ConfirmationUrl confirmationUrl) {
     checkInitiatorPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
@@ -299,13 +322,17 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
 
   @Override
   public BusinessTransactionReversalResponse reverseBusinessTransaction(
-      String transactionId, BigDecimal amount, String description, String occasion) {
+      TransactionId transactionId,
+      TransactionAmount amount,
+      Description description,
+      Occasion occasion) {
     checkReverseTransactionPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
         conf.getInitiatorSecurityCredential(),
         conf.getTransactionReversalQueueTimeoutUrl(),
         conf.getTransactionReversalResultUrl());
+    checkNotNull(transactionId, "Transaction ID is missing");
 
     return Try.of(
             () ->
@@ -333,16 +360,18 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
   @Override
   public CustomerTransactionReversalResponse reverseCustomerTransaction(
       String customerPhoneNumber,
-      String transactionId,
-      BigDecimal amount,
-      String description,
-      String occasion) {
+      TransactionId transactionId,
+      TransactionAmount amount,
+      Description description,
+      Occasion occasion) {
     checkReverseTransactionPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
         conf.getInitiatorSecurityCredential(),
         conf.getTransactionReversalQueueTimeoutUrl(),
         conf.getTransactionReversalResultUrl());
+    checkNotNull(description, "Transaction ID is missing");
+    checkNotNull(transactionId, "Transaction ID is missing");
 
     return Try.of(
             () ->
@@ -368,20 +397,19 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
   }
 
   @Override
-  public AccountBalanceResponse queryBalance(String description) {
+  public AccountBalanceResponse queryBalance(Description description) {
     checkInitiatorPreconditions(
         conf.getInitiatorName(),
         conf.getInitiatorShortCode(),
         conf.getInitiatorSecurityCredential());
 
-    Preconditions.checkNotNull(
+    checkNotNull(
         conf.getAccountBalanceQueueTimeoutUrl(), "Account balance queue timeout url missing");
-    Preconditions.checkEmptyString(
+    checkEmptyString(
         conf.getAccountBalanceQueueTimeoutUrl(), "Account balance queue timeout url missing");
-    Preconditions.checkNotNull(
-        conf.getAccountBalanceResultUrl(), "Account balance result url missing");
-    Preconditions.checkEmptyString(
-        conf.getAccountBalanceResultUrl(), "Account balance result url missing");
+    checkNotNull(conf.getAccountBalanceResultUrl(), "Account balance result url missing");
+    checkEmptyString(conf.getAccountBalanceResultUrl(), "Account balance result url missing");
+    checkNotNull(description, "Description is missing.");
 
     return Try.of(
             () ->
@@ -442,11 +470,10 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
       String initiatorName,
       String initiatorShortCode,
       String initiatorSecurityCredential,
-      String description,
+      Description description,
       String queueTimeoutUrl,
       String resultUrl) {
-    Preconditions.checkNotNull(description, "Description missing");
-    Preconditions.checkEmptyString(description, "Description missing");
+    checkNotNull(description, "Description missing");
 
     return AccountBalanceRequest.builder()
         .initiatorName(initiatorName)
@@ -454,75 +481,74 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
         .credentials(initiatorSecurityCredential)
         .transactionType(CommandID.ACCOUNT_BALANCE.getCommandId())
         .identifierType(IdentifierType.SHORTCODE.getIdentifierType())
-        .description(description)
+        .description(description.getValue())
         .queueTimeoutUrl(queueTimeoutUrl)
         .resultUrl(resultUrl)
         .build();
   }
 
   private static CallbackUrlRegistrationRequest createCallbackUrlRegistrationRequest(
-      String shortCode, DefaultAction defaultAction, String validationUrl, String confirmationUrl) {
+      String shortCode,
+      DefaultAction defaultAction,
+      ValidationUrl validationUrl,
+      ConfirmationUrl confirmationUrl) {
 
-    Preconditions.checkNotNull(defaultAction, "Default action missing");
-    Preconditions.checkNotNull(validationUrl, "Validation Url missing");
-    Preconditions.checkEmptyString(validationUrl, "Validation Url missing");
-    Preconditions.checkNotNull(confirmationUrl, "Confirmation Url missing");
-    Preconditions.checkEmptyString(confirmationUrl, "Confirmation Url missing");
+    checkNotNull(defaultAction, "Default action missing");
+    checkNotNull(validationUrl, "Validation Url missing");
+    checkNotNull(confirmationUrl, "Confirmation Url missing");
 
     return CallbackUrlRegistrationRequest.builder()
         .shortCode(shortCode)
         .callbackType(defaultAction.getDefaultAction())
-        .validationUrl(validationUrl)
-        .confirmationUrl(confirmationUrl)
+        .validationUrl(validationUrl.getValue())
+        .confirmationUrl(confirmationUrl.getValue())
         .build();
   }
 
   private static InstantPaymentQueryRequest createPaymentQueryRequest(
-      String shortCode, String passkey, String paymentId) {
-    Preconditions.checkNotNull(paymentId, "PaymentID missing");
-    Preconditions.checkEmptyString(paymentId, "PaymentID missing");
+      LipaNaMpesaShortCode shortCode, LipaNaMpesaPasskey passkey, PaymentId paymentId) {
+    checkNotNull(paymentId, "PaymentID missing");
+    checkNotNull(paymentId, "PaymentID missing");
 
     String timestamp = GenerationUtils.generateTimestamp();
 
     return InstantPaymentQueryRequest.builder()
-        .businessShortCode(shortCode)
+        .businessShortCode(shortCode.getValue())
         .password(GenerationUtils.generatePassword(shortCode, passkey, timestamp))
         .timestamp(timestamp)
-        .paymentId(paymentId)
+        .paymentId(paymentId.getValue())
         .build();
   }
 
   private static InstantPaymentRequest createInstantPaymentRequest(
-      String shortCode,
-      String passkey,
+      LipaNaMpesaShortCode shortCode,
+      LipaNaMpesaPasskey passkey,
       String customerPhoneNumber,
-      BigDecimal payableAmount,
-      String accountReference,
-      String description,
+      TransactionAmount payableAmount,
+      AccountReference accountReference,
+      Description description,
       String callbackUrl) {
-    Preconditions.checkNotNull(customerPhoneNumber, "Customer phone number missing");
-    Preconditions.checkEmptyString(customerPhoneNumber, "Customer phone number missing");
-    Preconditions.checkNotNull(accountReference, "Account reference missing");
-    Preconditions.checkEmptyString(accountReference, "Account reference missing");
-    Preconditions.checkNotNull(description, "Description missing");
-    Preconditions.checkEmptyString(description, "Description missing");
-    Preconditions.checkNotNull(payableAmount, "Payable amount missing");
-    Preconditions.checkPositiveNumber(payableAmount, "Invalid payable amount");
+    checkNotNull(customerPhoneNumber, "Customer phone number missing");
+    checkEmptyString(customerPhoneNumber, "Customer phone number missing");
+    checkNotNull(accountReference, "Account reference missing");
+    checkNotNull(accountReference, "Account reference missing");
+    checkNotNull(description, "Description missing");
+    checkNotNull(payableAmount, "Payable amount missing");
 
     String timestamp = GenerationUtils.generateTimestamp();
 
     return InstantPaymentRequest.builder()
-        .businessShortCode(shortCode)
+        .businessShortCode(shortCode.getValue())
         .password(GenerationUtils.generatePassword(shortCode, passkey, timestamp))
         .timestamp(timestamp)
         .transactionType(CommandID.CUSTOMER_PAY_BILL_ONLINE.getCommandId())
-        .amount(payableAmount.toString())
+        .amount(payableAmount.getValue().toString())
         .customerPhoneNumber(customerPhoneNumber)
-        .initiatorShortCode(shortCode)
+        .initiatorShortCode(shortCode.getValue())
         .phoneNumber(customerPhoneNumber)
         .callbackUrl(callbackUrl)
-        .accountReference(accountReference)
-        .transactionDescription(description)
+        .accountReference(accountReference.getValue())
+        .transactionDescription(description.getValue())
         .build();
   }
 
@@ -530,10 +556,10 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
       String initiatorShortCode,
       String initiatorName,
       String initiatorSecurityCredential,
-      String destination,
-      BigDecimal payableAmount,
-      String description,
-      String occasion,
+      PhoneNumber payee,
+      TransactionAmount payableAmount,
+      Description description,
+      Occasion occasion,
       String queueTimeoutUrl,
       String resultUrl) {
     return createPaymentRequest(
@@ -541,7 +567,7 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
         initiatorShortCode,
         initiatorName,
         initiatorSecurityCredential,
-        destination,
+        payee,
         payableAmount,
         description,
         occasion,
@@ -553,10 +579,10 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
       String initiatorShortCode,
       String initiatorName,
       String initiatorSecurityCredential,
-      String destination,
-      BigDecimal payableAmount,
-      String description,
-      String occasion,
+      PhoneNumber payee,
+      TransactionAmount payableAmount,
+      Description description,
+      Occasion occasion,
       String queueTimeoutUrl,
       String resultUrl) {
     return createPaymentRequest(
@@ -564,7 +590,7 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
         initiatorShortCode,
         initiatorName,
         initiatorSecurityCredential,
-        destination,
+        payee,
         payableAmount,
         description,
         occasion,
@@ -576,10 +602,10 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
       String initiatorShortCode,
       String initiatorName,
       String initiatorSecurityCredential,
-      String destination,
-      BigDecimal payableAmount,
-      String description,
-      String occasion,
+      PhoneNumber payee,
+      TransactionAmount payableAmount,
+      Description description,
+      Occasion occasion,
       String queueTimeoutUrl,
       String resultUrl) {
     return createPaymentRequest(
@@ -587,7 +613,7 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
         initiatorShortCode,
         initiatorName,
         initiatorSecurityCredential,
-        destination,
+        payee,
         payableAmount,
         description,
         occasion,
@@ -600,32 +626,33 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
       String initiatorShortCode,
       String initiatorName,
       String initiatorSecurityCredential,
-      String destination,
-      BigDecimal amount,
-      String description,
-      String occasion,
+      PhoneNumber payee,
+      TransactionAmount amount,
+      Description description,
+      Occasion occasion,
       String queueTimeoutUrl,
       String resultUrl) {
-    Preconditions.checkNotNull(destination, "Customer phone number missing");
-    Preconditions.checkEmptyString(destination, "Customer phone number missing");
-    Preconditions.checkNotNull(description, "Description missing");
-    Preconditions.checkEmptyString(description, "Description missing");
-    Preconditions.checkNotNull(amount, "Payable amount missing");
-    Preconditions.checkPositiveNumber(amount, "Invalid payable amount");
+    checkNotNull(payee, "Customer phone number missing");
+    checkEmptyString(payee.getValue(), "Customer phone number missing");
+    checkNotNull(description, "Description missing");
+    checkNotNull(amount, "Payable amount missing");
 
-    if (occasion == null) occasion = "";
+    String requestOccasion = "";
+    if (occasion != null) {
+      requestOccasion = occasion.getValue();
+    }
 
     return PaymentRequest.builder()
         .initiatorName(initiatorName)
         .credentials(initiatorSecurityCredential)
         .transactionType(transactionType.getCommandId())
-        .amount(amount.toString())
+        .amount(amount.getValue().toString())
         .initiatorShortCode(initiatorShortCode)
-        .destination(destination)
-        .description(description)
+        .payee(payee.getValue())
+        .description(description.getValue())
         .queueTimeoutUrl(queueTimeoutUrl)
         .resultUrl(resultUrl)
-        .occasion(occasion)
+        .occasion(requestOccasion)
         .build();
   }
 
@@ -633,9 +660,9 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
       String initiatorName,
       String initiatorShortCode,
       String initiatorSecurityCredential,
-      String transactionID,
-      String description,
-      String occasion,
+      TransactionId transactionID,
+      Description description,
+      Occasion occasion,
       String queueTimeoutUrl,
       String resultUrl) {
     return createTransactionQuery(
@@ -654,13 +681,13 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
       String initiatorName,
       String initiatorSecurityCredential,
       String customerPhoneNumber,
-      String transactionID,
-      String description,
-      String occasion,
+      TransactionId transactionID,
+      Description description,
+      Occasion occasion,
       String queueTimeoutUrl,
       String resultUrl) {
-    Preconditions.checkNotNull(customerPhoneNumber, "Customer phone number missing");
-    Preconditions.checkEmptyString(customerPhoneNumber, "Customer phone number missing");
+    checkNotNull(customerPhoneNumber, "Customer phone number missing");
+    checkEmptyString(customerPhoneNumber, "Customer phone number missing");
 
     return createTransactionQuery(
         IdentifierType.MSISDN,
@@ -679,29 +706,23 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
       String initiatorName,
       String initiatorSecurityCredential,
       String sender,
-      String transactionID,
-      String description,
-      String occasion,
+      TransactionId transactionID,
+      Description description,
+      Occasion occasion,
       String queueTimeoutUrl,
       String resultUrl) {
-    Preconditions.checkNotNull(transactionID, "TransactionID missing");
-    Preconditions.checkEmptyString(transactionID, "TransactionID missing");
-    Preconditions.checkNotNull(description, "Description missing");
-    Preconditions.checkEmptyString(description, "Description missing");
-
-    if (occasion == null) {
-      occasion = "";
-    }
+    checkNotNull(transactionID, "TransactionID missing");
+    checkNotNull(description, "Description missing");
 
     return TransactionQueryRequest.builder()
         .initiatorName(initiatorName)
         .credentials(initiatorSecurityCredential)
         .transactionType(CommandID.TRANSACTION_STATUS_QUERY.getCommandId())
         .identifierType(identifierType.getIdentifierType())
-        .transactionID(transactionID)
+        .transactionID(transactionID.getValue())
         .sender(sender)
-        .description(description)
-        .occasion(occasion)
+        .description(description.getValue())
+        .occasion(occasion.getValue())
         .queueTimeoutUrl(queueTimeoutUrl)
         .resultUrl(resultUrl)
         .build();
@@ -711,10 +732,10 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
       String initiatorName,
       String initiatorShortCode,
       String initiatorSecurityCredential,
-      String transactionId,
-      BigDecimal amount,
-      String description,
-      String occasion,
+      TransactionId transactionId,
+      TransactionAmount amount,
+      Description description,
+      Occasion occasion,
       String queueTimeoutUrl,
       String resultUrl) {
     return createTransactionReversalRequest(
@@ -734,14 +755,14 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
       String initiatorName,
       String initiatorSecurityCredential,
       String customerPhoneNumber,
-      String transactionId,
-      BigDecimal amount,
-      String description,
-      String occasion,
+      TransactionId transactionId,
+      TransactionAmount amount,
+      Description description,
+      Occasion occasion,
       String queueTimeoutUrl,
       String resultUrl) {
-    Preconditions.checkNotNull(customerPhoneNumber, "Customer phone number missing");
-    Preconditions.checkEmptyString(customerPhoneNumber, "Customer phone number missing");
+    checkNotNull(customerPhoneNumber, "Customer phone number missing");
+    checkEmptyString(customerPhoneNumber, "Customer phone number missing");
 
     return createTransactionReversalRequest(
         IdentifierType.MSISDN,
@@ -761,20 +782,20 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
       String initiatorName,
       String initiatorSecurityCredential,
       String receiver,
-      String transactionID,
-      BigDecimal amount,
-      String description,
-      String occasion,
+      TransactionId transactionId,
+      TransactionAmount amount,
+      Description description,
+      Occasion occasion,
       String queueTimeoutUrl,
       String resultUrl) {
-    Preconditions.checkNotNull(transactionID, "TransactionID missing");
-    Preconditions.checkEmptyString(transactionID, "TransactionID missing");
-    Preconditions.checkNotNull(description, "Description missing");
-    Preconditions.checkEmptyString(description, "Description missing");
-    Preconditions.checkNotNull(amount, "Amount to reverse missing");
-    Preconditions.checkPositiveNumber(amount, "Invalid reversible amount");
+    checkNotNull(transactionId, "TransactionID missing");
+    checkNotNull(description, "Description missing");
+    checkNotNull(amount, "Amount to reverse missing");
 
-    if (occasion == null) occasion = "";
+    String requestOccasion = "";
+    if (occasion != null) {
+      requestOccasion = occasion.getValue();
+    }
 
     return TransactionReversalRequest.builder()
         .initiatorName(initiatorName)
@@ -782,10 +803,10 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
         .receiverIdentifierType(identifierType.getIdentifierType())
         .credentials(initiatorSecurityCredential)
         .transactionType(CommandID.TRANSACTION_REVERSAL.getCommandId())
-        .transactionID(transactionID)
-        .amount(amount.toString())
-        .description(description)
-        .occasion(occasion)
+        .transactionID(transactionId.getValue())
+        .amount(amount.getValue().toString())
+        .description(description.getValue())
+        .occasion(requestOccasion)
         .queueTimeoutUrl(queueTimeoutUrl)
         .resultUrl(resultUrl)
         .build();
@@ -807,19 +828,20 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
 
   private static void checkInitiatorPreconditions(
       String name, String shortCode, String securityCredential) {
-    Preconditions.checkNotNull(name, "Initiator name missing");
-    Preconditions.checkEmptyString(name, "Initiator name missing");
-    Preconditions.checkNotNull(shortCode, "Initiator code missing");
-    Preconditions.checkEmptyString(shortCode, "Initiator code missing");
-    Preconditions.checkNotNull(securityCredential, "Initiator security credential missing");
-    Preconditions.checkEmptyString(securityCredential, "Initiator security credential missing");
+    checkNotNull(name, "Initiator name missing");
+    checkEmptyString(name, "Initiator name missing");
+    checkNotNull(shortCode, "Initiator code missing");
+    checkEmptyString(shortCode, "Initiator code missing");
+    checkNotNull(securityCredential, "Initiator security credential missing");
+    checkEmptyString(securityCredential, "Initiator security credential missing");
   }
 
-  private static void checkInstantPayPreconditions(String shortCode, String passkey) {
-    Preconditions.checkNotNull(shortCode, "LipaNaMpesa shortcode missing");
-    Preconditions.checkEmptyString(shortCode, "LipaNaMpesa shortcode missing");
-    Preconditions.checkNotNull(passkey, "LipaNaMpesa passkey missing");
-    Preconditions.checkEmptyString(passkey, "LipaNaMpesa passkey missing");
+  private static void checkInstantPayPreconditions(
+      LipaNaMpesaShortCode shortCode, LipaNaMpesaPasskey passkey) {
+    checkNotNull(shortCode, "LipaNaMpesa shortcode missing");
+    checkEmptyString(shortCode.getValue(), "LipaNaMpesa shortcode missing");
+    checkNotNull(passkey, "LipaNaMpesa passkey missing");
+    checkEmptyString(passkey.getValue(), "LipaNaMpesa passkey missing");
   }
 
   private static void checkTransactionQueryPreconditions(
@@ -830,11 +852,10 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
       String resultUrl) {
     checkInitiatorPreconditions(initiatorName, initiatorShortCode, securityCredential);
 
-    Preconditions.checkNotNull(queueTimeoutUrl, "PaymentRequest query queue timeout url missing");
-    Preconditions.checkEmptyString(
-        queueTimeoutUrl, "PaymentRequest query queue timeout url missing");
-    Preconditions.checkNotNull(resultUrl, "PaymentRequest query result url missing");
-    Preconditions.checkEmptyString(resultUrl, "PaymentRequest query result url missing");
+    checkNotNull(queueTimeoutUrl, "PaymentRequest query queue timeout url missing");
+    checkEmptyString(queueTimeoutUrl, "PaymentRequest query queue timeout url missing");
+    checkNotNull(resultUrl, "PaymentRequest query result url missing");
+    checkEmptyString(resultUrl, "PaymentRequest query result url missing");
   }
 
   private static void checkReverseTransactionPreconditions(
@@ -845,10 +866,9 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
       String resultUrl) {
     checkInitiatorPreconditions(initiatorName, initiatorShortCode, securityCredential);
 
-    Preconditions.checkNotNull(queueTimeoutUrl, "Transaction reversal queue timeout url missing");
-    Preconditions.checkEmptyString(
-        queueTimeoutUrl, "Transaction reversal queue timeout url missing");
-    Preconditions.checkNotNull(resultUrl, "Transaction reversal result url missing");
-    Preconditions.checkEmptyString(resultUrl, "Transaction reversal result url missing");
+    checkNotNull(queueTimeoutUrl, "Transaction reversal queue timeout url missing");
+    checkEmptyString(queueTimeoutUrl, "Transaction reversal queue timeout url missing");
+    checkNotNull(resultUrl, "Transaction reversal result url missing");
+    checkEmptyString(resultUrl, "Transaction reversal result url missing");
   }
 }

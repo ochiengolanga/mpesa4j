@@ -126,11 +126,10 @@ public final class Mpesa4jSampleApplication {
     public static void main(String[] args) {
         Mpesa mpesa = new MpesaFactory().getInstance();
         SalaryPaymentRequestResponse response = mpesa.paySalary(
-          "254708374149",
-          new BigDecimal(100.00),
-          "Salary payment (JUL-AUG)",
-          ""
-        );
+            PhoneNumber.of("254708374149"),
+            TransactionAmount.of(new BigDecimal("100.00")),
+            Description.of("Salary payment"),
+            Occasion.none());
 
         System.out.println("Response Description: " + response.getResponseDescription());
         System.out.println("Response Code: " + response.getResponseCode());
@@ -290,15 +289,15 @@ public class Mpesa4jSpringBootSampleApplication {
     @Bean
     CommandLineRunner run(PaymentService paymentService) {
         return args -> paymentService.paySalary(
-            "254708374149",
-            new BigDecimal(100.00),
-            "Salary payment (JUL-AUG)"
-        );
+            PhoneNumber.of("254708374149"),
+            TransactionAmount.of(new BigDecimal("100.00")),
+            Description.of("Salary payment"),
+            Occasion.none());
     }
 }
 
 interface PaymentService {
-    void paySalary(String employeePhoneNumber, BigDecimal payableAmount, String comment);
+    void paySalary(PhoneNumber employeePhoneNumber, TransactionAmount payableAmount, Description comment, Occassion occassion);
 }
 
 @Slf4j
@@ -308,13 +307,12 @@ class PaymentServiceImpl implements PaymentService {
     private final Mpesa mpesa;
 
     @override
-    public void paySalary(String employeePhoneNumber, BigDecimal payableAmount, String comment) {
+    public void paySalary(PhoneNumber employeePhoneNumber, TransactionAmount payableAmount, Description comment, Occassion occassion) {
         SalaryPaymentRequestResponse response = mpesa.paySalary(
                 employeePhoneNumber,
                 payableAmount,
                 comment,
-                ""
-        );
+                occassion);
 
         System.out.println("Response Description: " + response.getResponseDescription());
         System.out.println("Response Code: " + response.getResponseCode());

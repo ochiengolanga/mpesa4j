@@ -13,18 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.ochiengolanga.mpesa4j.api;
+package com.github.ochiengolanga.mpesa4j.models.types;
 
-import com.github.ochiengolanga.mpesa4j.models.responses.AccountBalanceResponse;
-import com.github.ochiengolanga.mpesa4j.models.types.Description;
+import com.github.ochiengolanga.mpesa4j.util.Preconditions;
+import lombok.*;
 
-public interface AccountBalanceResource {
-  /**
-   * The Account Balance API requests for the account balance of a shortcode. <br>
-   * see https://developer.safaricom.co.ke/docs#account-balance-api
-   *
-   * @param description Comments that are sent along with the transaction.
-   * @return {@link AccountBalanceResponse}
-   */
-  AccountBalanceResponse queryBalance(Description description);
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = false)
+@ToString
+public final class LipaNaMpesaShortCode {
+  private final String value;
+
+  private LipaNaMpesaShortCode(String value) {
+    this.value = value;
+  }
+
+  public static LipaNaMpesaShortCode of(@NonNull String value) {
+    Preconditions.checkEmptyString(value, "Invalid LipaNaMpesa shortcode. Empty or null.");
+
+    return new LipaNaMpesaShortCode(value);
+  }
 }

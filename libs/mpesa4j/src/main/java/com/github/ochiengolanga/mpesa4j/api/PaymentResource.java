@@ -18,7 +18,11 @@ package com.github.ochiengolanga.mpesa4j.api;
 import com.github.ochiengolanga.mpesa4j.models.responses.BusinessPaymentRequestResponse;
 import com.github.ochiengolanga.mpesa4j.models.responses.PromotionPaymentRequestResponse;
 import com.github.ochiengolanga.mpesa4j.models.responses.SalaryPaymentRequestResponse;
-import java.math.BigDecimal;
+import com.github.ochiengolanga.mpesa4j.models.types.Description;
+import com.github.ochiengolanga.mpesa4j.models.types.Occasion;
+import com.github.ochiengolanga.mpesa4j.models.types.PhoneNumber;
+import com.github.ochiengolanga.mpesa4j.models.types.TransactionAmount;
+import lombok.NonNull;
 
 public interface PaymentResource {
   /**
@@ -28,14 +32,17 @@ public interface PaymentResource {
    * <br>
    * see https://developer.safaricom.co.ke/docs?java#b2c-api
    *
-   * @param destination of type {@link String}
-   * @param payableAmount of type {@link BigDecimal}
-   * @param description of type {@link String}
-   * @param occasion of type {@link String}
+   * @param payee of type {@link PhoneNumber}
+   * @param payableAmount of type {@link TransactionAmount}
+   * @param description of type {@link Description}
+   * @param occasion of type {@link Occasion}
    * @return {@link BusinessPaymentRequestResponse}
    */
   BusinessPaymentRequestResponse payBusiness(
-      String destination, BigDecimal payableAmount, String description, String occasion);
+      @NonNull PhoneNumber payee,
+      @NonNull TransactionAmount payableAmount,
+      @NonNull Description description,
+      Occasion occasion);
 
   /**
    * Enables Business to Customer (B2C) promotion payment transactions by a company carrying out
@@ -44,14 +51,17 @@ public interface PaymentResource {
    * <br>
    * see https://developer.safaricom.co.ke/docs?java#b2c-api
    *
-   * @param destination of type {@link String}
-   * @param payableAmount of type {@link BigDecimal}
-   * @param description of type {@link String}
-   * @param occasion of type {@link String}
+   * @param payee of type {@link PhoneNumber}
+   * @param payableAmount of type {@link TransactionAmount}
+   * @param description of type {@link Description}
+   * @param occasion of type {@link Occasion}
    * @return {@link PromotionPaymentRequestResponse}
    */
   PromotionPaymentRequestResponse payPromotion(
-      String destination, BigDecimal payableAmount, String description, String occasion);
+      @NonNull PhoneNumber payee,
+      @NonNull TransactionAmount payableAmount,
+      @NonNull Description description,
+      Occasion occasion);
 
   /**
    * Enables Business to Customer (B2C) salary payment transactions between a company and employees
@@ -60,12 +70,15 @@ public interface PaymentResource {
    * <br>
    * see https://developer.safaricom.co.ke/docs?java#b2c-api
    *
-   * @param destination of type {@link String}
-   * @param payableAmount of type {@link BigDecimal}
-   * @param description of type {@link String}
-   * @param occasion of type {@link String}
+   * @param payee of type {@link PhoneNumber}
+   * @param payableAmount of type {@link TransactionAmount}
+   * @param description of type {@link Description}
+   * @param occasion of type {@link Occasion}
    * @return {@link SalaryPaymentRequestResponse}
    */
   SalaryPaymentRequestResponse paySalary(
-      String destination, BigDecimal payableAmount, String description, String occasion);
+      @NonNull PhoneNumber payee,
+      @NonNull TransactionAmount payableAmount,
+      @NonNull Description description,
+      Occasion occasion);
 }

@@ -15,8 +15,15 @@
  */
 package com.github.ochiengolanga.mpesa4j.transaction.query;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
+import com.github.ochiengolanga.mpesa4j.models.responses.BusinessTransactionQueryResponse;
+import com.github.ochiengolanga.mpesa4j.models.types.Description;
+import com.github.ochiengolanga.mpesa4j.models.types.Occasion;
+import com.github.ochiengolanga.mpesa4j.models.types.TransactionId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,19 +33,22 @@ class BusinessPaymentRequestQueryRequestTest {
   @BeforeEach
   void init() {}
 
-  // Service randomly becomes unavailable
-  //    @Test
-  //    void businessTransactionQueryTest() {
-  //      Mpesa mpesa = new MpesaFactory().getInstance();
-  //
-  //      BusinessTransactionQueryResponse response =
-  //          mpesa.queryBusinessTransaction("LGR019G3J2", "PaymentRequest query request", "");
-  //
-  //      assertNotNull(response.getConversationId());
-  //      assertNotNull(response.getOriginatorConversationId());
-  //      assertNotNull(response.getResponseDescription());
-  //      assertTrue(response.getResponseCode().equalsIgnoreCase("0"));
-  //    }
+  //   Service randomly becomes unavailable
+  @Test
+  void businessTransactionQueryTest() {
+    Mpesa mpesa = new MpesaFactory().getInstance();
+
+    BusinessTransactionQueryResponse response =
+        mpesa.queryBusinessTransaction(
+            TransactionId.of("LGR019G3J2"),
+            Description.of("PaymentRequest query request"),
+            Occasion.none());
+
+    assertNotNull(response.getConversationId());
+    assertNotNull(response.getOriginatorConversationId());
+    assertNotNull(response.getResponseDescription());
+    assertTrue(response.getResponseCode().equalsIgnoreCase("0"));
+  }
 
   @Test
   void nullTransactionID_businessTransactionQueryTest() {
@@ -46,7 +56,9 @@ class BusinessPaymentRequestQueryRequestTest {
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> mpesa.queryBusinessTransaction(null, "PaymentRequest query request", ""));
+        () ->
+            mpesa.queryBusinessTransaction(
+                null, Description.of("PaymentRequest query request"), Occasion.none()));
   }
 
   @Test
@@ -55,7 +67,11 @@ class BusinessPaymentRequestQueryRequestTest {
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> mpesa.queryBusinessTransaction("", "PaymentRequest query request", ""));
+        () ->
+            mpesa.queryBusinessTransaction(
+                TransactionId.of(""),
+                Description.of("PaymentRequest query request"),
+                Occasion.none()));
   }
 
   @Test
@@ -64,7 +80,8 @@ class BusinessPaymentRequestQueryRequestTest {
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> mpesa.queryBusinessTransaction("LGR019G3J2", null, ""));
+        () ->
+            mpesa.queryBusinessTransaction(TransactionId.of("LGR019G3J2"), null, Occasion.none()));
   }
 
   @Test
@@ -72,7 +89,10 @@ class BusinessPaymentRequestQueryRequestTest {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
-        IllegalArgumentException.class, () -> mpesa.queryBusinessTransaction("LGR019G3J2", "", ""));
+        IllegalArgumentException.class,
+        () ->
+            mpesa.queryBusinessTransaction(
+                TransactionId.of("LGR019G3J2"), Description.of(""), Occasion.none()));
   }
 
   // Service randomly becomes unavailable

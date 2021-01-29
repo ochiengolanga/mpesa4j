@@ -26,7 +26,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @EqualsAndHashCode(callSuper = false)
-public class InstantPaymentRequest extends ApiResource {
+public final class InstantPaymentRequest extends ApiResource {
 
   /** This is the shortcode of the organization initiating the request and expecting the payment. */
   @SerializedName("BusinessShortCode")

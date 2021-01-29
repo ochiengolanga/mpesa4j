@@ -17,7 +17,11 @@ package com.github.ochiengolanga.mpesa4j.api;
 
 import com.github.ochiengolanga.mpesa4j.models.responses.InstantPaymentQueryResponse;
 import com.github.ochiengolanga.mpesa4j.models.responses.InstantPaymentRequestResponse;
-import java.math.BigDecimal;
+import com.github.ochiengolanga.mpesa4j.models.types.AccountReference;
+import com.github.ochiengolanga.mpesa4j.models.types.Description;
+import com.github.ochiengolanga.mpesa4j.models.types.PaymentId;
+import com.github.ochiengolanga.mpesa4j.models.types.TransactionAmount;
+import lombok.NonNull;
 
 public interface PaymentRequestResource {
   /**
@@ -35,10 +39,10 @@ public interface PaymentRequestResource {
    * @return {@link InstantPaymentRequestResponse}
    */
   InstantPaymentRequestResponse requestInstantPayment(
-      String customerPhoneNumber,
-      BigDecimal payableAmount,
-      String accountReference,
-      String description);
+      @NonNull String customerPhoneNumber,
+      @NonNull TransactionAmount payableAmount,
+      @NonNull AccountReference accountReference,
+      Description description);
 
   /**
    * Enables Business / Organization to query transactions initiated via STKPush. <br>
@@ -47,5 +51,5 @@ public interface PaymentRequestResource {
    * @param paymentId represents Payment Identifier
    * @return {@link InstantPaymentQueryResponse}
    */
-  InstantPaymentQueryResponse queryInstantPayment(String paymentId);
+  InstantPaymentQueryResponse queryInstantPayment(@NonNull PaymentId paymentId);
 }

@@ -62,14 +62,16 @@ public final class HttpParameter implements Comparable<HttpParameter>, java.io.S
   }
 
   /**
-   * @param value string to be encoded
-   * @return encoded string
+   * <a href="http://wiki.oauth.net/TestCases">OAuth / TestCases</a>
+   *
    * @see <a href="http://wiki.oauth.net/TestCases">OAuth / TestCases</a>
    * @see <a
    *     href="http://groups.google.com/group/oauth/browse_thread/thread/a8398d0521f4ae3d/9d79b698ab217df2?hl=en&lnk=gst&q=space+encoding#9d79b698ab217df2">Space
    *     encoding - OAuth | Google Groups</a>
    * @see <a href="http://tools.ietf.org/html/rfc3986#section-2.1">RFC 3986 - Uniform Resource
    *     Identifier (URI): Generic Syntax - 2.1. Percent-Encoding</a>
+   * @param value string to be encoded
+   * @return encoded string
    */
   public static String encode(String value) {
     String encoded = URLEncoder.encode(value, StandardCharsets.UTF_8);

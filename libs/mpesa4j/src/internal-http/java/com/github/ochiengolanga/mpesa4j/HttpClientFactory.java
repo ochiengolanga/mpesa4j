@@ -32,6 +32,7 @@ public final class HttpClientFactory {
       try {
         clazz = Class.forName(httpClientImpl);
       } catch (ClassNotFoundException ignore) {
+        // just continue
       }
     }
     if (null == clazz) {

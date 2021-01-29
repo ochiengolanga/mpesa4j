@@ -26,7 +26,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @EqualsAndHashCode(callSuper = false)
-public class TransactionReversalRequest extends ApiResource {
+public final class TransactionReversalRequest extends ApiResource {
 
   /** This is the credential/username used to authenticate the transaction request. */
   @SerializedName("Initiator")

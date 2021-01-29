@@ -17,6 +17,9 @@ package com.github.ochiengolanga.mpesa4j.transaction.query;
 
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
+import com.github.ochiengolanga.mpesa4j.models.types.Description;
+import com.github.ochiengolanga.mpesa4j.models.types.Occasion;
+import com.github.ochiengolanga.mpesa4j.models.types.TransactionId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +36,7 @@ class CustomerPaymentRequestQueryRequestTest {
   //
   //    CustomerTransactionQueryResponse response =
   //        mpesa.queryCustomerTransaction(
-  //            "254708374149", "LGR019G3J2", "PaymentRequest query request", "");
+  //            "254708374149", TransactionId.of("LGR019G3J2"), "PaymentRequest query request", "");
   //
   //    assertNotNull(response.getConversationId());
   //    assertNotNull(response.getOriginatorConversationId());
@@ -48,7 +51,11 @@ class CustomerPaymentRequestQueryRequestTest {
     Assertions.assertThrows(
         IllegalArgumentException.class,
         () ->
-            mpesa.queryCustomerTransaction(null, "LGR019G3J2", "PaymentRequest query request", ""));
+            mpesa.queryCustomerTransaction(
+                null,
+                TransactionId.of("LGR019G3J2"),
+                Description.of("PaymentRequest query request"),
+                Occasion.none()));
   }
 
   @Test
@@ -57,7 +64,12 @@ class CustomerPaymentRequestQueryRequestTest {
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> mpesa.queryCustomerTransaction("", "LGR019G3J2", "PaymentRequest query request", ""));
+        () ->
+            mpesa.queryCustomerTransaction(
+                "",
+                TransactionId.of("LGR019G3J2"),
+                Description.of("PaymentRequest query request"),
+                Occasion.none()));
   }
 
   @Test
@@ -68,7 +80,10 @@ class CustomerPaymentRequestQueryRequestTest {
         IllegalArgumentException.class,
         () ->
             mpesa.queryCustomerTransaction(
-                "254708374149", null, "PaymentRequest query request", ""));
+                "254708374149",
+                null,
+                Description.of("PaymentRequest query request"),
+                Occasion.none()));
   }
 
   @Test
@@ -78,7 +93,11 @@ class CustomerPaymentRequestQueryRequestTest {
     Assertions.assertThrows(
         IllegalArgumentException.class,
         () ->
-            mpesa.queryCustomerTransaction("254708374149", "", "PaymentRequest query request", ""));
+            mpesa.queryCustomerTransaction(
+                "254708374149",
+                TransactionId.of(""),
+                Description.of("PaymentRequest query request"),
+                Occasion.none()));
   }
 
   @Test
@@ -87,7 +106,9 @@ class CustomerPaymentRequestQueryRequestTest {
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> mpesa.queryCustomerTransaction("254708374149", "LGR019G3J2", null, ""));
+        () ->
+            mpesa.queryCustomerTransaction(
+                "254708374149", TransactionId.of("LGR019G3J2"), null, Occasion.none()));
   }
 
   @Test
@@ -96,7 +117,12 @@ class CustomerPaymentRequestQueryRequestTest {
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> mpesa.queryCustomerTransaction("254708374149", "LGR019G3J2", "", ""));
+        () ->
+            mpesa.queryCustomerTransaction(
+                "254708374149",
+                TransactionId.of("LGR019G3J2"),
+                Description.of(""),
+                Occasion.none()));
   }
 
   // Service randomly becomes unavailable
@@ -105,6 +131,6 @@ class CustomerPaymentRequestQueryRequestTest {
   //    Mpesa mpesa = new MpesaFactory().getInstance();
   //
   //    mpesa.queryCustomerTransaction(
-  //        "254708374149", "LGR019G3J2", "PaymentRequest query request", null);
+  //        "254708374149", TransactionId.of("LGR019G3J2"), "PaymentRequest query request", null);
   //  }
 }

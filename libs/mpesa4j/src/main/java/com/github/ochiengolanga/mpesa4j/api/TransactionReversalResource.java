@@ -17,7 +17,10 @@ package com.github.ochiengolanga.mpesa4j.api;
 
 import com.github.ochiengolanga.mpesa4j.models.responses.BusinessTransactionReversalResponse;
 import com.github.ochiengolanga.mpesa4j.models.responses.CustomerTransactionReversalResponse;
-import java.math.BigDecimal;
+import com.github.ochiengolanga.mpesa4j.models.types.Description;
+import com.github.ochiengolanga.mpesa4j.models.types.Occasion;
+import com.github.ochiengolanga.mpesa4j.models.types.TransactionAmount;
+import com.github.ochiengolanga.mpesa4j.models.types.TransactionId;
 
 public interface TransactionReversalResource {
   /**
@@ -25,31 +28,34 @@ public interface TransactionReversalResource {
    * <br>
    * see https://developer.safaricom.co.ke/docs#reversal
    *
-   * @param transactionId
-   * @param reversibleAmount
-   * @param description
-   * @param occasion
+   * @param transactionId Unique identifier to identify a transaction on M-Pesa
+   * @param reversibleAmount Amount to reverse
+   * @param description Comments that are sent along with the transaction
+   * @param occasion Optional Parameter sequence of characters up to 100
    * @return {@link BusinessTransactionReversalResponse}
    */
   BusinessTransactionReversalResponse reverseBusinessTransaction(
-      String transactionId, BigDecimal reversibleAmount, String description, String occasion);
+      TransactionId transactionId,
+      TransactionAmount reversibleAmount,
+      Description description,
+      Occasion occasion);
 
   /**
    * Enables one to reverse a C2B M-Pesa transaction. <br>
    * <br>
    * see https://developer.safaricom.co.ke/docs#reversal
    *
-   * @param customerPhoneNumber
-   * @param transactionId
-   * @param reversibleAmount
-   * @param description
-   * @param occasion
+   * @param customerPhoneNumber Customer Phone number
+   * @param transactionId Unique identifier to identify a transaction on M-Pesa
+   * @param reversibleAmount Amount to reverse
+   * @param description Comments that are sent along with the transaction
+   * @param occasion Optional Parameter sequence of characters up to 100
    * @return {@link CustomerTransactionReversalResponse}
    */
   CustomerTransactionReversalResponse reverseCustomerTransaction(
       String customerPhoneNumber,
-      String transactionId,
-      BigDecimal reversibleAmount,
-      String description,
-      String occasion);
+      TransactionId transactionId,
+      TransactionAmount reversibleAmount,
+      Description description,
+      Occasion occasion);
 }

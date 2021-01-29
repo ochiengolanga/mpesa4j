@@ -16,6 +16,8 @@
 package com.github.ochiengolanga.mpesa4j.config;
 
 import com.github.ochiengolanga.mpesa4j.HttpClientConfiguration;
+import com.github.ochiengolanga.mpesa4j.models.types.LipaNaMpesaPasskey;
+import com.github.ochiengolanga.mpesa4j.models.types.LipaNaMpesaShortCode;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.EqualsAndHashCode;
@@ -44,8 +46,8 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
   private String initiatorShortCode = null;
   private String initiatorSecurityCredential = null;
 
-  private String lipaNaMpesaShortCode = null;
-  private String lipaNaMpesaPasskey = null;
+  private LipaNaMpesaShortCode lipaNaMpesaShortCode = null;
+  private LipaNaMpesaPasskey lipaNaMpesaPasskey = null;
   private String lipaNaMpesaCallbackUrl = null;
 
   private String payBusinessQueueTimeoutUrl = null;
@@ -185,21 +187,21 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
   }
 
   @Override
-  public String getLipaNaMpesaShortCode() {
+  public LipaNaMpesaShortCode getLipaNaMpesaShortCode() {
     return lipaNaMpesaShortCode;
   }
 
   protected final void setLipaNaMpesaShortCode(String lipaNaMpesaShortCode) {
-    this.lipaNaMpesaShortCode = lipaNaMpesaShortCode;
+    this.lipaNaMpesaShortCode = LipaNaMpesaShortCode.of(lipaNaMpesaShortCode);
   }
 
   @Override
-  public String getLipaNaMpesaPasskey() {
+  public LipaNaMpesaPasskey getLipaNaMpesaPasskey() {
     return lipaNaMpesaPasskey;
   }
 
   protected final void setLipaNaMpesaPasskey(String lipaNaMpesaPasskey) {
-    this.lipaNaMpesaPasskey = lipaNaMpesaPasskey;
+    this.lipaNaMpesaPasskey = LipaNaMpesaPasskey.of(lipaNaMpesaPasskey);
   }
 
   @Override

@@ -27,7 +27,7 @@ public abstract class HttpClientBase implements HttpClient, java.io.Serializable
 
   private final Map<String, String> requestHeaders;
 
-  public HttpClientBase(HttpClientConfiguration conf) {
+  protected HttpClientBase(HttpClientConfiguration conf) {
     this.httpClientConfiguration = conf;
     requestHeaders = new HashMap<>();
     requestHeaders.put(

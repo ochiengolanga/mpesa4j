@@ -31,8 +31,8 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
   private static final String ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL =
       "MPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL";
   private static final String ACCOUNT_BALANCE_RESULT_URL = "MPESA4J_ACCOUNT_BALANCE_RESULT_URL";
-  private static final String B2B_QUEUE_TIMEOUT_URL = "MPESA4J_B2B_QUEUE_TIMEOUT_URL";
-  private static final String B2B_RESULT_URL = "MPESA4J_B2B_BALANCE_RESULT_URL";
+  //  private static final String B2B_QUEUE_TIMEOUT_URL = "MPESA4J_B2B_QUEUE_TIMEOUT_URL";
+  //  private static final String B2B_RESULT_URL = "MPESA4J_B2B_BALANCE_RESULT_URL";
   private static final String B2C_QUEUE_TIMEOUT_URL = "MPESA4J_B2C_QUEUE_TIMEOUT_URL";
   private static final String B2C_RESULT_URL = "MPESA4J_B2C_BALANCE_RESULT_URL";
   private static final String CONSUMER_KEY = "MPESA4J_CONSUMER_KEY";
@@ -65,6 +65,7 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
           props.setProperty(key, envMap.get(key));
         }
       } catch (SecurityException ignore) {
+        // just continue
       }
       normalize(props);
     } catch (SecurityException ignore) {
@@ -86,6 +87,7 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
     try {
       loadProperties(props, new FileInputStream("WEB-INF/" + MPESA4J_PROPERTIES));
     } catch (SecurityException | FileNotFoundException ignore) {
+      // just continue
     }
 
     setFieldsWithTreePath(props, treePath);
@@ -114,13 +116,14 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
         return true;
       }
     } catch (Exception ignore) {
+      // just continue
     } finally {
       try {
         if (fis != null) {
           fis.close();
         }
       } catch (IOException ignore) {
-
+        // just continue
       }
     }
     return false;
@@ -132,6 +135,7 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
       normalize(props);
       return true;
     } catch (Exception ignore) {
+      // just continue
     }
     return false;
   }
@@ -200,9 +204,9 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
       setAccountBalanceResultUrl(getString(props, prefix, ACCOUNT_BALANCE_RESULT_URL));
     }
 
-    if (notNull(props, prefix, B2B_QUEUE_TIMEOUT_URL)) {}
+    //    if (notNull(props, prefix, B2B_QUEUE_TIMEOUT_URL)) {}
 
-    if (notNull(props, prefix, B2B_RESULT_URL)) {}
+    //    if (notNull(props, prefix, B2B_RESULT_URL)) {}
 
     if (notNull(props, prefix, B2C_QUEUE_TIMEOUT_URL)) {
       setPayBusinessQueueTimeoutUrl(getString(props, prefix, B2C_QUEUE_TIMEOUT_URL));
@@ -264,7 +268,7 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
 
   private boolean getBoolean(Properties props, String prefix, String name) {
     String value = props.getProperty(prefix + name);
-    return Boolean.valueOf(value);
+    return Boolean.parseBoolean(value);
   }
 
   private int getIntProperty(Properties props, String prefix, String name) {

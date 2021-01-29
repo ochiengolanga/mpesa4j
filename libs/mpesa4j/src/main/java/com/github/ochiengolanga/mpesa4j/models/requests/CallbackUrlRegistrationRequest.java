@@ -17,6 +17,7 @@ package com.github.ochiengolanga.mpesa4j.models.requests;
 
 import com.github.ochiengolanga.mpesa4j.models.ApiResource;
 import com.google.gson.annotations.SerializedName;
+import java.net.URL;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,7 +27,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @EqualsAndHashCode(callSuper = false)
-public class CallbackUrlRegistrationRequest extends ApiResource {
+public final class CallbackUrlRegistrationRequest extends ApiResource {
   /**
    * This is your C2B-enabled paybill number/till number, which you expect to receive payments
    * notifications about.
@@ -44,8 +45,8 @@ public class CallbackUrlRegistrationRequest extends ApiResource {
   String callbackType;
 
   @SerializedName("ConfirmationURL")
-  String confirmationUrl;
+  URL confirmationUrl;
 
   @SerializedName("ValidationURL")
-  String validationUrl;
+  URL validationUrl;
 }

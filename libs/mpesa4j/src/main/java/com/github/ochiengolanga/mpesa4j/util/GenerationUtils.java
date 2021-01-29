@@ -15,18 +15,25 @@
  */
 package com.github.ochiengolanga.mpesa4j.util;
 
+import com.github.ochiengolanga.mpesa4j.models.types.LipaNaMpesaPasskey;
+import com.github.ochiengolanga.mpesa4j.models.types.LipaNaMpesaShortCode;
 import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
-import java.util.Date;
 
 public abstract class GenerationUtils {
   public static String generateTimestamp() {
-    return new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+    return LocalDateTime.now(ZoneId.systemDefault())
+        .format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
   }
 
-  public static String generatePassword(String shortCode, String passkey, String timestamp) {
+  public static String generatePassword(
+      LipaNaMpesaShortCode shortCode, LipaNaMpesaPasskey passkey, String timestamp) {
     return Base64.getEncoder()
-        .encodeToString((shortCode + passkey + timestamp).getBytes(StandardCharsets.UTF_8));
+        .encodeToString(
+            (shortCode.getValue() + passkey.getValue() + timestamp)
+                .getBytes(StandardCharsets.UTF_8));
   }
 }

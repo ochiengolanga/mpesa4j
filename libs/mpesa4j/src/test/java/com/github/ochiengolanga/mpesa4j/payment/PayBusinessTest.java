@@ -22,6 +22,10 @@ import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
 import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.responses.BusinessPaymentRequestResponse;
+import com.github.ochiengolanga.mpesa4j.models.types.Description;
+import com.github.ochiengolanga.mpesa4j.models.types.Occasion;
+import com.github.ochiengolanga.mpesa4j.models.types.PhoneNumber;
+import com.github.ochiengolanga.mpesa4j.models.types.TransactionAmount;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +41,11 @@ class PayBusinessTest {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     BusinessPaymentRequestResponse response =
-        mpesa.payBusiness("254708374149", new BigDecimal(100.00), "Business payment", "");
+        mpesa.payBusiness(
+            PhoneNumber.of("254708374149"),
+            TransactionAmount.of(new BigDecimal("100.00")),
+            Description.of("Business payment"),
+            Occasion.none());
 
     assertNotNull(response.getConversationId());
     assertNotNull(response.getOriginatorConversationId());
@@ -53,7 +61,10 @@ class PayBusinessTest {
         MpesaApiException.class,
         () ->
             mpesa.payBusiness(
-                "254708374149", new BigDecimal(10000000.00), "Invalid business payment", ""));
+                PhoneNumber.of("254708374149"),
+                TransactionAmount.of(new BigDecimal("10000000.00")),
+                Description.of("Invalid business payment"),
+                Occasion.none()));
   }
 
   @Test
@@ -62,7 +73,12 @@ class PayBusinessTest {
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> mpesa.payBusiness("254708374149", new BigDecimal(0.00), "Business payment", ""));
+        () ->
+            mpesa.payBusiness(
+                PhoneNumber.of("254708374149"),
+                TransactionAmount.of(new BigDecimal("0.00")),
+                Description.of("Business payment"),
+                Occasion.none()));
   }
 
   @Test
@@ -71,7 +87,12 @@ class PayBusinessTest {
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> mpesa.payBusiness("254708374149", new BigDecimal(-10.00), "Business payment", ""));
+        () ->
+            mpesa.payBusiness(
+                PhoneNumber.of("254708374149"),
+                TransactionAmount.of(new BigDecimal("-10.00")),
+                Description.of("Business payment"),
+                Occasion.none()));
   }
 
   @Test
@@ -79,15 +100,24 @@ class PayBusinessTest {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> mpesa.payBusiness("254708374149", null, "Business payment", ""));
+        NullPointerException.class,
+        () ->
+            mpesa.payBusiness(
+                PhoneNumber.of("254708374149"),
+                null,
+                Description.of("Business payment"),
+                Occasion.none()));
   }
 
   @Test
   void nullOccasion_payBusinessTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
-    mpesa.payBusiness("254708374149", new BigDecimal(100.00), "Business payment", null);
+    mpesa.payBusiness(
+        PhoneNumber.of("254708374149"),
+        TransactionAmount.of(new BigDecimal("100.00")),
+        Description.of("Business payment"),
+        null);
 
     assertTrue(true);
   }
@@ -97,8 +127,13 @@ class PayBusinessTest {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> mpesa.payBusiness(null, new BigDecimal(100.00), "Business payment", null));
+        NullPointerException.class,
+        () ->
+            mpesa.payBusiness(
+                null,
+                TransactionAmount.of(new BigDecimal("100.00")),
+                Description.of("Business payment"),
+                null));
   }
 
   @Test
@@ -107,7 +142,12 @@ class PayBusinessTest {
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> mpesa.payBusiness("", new BigDecimal(100.00), "Business payment", null));
+        () ->
+            mpesa.payBusiness(
+                PhoneNumber.of(""),
+                TransactionAmount.of(new BigDecimal("100.00")),
+                Description.of("Business payment"),
+                null));
   }
 
   @Test
@@ -115,8 +155,13 @@ class PayBusinessTest {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> mpesa.payBusiness("254708374149", new BigDecimal(100.00), null, ""));
+        NullPointerException.class,
+        () ->
+            mpesa.payBusiness(
+                PhoneNumber.of("254708374149"),
+                TransactionAmount.of(new BigDecimal("100.00")),
+                null,
+                Occasion.none()));
   }
 
   @Test
@@ -125,6 +170,11 @@ class PayBusinessTest {
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> mpesa.payBusiness("254708374149", new BigDecimal(100.00), "", ""));
+        () ->
+            mpesa.payBusiness(
+                PhoneNumber.of("254708374149"),
+                TransactionAmount.of(new BigDecimal("100.00")),
+                Description.of(""),
+                Occasion.none()));
   }
 }

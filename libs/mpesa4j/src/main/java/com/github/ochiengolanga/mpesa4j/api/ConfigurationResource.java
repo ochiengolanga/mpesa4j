@@ -17,6 +17,9 @@ package com.github.ochiengolanga.mpesa4j.api;
 
 import com.github.ochiengolanga.mpesa4j.models.enums.DefaultAction;
 import com.github.ochiengolanga.mpesa4j.models.responses.CallbackUrlsRegistrationResponse;
+import com.github.ochiengolanga.mpesa4j.models.types.ConfirmationUrl;
+import com.github.ochiengolanga.mpesa4j.models.types.ValidationUrl;
+import lombok.NonNull;
 
 public interface ConfigurationResource {
   /**
@@ -31,5 +34,7 @@ public interface ConfigurationResource {
    * @return {@link CallbackUrlsRegistrationResponse}
    */
   CallbackUrlsRegistrationResponse registerCallbackUrls(
-      DefaultAction defaultAction, String validationUrl, String confirmationUrl);
+      @NonNull DefaultAction defaultAction,
+      @NonNull ValidationUrl validationUrl,
+      @NonNull ConfirmationUrl confirmationUrl);
 }

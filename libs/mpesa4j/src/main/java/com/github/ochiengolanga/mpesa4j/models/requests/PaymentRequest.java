@@ -26,7 +26,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @EqualsAndHashCode(callSuper = false)
-public class PaymentRequest extends ApiResource {
+public final class PaymentRequest extends ApiResource {
 
   /** This is the credential/username used to authenticate the transaction request. */
   @SerializedName("InitiatorName")
@@ -55,7 +55,7 @@ public class PaymentRequest extends ApiResource {
 
   /** Phone number receiving the transaction */
   @SerializedName("PartyB")
-  String destination;
+  String payee;
 
   /** Comments that are sent along with the transaction. */
   @SerializedName("Remarks")

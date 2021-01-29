@@ -17,30 +17,36 @@ package com.github.ochiengolanga.mpesa4j.api;
 
 import com.github.ochiengolanga.mpesa4j.models.responses.BusinessTransactionQueryResponse;
 import com.github.ochiengolanga.mpesa4j.models.responses.CustomerTransactionQueryResponse;
+import com.github.ochiengolanga.mpesa4j.models.types.Description;
+import com.github.ochiengolanga.mpesa4j.models.types.Occasion;
+import com.github.ochiengolanga.mpesa4j.models.types.TransactionId;
 
 public interface TransactionQueryResource {
   /**
    * PaymentRequest Status API checks the status of a B2B, B2C and C2B APIs transactions. <br>
    * see https://developer.safaricom.co.ke/docs#transaction-status
    *
-   * @param transactionID
-   * @param description
-   * @param occasion
+   * @param transactionID Unique identifier to identify a transaction on M-Pesa
+   * @param description Comments that are sent along with the transaction
+   * @param occasion Optional Parameter sequence of characters up to 100
    * @return {@link BusinessTransactionQueryResponse}
    */
   BusinessTransactionQueryResponse queryBusinessTransaction(
-      String transactionID, String description, String occasion);
+      TransactionId transactionID, Description description, Occasion occasion);
 
   /**
    * PaymentRequest Status API checks the status of a B2B, B2C and C2B APIs transactions. <br>
    * see https://developer.safaricom.co.ke/docs#transaction-status
    *
-   * @param customerPhoneNumber
-   * @param transactionID
-   * @param description
-   * @param occasion
+   * @param customerPhoneNumber Customer Phone number
+   * @param transactionID Unique identifier to identify a transaction on M-Pesa
+   * @param description Comments that are sent along with the transaction
+   * @param occasion Optional Parameter sequence of characters up to 100
    * @return {@link CustomerTransactionQueryResponse}
    */
   CustomerTransactionQueryResponse queryCustomerTransaction(
-      String customerPhoneNumber, String transactionID, String description, String occasion);
+      String customerPhoneNumber,
+      TransactionId transactionID,
+      Description description,
+      Occasion occasion);
 }

@@ -26,7 +26,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @EqualsAndHashCode(callSuper = false)
-public class AccountBalanceRequest extends ApiResource {
+public final class AccountBalanceRequest extends ApiResource {
   /** This is the credential/username used to authenticate the transaction request. */
   @SerializedName("Initiator")
   String initiatorName;

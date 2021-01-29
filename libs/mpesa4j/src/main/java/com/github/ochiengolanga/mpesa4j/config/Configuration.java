@@ -17,6 +17,8 @@ package com.github.ochiengolanga.mpesa4j.config;
 
 import com.github.ochiengolanga.mpesa4j.HttpClientConfiguration;
 import com.github.ochiengolanga.mpesa4j.auth.AuthorizationConfiguration;
+import com.github.ochiengolanga.mpesa4j.models.types.LipaNaMpesaPasskey;
+import com.github.ochiengolanga.mpesa4j.models.types.LipaNaMpesaShortCode;
 
 public interface Configuration extends AuthorizationConfiguration, java.io.Serializable {
 
@@ -38,9 +40,9 @@ public interface Configuration extends AuthorizationConfiguration, java.io.Seria
 
   String getInitiatorSecurityCredential();
 
-  String getLipaNaMpesaShortCode();
+  LipaNaMpesaShortCode getLipaNaMpesaShortCode();
 
-  String getLipaNaMpesaPasskey();
+  LipaNaMpesaPasskey getLipaNaMpesaPasskey();
 
   String getApiBaseUrl();
 

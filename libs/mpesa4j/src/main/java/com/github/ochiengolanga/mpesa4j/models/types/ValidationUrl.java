@@ -13,18 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.ochiengolanga.mpesa4j.api;
+package com.github.ochiengolanga.mpesa4j.models.types;
 
-import com.github.ochiengolanga.mpesa4j.models.responses.AccountBalanceResponse;
-import com.github.ochiengolanga.mpesa4j.models.types.Description;
+import com.github.ochiengolanga.mpesa4j.util.Preconditions;
+import java.net.MalformedURLException;
+import java.net.URL;
+import lombok.NonNull;
 
-public interface AccountBalanceResource {
-  /**
-   * The Account Balance API requests for the account balance of a shortcode. <br>
-   * see https://developer.safaricom.co.ke/docs#account-balance-api
-   *
-   * @param description Comments that are sent along with the transaction.
-   * @return {@link AccountBalanceResponse}
-   */
-  AccountBalanceResponse queryBalance(Description description);
+public final class ValidationUrl extends CallbackUrl {
+  private ValidationUrl(String value) throws MalformedURLException {
+    super();
+    this.setValue(new URL(value));
+  }
+
+  public static ValidationUrl of(@NonNull String value) throws MalformedURLException {
+    Preconditions.checkEmptyString(value, "Invalid validation url. Empty or null.");
+
+    return new ValidationUrl(value);
+  }
 }

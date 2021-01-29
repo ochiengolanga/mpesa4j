@@ -26,7 +26,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @EqualsAndHashCode(callSuper = false)
-public class TransactionQueryRequest extends ApiResource {
+public final class TransactionQueryRequest extends ApiResource {
   /** This is the credential/username used to authenticate the transaction request. */
   @SerializedName("Initiator")
   String initiatorName;

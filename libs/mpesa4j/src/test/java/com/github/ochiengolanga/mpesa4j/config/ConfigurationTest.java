@@ -171,8 +171,8 @@ class ConfigurationTest {
     assertEquals("abcdemo", conf.getInitiatorName());
     assertEquals("12399", conf.getInitiatorShortCode());
     assertEquals("EMFNv1b/hHBzo9uIWv", conf.getInitiatorSecurityCredential());
-    assertEquals("97867", conf.getLipaNaMpesaShortCode());
-    assertEquals("7dd71a467cd2", conf.getLipaNaMpesaPasskey());
+    assertEquals("97867", conf.getLipaNaMpesaShortCode().getValue());
+    assertEquals("7dd71a467cd2", conf.getLipaNaMpesaPasskey().getValue());
     assertEquals("https://example.com/lipanampesa/callback", conf.getLipaNaMpesaCallbackUrl());
     assertEquals(
         "https://example.com/transactionquery/queuetimeout",

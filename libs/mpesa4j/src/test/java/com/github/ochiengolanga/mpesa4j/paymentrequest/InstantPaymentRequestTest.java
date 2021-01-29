@@ -22,6 +22,9 @@ import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
 import com.github.ochiengolanga.mpesa4j.exceptions.MpesaApiException;
 import com.github.ochiengolanga.mpesa4j.models.responses.InstantPaymentRequestResponse;
+import com.github.ochiengolanga.mpesa4j.models.types.AccountReference;
+import com.github.ochiengolanga.mpesa4j.models.types.Description;
+import com.github.ochiengolanga.mpesa4j.models.types.TransactionAmount;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,10 +41,10 @@ class InstantPaymentRequestTest {
 
     InstantPaymentRequestResponse response =
         mpesa.requestInstantPayment(
-            "254724488116",
-            new BigDecimal(10.00),
-            "TESTMPESA4JRequest",
-            "Instant payment request test from mpesa4j");
+            "254708374149",
+            TransactionAmount.of(new BigDecimal("100.00")),
+            AccountReference.of("TESTMPESA4JRequest"),
+            Description.of("Instant payment request test from mpesa4j"));
 
     assertNotNull(response.getMerchantRequestId());
     assertNotNull(response.getCheckoutRequestId());
@@ -58,10 +61,10 @@ class InstantPaymentRequestTest {
         MpesaApiException.class,
         () ->
             mpesa.requestInstantPayment(
-                "254724488116",
-                new BigDecimal(10000000.00),
-                "TEST",
-                "Invalid instant payment test from mpesa4j"));
+                "254708374149",
+                TransactionAmount.of(new BigDecimal("10000000.00")),
+                AccountReference.of("TEST"),
+                Description.of("Invalid instant payment test from mpesa4j")));
   }
 
   @Test
@@ -72,7 +75,10 @@ class InstantPaymentRequestTest {
         IllegalArgumentException.class,
         () ->
             mpesa.requestInstantPayment(
-                "254724488116", new BigDecimal(0.00), "TEST", "Test from mpesa4j"));
+                "254708374149",
+                TransactionAmount.of(new BigDecimal("0.00")),
+                AccountReference.of("TEST"),
+                Description.of("Test from mpesa4j")));
   }
 
   @Test
@@ -83,7 +89,10 @@ class InstantPaymentRequestTest {
         IllegalArgumentException.class,
         () ->
             mpesa.requestInstantPayment(
-                "254724488116", new BigDecimal(-10.00), "TEST", "Test from mpesa4j"));
+                "254708374149",
+                TransactionAmount.of(new BigDecimal("-10.00")),
+                AccountReference.of("TEST"),
+                Description.of("Test from mpesa4j")));
   }
 
   @Test
@@ -91,8 +100,13 @@ class InstantPaymentRequestTest {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> mpesa.requestInstantPayment("254724488116", null, "TEST", "Test from mpesa4j"));
+        NullPointerException.class,
+        () ->
+            mpesa.requestInstantPayment(
+                "254708374149",
+                null,
+                AccountReference.of("TEST"),
+                Description.of("Test from mpesa4j")));
   }
 
   @Test
@@ -100,9 +114,13 @@ class InstantPaymentRequestTest {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
-        IllegalArgumentException.class,
+        NullPointerException.class,
         () ->
-            mpesa.requestInstantPayment(null, new BigDecimal(10.00), "TEST", "Test from mpesa4j"));
+            mpesa.requestInstantPayment(
+                null,
+                TransactionAmount.of(new BigDecimal("100.00")),
+                AccountReference.of("TEST"),
+                Description.of("Test from mpesa4j")));
   }
 
   @Test
@@ -111,7 +129,12 @@ class InstantPaymentRequestTest {
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> mpesa.requestInstantPayment("", new BigDecimal(10.00), "TEST", "Test from mpesa4j"));
+        () ->
+            mpesa.requestInstantPayment(
+                "",
+                TransactionAmount.of(new BigDecimal("100.00")),
+                AccountReference.of("TEST"),
+                Description.of("Test from mpesa4j")));
   }
 
   @Test
@@ -119,10 +142,13 @@ class InstantPaymentRequestTest {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
-        IllegalArgumentException.class,
+        NullPointerException.class,
         () ->
             mpesa.requestInstantPayment(
-                "254724488116", new BigDecimal(10.00), null, "Test from mpesa4j"));
+                "254708374149",
+                TransactionAmount.of(new BigDecimal("100.00")),
+                null,
+                Description.of("Test from mpesa4j")));
   }
 
   @Test
@@ -133,7 +159,10 @@ class InstantPaymentRequestTest {
         IllegalArgumentException.class,
         () ->
             mpesa.requestInstantPayment(
-                "254724488116", new BigDecimal(10.00), "", "Test from mpesa4j"));
+                "254708374149",
+                TransactionAmount.of(new BigDecimal("100.00")),
+                AccountReference.of(""),
+                Description.of("Test from mpesa4j")));
   }
 
   @Test
@@ -142,7 +171,12 @@ class InstantPaymentRequestTest {
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> mpesa.requestInstantPayment("254724488116", new BigDecimal(10.00), "TEST", null));
+        () ->
+            mpesa.requestInstantPayment(
+                "254708374149",
+                TransactionAmount.of(new BigDecimal("100.00")),
+                AccountReference.of("TEST"),
+                null));
   }
 
   @Test
@@ -151,6 +185,11 @@ class InstantPaymentRequestTest {
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> mpesa.requestInstantPayment("254724488116", new BigDecimal(10.00), "TEST", ""));
+        () ->
+            mpesa.requestInstantPayment(
+                "254708374149",
+                TransactionAmount.of(new BigDecimal("100.00")),
+                AccountReference.of("TEST"),
+                Description.of("")));
   }
 }

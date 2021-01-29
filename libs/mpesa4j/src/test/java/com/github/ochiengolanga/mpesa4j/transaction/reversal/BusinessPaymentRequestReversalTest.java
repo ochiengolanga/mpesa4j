@@ -15,12 +15,15 @@
  */
 package com.github.ochiengolanga.mpesa4j.transaction.reversal;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
 import com.github.ochiengolanga.mpesa4j.models.responses.BusinessTransactionReversalResponse;
+import com.github.ochiengolanga.mpesa4j.models.types.Description;
+import com.github.ochiengolanga.mpesa4j.models.types.Occasion;
+import com.github.ochiengolanga.mpesa4j.models.types.TransactionAmount;
+import com.github.ochiengolanga.mpesa4j.models.types.TransactionId;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +40,10 @@ class BusinessPaymentRequestReversalTest {
 
     BusinessTransactionReversalResponse response =
         mpesa.reverseBusinessTransaction(
-            "LGR019G3J2", new BigDecimal(10.00), "PaymentRequest reversal request", "");
+            TransactionId.of("LGR019G3J2"),
+            TransactionAmount.of(new BigDecimal("1000")),
+            Description.of("PaymentRequest reversal request"),
+            Occasion.none());
 
     assertNotNull(response.getConversationId());
     assertNotNull(response.getOriginatorConversationId());
@@ -53,7 +59,10 @@ class BusinessPaymentRequestReversalTest {
         IllegalArgumentException.class,
         () ->
             mpesa.reverseBusinessTransaction(
-                null, new BigDecimal(10.00), "PaymentRequest reversal request", ""));
+                null,
+                TransactionAmount.of(new BigDecimal("100.00")),
+                Description.of("PaymentRequest reversal request"),
+                Occasion.none()));
   }
 
   @Test
@@ -64,7 +73,10 @@ class BusinessPaymentRequestReversalTest {
         IllegalArgumentException.class,
         () ->
             mpesa.reverseBusinessTransaction(
-                "", new BigDecimal(10.00), "PaymentRequest reversal request", ""));
+                TransactionId.of(""),
+                TransactionAmount.of(new BigDecimal("100.00")),
+                Description.of("PaymentRequest reversal request"),
+                Occasion.none()));
   }
 
   @Test
@@ -75,7 +87,10 @@ class BusinessPaymentRequestReversalTest {
         IllegalArgumentException.class,
         () ->
             mpesa.reverseBusinessTransaction(
-                "LGR019G3J2", new BigDecimal(0.00), "PaymentRequest reversal request", ""));
+                TransactionId.of("LGR019G3J2"),
+                TransactionAmount.of(new BigDecimal("0.00")),
+                Description.of("PaymentRequest reversal request"),
+                Occasion.none()));
   }
 
   @Test
@@ -86,7 +101,10 @@ class BusinessPaymentRequestReversalTest {
         IllegalArgumentException.class,
         () ->
             mpesa.reverseBusinessTransaction(
-                "LGR019G3J2", new BigDecimal(-10.00), "PaymentRequest reversal request", ""));
+                TransactionId.of("LGR019G3J2"),
+                TransactionAmount.of(new BigDecimal("-10.00")),
+                Description.of("PaymentRequest reversal request"),
+                Occasion.none()));
   }
 
   @Test
@@ -97,7 +115,10 @@ class BusinessPaymentRequestReversalTest {
         IllegalArgumentException.class,
         () ->
             mpesa.reverseBusinessTransaction(
-                "LGR019G3J2", null, "PaymentRequest reversal request", ""));
+                TransactionId.of("LGR019G3J2"),
+                null,
+                Description.of("PaymentRequest reversal request"),
+                Occasion.none()));
   }
 
   @Test
@@ -106,7 +127,12 @@ class BusinessPaymentRequestReversalTest {
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> mpesa.reverseBusinessTransaction("LGR019G3J2", new BigDecimal(10.00), null, ""));
+        () ->
+            mpesa.reverseBusinessTransaction(
+                TransactionId.of("LGR019G3J2"),
+                TransactionAmount.of(new BigDecimal("100.00")),
+                null,
+                Occasion.none()));
   }
 
   @Test
@@ -115,7 +141,12 @@ class BusinessPaymentRequestReversalTest {
 
     Assertions.assertThrows(
         IllegalArgumentException.class,
-        () -> mpesa.reverseBusinessTransaction("LGR019G3J2", new BigDecimal(10.00), "", ""));
+        () ->
+            mpesa.reverseBusinessTransaction(
+                TransactionId.of("LGR019G3J2"),
+                TransactionAmount.of(new BigDecimal("100.00")),
+                Description.of(""),
+                Occasion.none()));
   }
 
   @Test
@@ -123,6 +154,9 @@ class BusinessPaymentRequestReversalTest {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     mpesa.reverseBusinessTransaction(
-        "LGR019G3J2", new BigDecimal(10.00), "PaymentRequest reversal request", null);
+        TransactionId.of("LGR019G3J2"),
+        TransactionAmount.of(new BigDecimal("100.00")),
+        Description.of("PaymentRequest reversal request"),
+        null);
   }
 }

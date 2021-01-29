@@ -22,6 +22,9 @@ import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
 import com.github.ochiengolanga.mpesa4j.models.enums.DefaultAction;
 import com.github.ochiengolanga.mpesa4j.models.responses.CallbackUrlsRegistrationResponse;
+import com.github.ochiengolanga.mpesa4j.models.types.ConfirmationUrl;
+import com.github.ochiengolanga.mpesa4j.models.types.ValidationUrl;
+import java.net.MalformedURLException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,12 +35,14 @@ class RegisterCallbackUrlsTest {
   void init() {}
 
   @Test
-  void registerCallbackUrlsTest() {
+  void registerCallbackUrlsTest() throws MalformedURLException {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     CallbackUrlsRegistrationResponse response =
         mpesa.registerCallbackUrls(
-            DefaultAction.COMPLETE, "https://example.com/callback", "https://example.com/callback");
+            DefaultAction.COMPLETE,
+            ValidationUrl.of("https://example.com/callback"),
+            ConfirmationUrl.of("https://example.com/callback"));
 
     assertNotNull(response.getConversationId());
     assertNotNull(response.getOriginatorConversationId());
@@ -53,7 +58,9 @@ class RegisterCallbackUrlsTest {
         IllegalArgumentException.class,
         () ->
             mpesa.registerCallbackUrls(
-                null, "https://example.com/callback", "https://example.com/callback"));
+                null,
+                ValidationUrl.of("https://example.com/callback"),
+                ConfirmationUrl.of("https://example.com/callback")));
   }
 
   @Test
@@ -64,7 +71,7 @@ class RegisterCallbackUrlsTest {
         IllegalArgumentException.class,
         () ->
             mpesa.registerCallbackUrls(
-                DefaultAction.COMPLETE, null, "https://example.com/callback"));
+                DefaultAction.COMPLETE, null, ConfirmationUrl.of("https://example.com/callback")));
   }
 
   @Test
@@ -74,7 +81,10 @@ class RegisterCallbackUrlsTest {
     Assertions.assertThrows(
         IllegalArgumentException.class,
         () ->
-            mpesa.registerCallbackUrls(DefaultAction.COMPLETE, "", "https://example.com/callback"));
+            mpesa.registerCallbackUrls(
+                DefaultAction.COMPLETE,
+                ValidationUrl.of(""),
+                ConfirmationUrl.of("https://example.com/callback")));
   }
 
   @Test
@@ -85,7 +95,7 @@ class RegisterCallbackUrlsTest {
         IllegalArgumentException.class,
         () ->
             mpesa.registerCallbackUrls(
-                DefaultAction.COMPLETE, "https://example.com/callback", null));
+                DefaultAction.COMPLETE, ValidationUrl.of("https://example.com/callback"), null));
   }
 
   @Test
@@ -95,6 +105,9 @@ class RegisterCallbackUrlsTest {
     Assertions.assertThrows(
         IllegalArgumentException.class,
         () ->
-            mpesa.registerCallbackUrls(DefaultAction.COMPLETE, "https://example.com/callback", ""));
+            mpesa.registerCallbackUrls(
+                DefaultAction.COMPLETE,
+                ValidationUrl.of("https://example.com/callback"),
+                ConfirmationUrl.of("")));
   }
 }

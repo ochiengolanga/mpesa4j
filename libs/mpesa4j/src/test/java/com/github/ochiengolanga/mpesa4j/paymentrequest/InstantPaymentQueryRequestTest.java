@@ -17,6 +17,7 @@ package com.github.ochiengolanga.mpesa4j.paymentrequest;
 
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
+import com.github.ochiengolanga.mpesa4j.models.types.PaymentId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,7 @@ class InstantPaymentQueryRequestTest {
   //
   //        InstantPaymentRequestResponse paymentRequestResponse =
   //            mpesa.requestInstantPayment(
-  //                "254724488116",
+  //                "254708374149",
   //                new BigDecimal(10.00),
   //                "TESTMPESA4J4Query",
   //                "Instant payment query test from mpesa4j");
@@ -63,6 +64,7 @@ class InstantPaymentQueryRequestTest {
   void emptyPaymentId_paymentQueryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
-    Assertions.assertThrows(IllegalArgumentException.class, () -> mpesa.queryInstantPayment(""));
+    Assertions.assertThrows(
+        IllegalArgumentException.class, () -> mpesa.queryInstantPayment(PaymentId.of("")));
   }
 }

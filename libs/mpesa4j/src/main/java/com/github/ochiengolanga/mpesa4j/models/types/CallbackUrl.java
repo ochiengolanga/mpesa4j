@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.ochiengolanga.mpesa4j.api;
+package com.github.ochiengolanga.mpesa4j.models.types;
 
-import com.github.ochiengolanga.mpesa4j.models.responses.AccountBalanceResponse;
-import com.github.ochiengolanga.mpesa4j.models.types.Description;
+import java.net.URL;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-public interface AccountBalanceResource {
-  /**
-   * The Account Balance API requests for the account balance of a shortcode. <br>
-   * see https://developer.safaricom.co.ke/docs#account-balance-api
-   *
-   * @param description Comments that are sent along with the transaction.
-   * @return {@link AccountBalanceResponse}
-   */
-  AccountBalanceResponse queryBalance(Description description);
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = false)
+@ToString
+abstract class CallbackUrl {
+  private URL value;
 }

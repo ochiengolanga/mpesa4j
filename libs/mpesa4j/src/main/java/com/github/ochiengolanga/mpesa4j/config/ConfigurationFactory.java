@@ -19,7 +19,7 @@ public interface ConfigurationFactory {
   /**
    * Returns the root configuration
    *
-   * @return
+   * @return {@link Configuration}
    */
   Configuration getInstance();
 }

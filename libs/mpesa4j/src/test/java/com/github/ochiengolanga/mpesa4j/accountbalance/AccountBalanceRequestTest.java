@@ -17,6 +17,7 @@ package com.github.ochiengolanga.mpesa4j.accountbalance;
 
 import com.github.ochiengolanga.mpesa4j.Mpesa;
 import com.github.ochiengolanga.mpesa4j.MpesaFactory;
+import com.github.ochiengolanga.mpesa4j.models.types.Description;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,6 +52,7 @@ class AccountBalanceRequestTest {
   void emptyDescription_accountBalanceTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
-    Assertions.assertThrows(IllegalArgumentException.class, () -> mpesa.queryBalance(""));
+    Assertions.assertThrows(
+        IllegalArgumentException.class, () -> mpesa.queryBalance(Description.of("")));
   }
 }
