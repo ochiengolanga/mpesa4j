@@ -46,8 +46,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # Run tests
-      - name: Run tests
+      # Run mpesa4j tests
+      - name: Run mpesa4j tests
         run: ./gradlew :mpesa4j:test
         env:
           MPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL: ${{ secrets.MPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL }}
@@ -73,14 +73,49 @@ jobs:
           MPESA4J_TRANSACTION_REVERSAL_QUEUE_TIMEOUT_URL: ${{ secrets.MPESA4J_TRANSACTION_REVERSAL_QUEUE_TIMEOUT_URL }}
           MPESA4J_TRANSACTION_REVERSAL_RESULT_URL: ${{ secrets.MPESA4J_TRANSACTION_REVERSAL_RESULT_URL }}
 
-      # Build with gradlew
-      - name: Build with gradlew
+      # Build mpesa4j with gradlew
+      - name: Build mpesa4j with gradlew
         run: ./gradlew :mpesa4j:build
+
+      # Run mpesa4j-spring-boot-starter tests
+      - name: Run mpesa4j-spring-boot-starter tests
+        run: ./gradlew :mpesa4j-spring-boot-starter:test
+        env:
+          MPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL: ${{ secrets.MPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL }}
+          MPESA4J_ACCOUNT_BALANCE_RESULT_URL: ${{ secrets.MPESA4J_ACCOUNT_BALANCE_RESULT_URL }}
+          MPESA4J_B2B_BALANCE_RESULT_URL: ${{ secrets.MPESA4J_B2B_BALANCE_RESULT_URL }}
+          MPESA4J_B2B_QUEUE_TIMEOUT_URL: ${{ secrets.MPESA4J_B2B_QUEUE_TIMEOUT_URL }}
+          MPESA4J_B2C_BALANCE_RESULT_URL: ${{ secrets.MPESA4J_B2C_BALANCE_RESULT_URL }}
+          MPESA4J_B2C_QUEUE_TIMEOUT_URL: ${{ secrets.MPESA4J_B2C_QUEUE_TIMEOUT_URL }}
+          MPESA4J_CONSUMER_KEY: ${{ secrets.MPESA4J_CONSUMER_KEY }}
+          MPESA4J_CONSUMER_SECRET: ${{ secrets.MPESA4J_CONSUMER_SECRET }}
+          MPESA4J_DEBUG: ${{ secrets.MPESA4J_DEBUG }}
+          MPESA4J_HTTP_CONNECTION_TIMEOUT: ${{ secrets.MPESA4J_HTTP_CONNECTION_TIMEOUT }}
+          MPESA4J_HTTP_READ_TIMEOUT: ${{ secrets.MPESA4J_HTTP_READ_TIMEOUT }}
+          MPESA4J_INITIATOR_NAME: ${{ secrets.MPESA4J_INITIATOR_NAME }}
+          MPESA4J_INITIATOR_SECURITY_CREDENTIAL: ${{ secrets.MPESA4J_INITIATOR_SECURITY_CREDENTIAL }}
+          MPESA4J_INITIATOR_SHORTCODE: ${{ secrets.MPESA4J_INITIATOR_SHORTCODE }}
+          MPESA4J_LIPA_NA_MPESA_CALLBACK_URL: ${{ secrets.MPESA4J_LIPA_NA_MPESA_CALLBACK_URL }}
+          MPESA4J_LIPA_NA_MPESA_PASSKEY: ${{ secrets.MPESA4J_LIPA_NA_MPESA_PASSKEY }}
+          MPESA4J_LIPA_NA_MPESA_SHORTCODE: ${{ secrets.MPESA4J_LIPA_NA_MPESA_SHORTCODE }}
+          MPESA4J_SANDBOX_ENABLED: ${{ secrets.MPESA4J_SANDBOX_ENABLED }}
+          MPESA4J_TRANSACTION_QUERY_QUEUE_TIMEOUT_URL: ${{ secrets.MPESA4J_TRANSACTION_QUERY_QUEUE_TIMEOUT_URL }}
+          MPESA4J_TRANSACTION_QUERY_RESULT_URL: ${{ secrets.MPESA4J_TRANSACTION_QUERY_RESULT_URL }}
+          MPESA4J_TRANSACTION_REVERSAL_QUEUE_TIMEOUT_URL: ${{ secrets.MPESA4J_TRANSACTION_REVERSAL_QUEUE_TIMEOUT_URL }}
+          MPESA4J_TRANSACTION_REVERSAL_RESULT_URL: ${{ secrets.MPESA4J_TRANSACTION_REVERSAL_RESULT_URL }}
+
+      # Build mpesa4j-spring-boot-starter with gradlew
+      - name: Build mpesa4j-spring-boot-starter with gradlew
+        run: ./gradlew :mpesa4j-spring-boot-starter:build
 
       # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
       # the publishing section of your build.gradle
-      - name: Publish to GitHub Packages
+      - name: Publish mpesa4j to GitHub Packages
         run: gradle :mpesa4j:publish
         env:
-          GITHUB_USERNAME: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish mpesa4j-spring-boot-starter to GitHub Packages
+        run: gradle :mpesa4j-spring-boot-starter:publish
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

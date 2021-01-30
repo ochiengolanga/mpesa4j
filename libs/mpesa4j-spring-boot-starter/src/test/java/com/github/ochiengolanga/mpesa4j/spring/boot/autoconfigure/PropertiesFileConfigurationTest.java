@@ -36,12 +36,11 @@ import org.springframework.test.context.support.TestPropertySourceUtils;
 class PropertiesFileConfigurationTest {
 
   private AnnotationConfigApplicationContext context;
-  private Resource testResource;
   private ResourcePropertySource testPropResource;
 
   @BeforeEach
   public void setup() throws Exception {
-    testResource = new ClassPathResource("application-test.properties");
+    Resource testResource = new ClassPathResource("application-test.properties");
     testPropResource = new ResourcePropertySource("test", testResource);
   }
 

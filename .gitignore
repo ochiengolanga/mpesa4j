@@ -17,11 +17,11 @@ build
 /libs/mpesa4j/out/
 /.vscode/
 /libs/mpesa4j/bin/
-/libs/mpesa4j-spring-boot/bin/
+/libs/mpesa4j-spring-boot-starter/bin/
 
-libs/mpesa4j-spring-boot/.classpath
-libs/mpesa4j-spring-boot/.project
-libs/mpesa4j-spring-boot/.settings/
+libs/mpesa4j-spring-boot-starter/.classpath
+libs/mpesa4j-spring-boot-starter/.project
+libs/mpesa4j-spring-boot-starter/.settings/
 
 libs/mpesa4j/.classpath
 libs/mpesa4j/.project
