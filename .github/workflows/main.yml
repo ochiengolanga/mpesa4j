@@ -75,7 +75,7 @@ jobs:
 
       # Build mpesa4j with gradlew
       - name: Build mpesa4j with gradlew
-        run: ./gradlew :mpesa4j:build
+        run: ./gradlew :mpesa4j:clean :mpesa4j:build
 
       # Run mpesa4j-spring-boot-starter tests
       - name: Run mpesa4j-spring-boot-starter tests
@@ -83,16 +83,16 @@ jobs:
 
       # Build mpesa4j-spring-boot-starter with gradlew
       - name: Build mpesa4j-spring-boot-starter with gradlew
-        run: ./gradlew :mpesa4j-spring-boot-starter:build
+        run: ./gradlew :mpesa4j-spring-boot-starter:clean :mpesa4j-spring-boot-starter:build -x :mpesa4j-spring-boot-starter:bootJarMainClassName
 
       # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
       # the publishing section of your build.gradle
       - name: Publish mpesa4j to GitHub Packages
-        run: gradle :mpesa4j:publish
+        run: gradle :mpesa4j:clean :mpesa4j:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish mpesa4j-spring-boot-starter to GitHub Packages
-        run: gradle :mpesa4j-spring-boot-starter:publish
+        run: gradle :mpesa4j-spring-boot-starter:clean :mpesa4j-spring-boot-starter:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
