@@ -15,18 +15,12 @@
  */
 plugins {
     id 'maven-publish'
-    id 'org.kordamp.gradle.project' version '0.40.0'
-    id 'org.kordamp.gradle.bintray' version '0.40.0'
+    id 'org.kordamp.gradle.project' version '0.42.1'
 }
 
 ext {
-    bintrayUsername = project.hasProperty('bintrayUsername') ? project.property('bintrayUsername') : System.getenv('BINTRAY_USERNAME')
-    bintrayApiKey   = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_APIKEY')
     githubUsername  = project.hasProperty('githubUsername') ? project.property('githubUsername') : System.getenv('GITHUB_USERNAME')
     githubPassword  = project.hasProperty('githubToken') ? project.property('githubToken') : System.getenv('GITHUB_TOKEN')
-    skipMavenSync   = project.hasProperty('skipMavenSync') ? project.property('skipMavenSync') : System.getenv('MAVEN_SYNC_ENABLED')
-    sonatypeUsername = project.hasProperty('sonatypeUsername') ? project.property('sonatypeUsername') : System.getenv('SONATYPE_USERNAME')
-    sonatypePassword = project.hasProperty('sonatypePassword') ? project.property('sonatypePassword') : System.getenv('SONATYPE_PASSWORD')
 }
 
 config {
@@ -93,16 +87,6 @@ config {
             }
         }
     }
-
-    bintray {
-        credentials {
-            username = project.bintrayUsername
-            password = project.bintrayApiKey
-        }
-        repo       = 'mpesa4j'
-        userOrg    = 'ochiengolanga'
-        githubRepo = 'ochiengolanga/mpesa4j'
-    }
 }
 
 allprojects {
@@ -127,13 +111,6 @@ subprojects {
                         password = project.githubPassword
                     }
                 }
-            }
-        }
-        
-        config {
-            bintray {
-                enabled = true
-                name    = project.name
             }
         }
 
