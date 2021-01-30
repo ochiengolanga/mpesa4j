@@ -45,7 +45,7 @@ import org.springframework.context.annotation.Configuration;
 })
 public class Mpesa4jAutoConfiguration {
 
-  private static Log log = LogFactory.getLog(Mpesa4jAutoConfiguration.class);
+  private static final Log log = LogFactory.getLog(Mpesa4jAutoConfiguration.class);
 
   private final BaseProperties baseProperties;
   private final AccountBalanceProperties accountBalanceProperties;

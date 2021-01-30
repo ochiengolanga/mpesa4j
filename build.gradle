@@ -100,7 +100,6 @@ allprojects {
 
 subprojects {
     if (project.name.startsWith('mpesa4j')) {
-//        apply plugin: "maven-publish"
         publishing {
             repositories {
                 maven {
@@ -124,7 +123,7 @@ subprojects {
         } else if (project.name.equalsIgnoreCase('mpesa4j-spring-boot')) {
             config {
                 info {
-                    name        = 'mpesa4j-spring-boot-autoconfigure'
+                    name        = 'mpesa4j-spring-boot'
                     description = 'The unofficial MPesa4j\'s Spring boot'
                     tags        = ['mpesa', 'daraja', 'java', 'sdk', 'spring', 'spring-boot']
                 }
