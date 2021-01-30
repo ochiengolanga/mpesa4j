@@ -48,7 +48,7 @@ jobs:
 
       # Run tests
       - name: Run tests
-        run: ./gradlew test
+        run: ./gradlew :mpesa4j:test
         env:
           MPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL: ${{ secrets.MPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL }}
           MPESA4J_ACCOUNT_BALANCE_RESULT_URL: ${{ secrets.MPESA4J_ACCOUNT_BALANCE_RESULT_URL }}
