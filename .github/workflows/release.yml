@@ -94,11 +94,11 @@ jobs:
       # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
       # the publishing section of your build.gradle
       - name: Publish mpesa4j to GitHub Packages
-        run: gradle :mpesa4j:clean :mpesa4j:publish
+        run: ./gradlew :mpesa4j:clean :mpesa4j:publish -Pversion=${{ env.RELEASE_VERSION }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish mpesa4j-spring-boot-starter to GitHub Packages
-        run: gradle :mpesa4j-spring-boot-starter:clean :mpesa4j-spring-boot-starter:publish
+        run: ./gradlew :mpesa4j-spring-boot-starter:clean :mpesa4j-spring-boot-starter:publish -Pversion=${{ env.RELEASE_VERSION }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
