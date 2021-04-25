@@ -29,24 +29,38 @@ Mpesa4j provides easy to use and straightforward APIs drawn from experience impl
 ## Prerequisites
 
 * Java 11 and above.
-* Valid M-Pesa Daraja API credentials (https://developer.safaricom.co.ke/login-register)
+* [GitHub personal access token](https://docs.github.com/en/packages/guides/configuring-gradle-for-use-with-github-packages#authenticating-to-github-packages) used to install mpesa4j dependencies from GitHub. 
+* Valid M-Pesa Daraja API credentials (https://developer.safaricom.co.ke/login-register).
 
 ## Usage
 
 <details>
 <summary>Maven</summary>
 
+To authenticate to GitHub Packages with Apache Maven by editing your ~/.m2/settings.xml file to include your personal access token. Create a new ~/.m2/settings.xml file if one doesn't exist.
+
 Add dependency entry to pom.xml file.
 
 ```xml
-<dependency>
-    <groupId>com.github.ochiengolanga.mpesa4j</groupId>
-    <artifactId>mpesa4j</artifactId>
-    <version>0.1.3</version>
-</dependency>
+<repositories>
+    <repository>
+      <id>github</id>
+      <name>GitHubPackages</name>
+      <releases><enabled>true</enabled></releases>
+      <url>https://maven.pkg.github.com/ochiengolanga/mpesa4j</url>
+    </repository>
+</repositories>
+
+<dependencies>
+    <dependency>
+        <groupId>com.github.ochiengolanga.mpesa4j</groupId>
+        <artifactId>mpesa4j</artifactId>
+        <version>0.1.3</version>
+    </dependency>
+</dependencies>
 ```
 
-Run via command line
+Install the package
 
 ```bash
 $ mvn install
@@ -63,14 +77,24 @@ plugins {
     id 'maven'
 }
 
-...
+repositories {
+    ...
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/ochiengolanga/mpesa4j")
+        credentials {
+            username = project.hasProperty('gpr.user') ? project.property('gpr.user') : System.getenv('GITHUB_USERNAME')
+            password = project.hasProperty('gpr.key') ? project.property('gpr.key') : System.getenv('GITHUB_TOKEN')
+        }
+    }
+}
 
 dependencies {
-    compile "com.github.ochiengolanga.mpesa4j:mpesa4j:0.1.3"
+    implementation "com.github.ochiengolanga.mpesa4j:mpesa4j:0.1.3"
 }
 ```
 
-Run via command line
+Install the package
 
 ```bash
 $ gradle install
@@ -206,11 +230,20 @@ export MPESA4J_ACCOUNT_BALANCE_QUEUE_TIMEOUT_URL=https://example.com/callback
 Maven
 
 ```xml
-<dependency>
-    <groupId>com.github.ochiengolanga.mpesa4j</groupId>
-    <artifactId>mpesa4j-spring-boot-starter</artifactId>
-    <version>0.1.3</version>
-</dependency>
+<dependencies>
+    ...
+    <dependency>
+        <groupId>com.github.ochiengolanga.mpesa4j</groupId>
+        <artifactId>mpesa4j</artifactId>
+        <version>0.1.3</version>
+    </dependency>
+    <dependency>
+        <groupId>com.github.ochiengolanga.mpesa4j</groupId>
+        <artifactId>mpesa4j-spring-boot-starter</artifactId>
+        <version>0.1.3</version>
+    </dependency>    
+    ...
+</dependencies>
 ```
 
 Gradle
@@ -223,7 +256,8 @@ plugins {
 ...
 
 dependencies {
-    compile "com.github.ochiengolanga.mpesa4j:mpesa4j-spring-boot-starter:0.1.3"
+    implementation "com.github.ochiengolanga.mpesa4j:mpesa4j:0.1.3"
+    implementation "com.github.ochiengolanga.mpesa4j:mpesa4j-spring-boot-starter:0.1.3"
 }
 ```
 
