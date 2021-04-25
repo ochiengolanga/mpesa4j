@@ -11,27 +11,21 @@ build
 /.settings/
 /TODOS.txt
 /mpesa4j-master.iml
-/samples/mpesa4j-sample/src/main/resources/mpesa4j.properties
-/samples/mpesa4j-spring-boot-sample/src/main/resources/application.properties
 /samples/mpesa4j-sample/out/
 /libs/mpesa4j/out/
 /.vscode/
 /libs/mpesa4j/bin/
 /libs/mpesa4j-spring-boot-starter/bin/
 
-libs/mpesa4j-spring-boot-starter/.classpath
-libs/mpesa4j-spring-boot-starter/.project
-libs/mpesa4j-spring-boot-starter/.settings/
+/**/**/.classpath
+/**/**/.project
+/**/**/.settings/
 
-libs/mpesa4j/.classpath
-libs/mpesa4j/.project
-libs/mpesa4j/.settings/
+/**/.classpath
+/**/.project
+/**/.settings/
+/.circleci/
+/.env
 
-**/**/.classpath
-**/**/.project
-**/**/.settings/
-
-**/.classpath
-**/.project
-**/.settings/
-.circleci/
+/samples/mpesa4j-sample/build/
+/samples/mpesa4j-spring-boot-sample/src/main/resources/application-local.properties

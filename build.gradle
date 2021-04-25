@@ -18,8 +18,8 @@ plugins {
 }
 
 ext {
-    githubUsername  = project.hasProperty('githubUsername') ? project.property('githubUsername') : System.getenv('GITHUB_ACTOR')
-    githubPassword  = project.hasProperty('githubToken') ? project.property('githubToken') : System.getenv('GITHUB_TOKEN')
+    githubUsername  = project.hasProperty('gpr.user') ? project.property('gpr.user') : System.getenv('GITHUB_USERNAME')
+    githubPassword  = project.hasProperty('gpr.key') ? project.property('gpr.key') : System.getenv('GITHUB_TOKEN')
 }
 
 config {

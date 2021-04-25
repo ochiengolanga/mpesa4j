@@ -13,22 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-pluginManagement {
-    repositories {
-        jcenter()
-        gradlePluginPortal()
-    }
-}
-buildscript {
-    repositories {
-        gradlePluginPortal()
-    }
-    dependencies {
-        classpath 'org.kordamp.gradle:settings-gradle-plugin:0.45.0'
-    }
-}
-apply plugin: 'org.kordamp.gradle.settings'
+package sample;
 
-projects {
-    directories = ['docs', 'libs', 'samples']
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class Mpesa4jSpringBootSampleApplicationTests {
+
+  @Test
+  void contextLoads() {}
 }
