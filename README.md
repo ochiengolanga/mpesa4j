@@ -4,7 +4,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/ochiengolanga/mpesa4j/badge.svg?branch=master)](https://coveralls.io/github/ochiengolanga/mpesa4j?branch=master)
 [![Version](https://img.shields.io/github/v/release/ochiengolanga/mpesa4j)](https://img.shields.io/github/v/release/ochiengolanga/mpesa4j)
 [![Build Status](https://img.shields.io/github/workflow/status/ochiengolanga/mpesa4j/CI/master)](https://img.shields.io/github/workflow/status/ochiengolanga/mpesa4j/CI/master)
-[![Download](https://api.bintray.com/packages/ochiengolanga/mpesa4j/mpesa4j/images/download.svg)](https://bintray.com/ochiengolanga/mpesa4j/mpesa4j/_latestVersion)
 [![Contributors](https://img.shields.io/github/contributors/ochiengolanga/mpesa4j)](https://img.shields.io/github/contributors/ochiengolanga/mpesa4j)
 
 Mpesa4j is a thread safe M-Pesa API aka "Daraja" client library based on Java 11 for Vanilla Java and Spring Boot applications.
