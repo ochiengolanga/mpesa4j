@@ -47,7 +47,7 @@ Developing version naming convention is like `2.0.0`. Release version naming con
 
 ## CI
 
-[CircleCi](https://circleci.com/gh/ochiengolanga/mpesa4j) is enabled.
+[GitHubActions](https://github.com/ochiengolanga/mpesa4j/actions) is enabled.
 
 ## Contribution
 
