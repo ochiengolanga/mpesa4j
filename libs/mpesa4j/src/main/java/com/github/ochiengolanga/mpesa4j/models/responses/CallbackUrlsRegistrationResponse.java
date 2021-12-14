@@ -20,6 +20,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 /** A data interface representing a callbackUrls registration M-Pesa API response */
+@SuppressWarnings("SameNameButDifferent")
 @AllArgsConstructor
 @Getter
 @ToString

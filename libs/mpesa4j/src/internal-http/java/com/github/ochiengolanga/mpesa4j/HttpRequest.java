@@ -21,6 +21,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+@SuppressWarnings({"SameNameButDifferent"})
 @Getter
 @ToString
 @EqualsAndHashCode

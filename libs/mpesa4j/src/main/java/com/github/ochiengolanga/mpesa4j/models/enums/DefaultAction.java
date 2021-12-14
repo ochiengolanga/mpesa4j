@@ -17,6 +17,7 @@ package com.github.ochiengolanga.mpesa4j.models.enums;
 
 import lombok.Getter;
 
+@SuppressWarnings("SameNameButDifferent")
 @Getter
 public enum DefaultAction {
   COMPLETE("Completed"),

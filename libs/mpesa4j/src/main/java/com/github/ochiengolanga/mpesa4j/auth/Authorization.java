@@ -28,8 +28,6 @@ import java.util.Base64;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-@EqualsAndHashCode(callSuper = false)
-@ToString
 public class Authorization implements java.io.Serializable {
   private static final long serialVersionUID = -2895232598422218647L;
   private final Configuration conf;

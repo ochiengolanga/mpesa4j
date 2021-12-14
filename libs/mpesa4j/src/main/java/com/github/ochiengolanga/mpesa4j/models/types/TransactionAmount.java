@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import lombok.*;
 
+@SuppressWarnings("SameNameButDifferent")
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)

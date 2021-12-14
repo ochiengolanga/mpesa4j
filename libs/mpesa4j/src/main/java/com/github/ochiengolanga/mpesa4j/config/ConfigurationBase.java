@@ -24,6 +24,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+@SuppressWarnings({"SameNameButDifferent"})
 @ToString
 class ConfigurationBase implements Configuration, java.io.Serializable {
   private static final long serialVersionUID = 6175546394599249696L;
@@ -86,6 +87,7 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
     httpConf = new MyHttpClientConfiguration(20000, 12000);
   }
 
+  @SuppressWarnings({"SameNameButDifferent"})
   @Getter
   @ToString
   @EqualsAndHashCode(callSuper = false)

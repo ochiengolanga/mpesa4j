@@ -19,6 +19,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 /** A data class representing HTTP Response */
+@SuppressWarnings({"SameNameButDifferent"})
 @Getter
 @ToString
 public class HttpResponse {

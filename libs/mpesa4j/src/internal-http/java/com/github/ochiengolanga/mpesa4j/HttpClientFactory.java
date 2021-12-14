@@ -64,7 +64,7 @@ public final class HttpClientFactory {
         confClientMap.put(conf, client);
       }
     } catch (InstantiationException | InvocationTargetException | IllegalAccessException e) {
-      throw new AssertionError(e);
+      throw new LinkageError(e.getMessage(), e);
     }
     return client;
   }

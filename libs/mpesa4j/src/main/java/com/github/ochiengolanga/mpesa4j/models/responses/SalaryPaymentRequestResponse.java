@@ -20,6 +20,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 /** A data interface representing B2C PaySalary API response */
+@SuppressWarnings("SameNameButDifferent")
 @AllArgsConstructor
 @Getter
 @ToString

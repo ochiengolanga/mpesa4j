@@ -22,6 +22,7 @@ import lombok.*;
  * This is the customer mobile number to receive the amount. The number should have the country code
  * (254) without the plus sign.
  */
+@SuppressWarnings("SameNameButDifferent")
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)

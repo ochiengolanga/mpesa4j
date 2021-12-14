@@ -19,6 +19,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.ToString;
 
+@SuppressWarnings({"SameNameButDifferent"})
 @Getter
 @ToString
 public class OAuth2Token implements java.io.Serializable {

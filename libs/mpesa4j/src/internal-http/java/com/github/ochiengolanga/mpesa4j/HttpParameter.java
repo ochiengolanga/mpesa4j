@@ -21,6 +21,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 /** A data class representing HTTP Post parameter */
+@SuppressWarnings({"SameNameButDifferent"})
 @Getter
 @ToString
 public final class HttpParameter implements Comparable<HttpParameter>, java.io.Serializable {

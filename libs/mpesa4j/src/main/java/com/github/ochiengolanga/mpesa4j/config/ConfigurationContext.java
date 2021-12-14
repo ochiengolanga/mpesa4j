@@ -47,7 +47,7 @@ public final class ConfigurationContext {
         | InstantiationException
         | NoSuchMethodException
         | InvocationTargetException cnfe) {
-      throw new AssertionError(cnfe);
+      throw new LinkageError(cnfe.getMessage(), cnfe);
     }
   }
 

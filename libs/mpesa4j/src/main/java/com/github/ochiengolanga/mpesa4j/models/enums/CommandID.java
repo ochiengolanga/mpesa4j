@@ -21,6 +21,7 @@ import lombok.Getter;
  * <br>
  * https://developer.safaricom.co.ke/docs#command-ids
  */
+@SuppressWarnings({"SameNameButDifferent"})
 @Getter
 public enum CommandID {
   ACCOUNT_BALANCE("AccountBalance"),

@@ -20,6 +20,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 /** A data interface representing Customer PaymentRequest Reversal API response */
+@SuppressWarnings("SameNameButDifferent")
 @AllArgsConstructor
 @Getter
 @ToString

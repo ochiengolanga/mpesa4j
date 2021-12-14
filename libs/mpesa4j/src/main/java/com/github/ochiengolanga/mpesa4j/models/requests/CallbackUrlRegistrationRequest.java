@@ -23,6 +23,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+@SuppressWarnings({"MissingSummary", "SameNameButDifferent"})
 @Getter
 @Setter
 @Builder

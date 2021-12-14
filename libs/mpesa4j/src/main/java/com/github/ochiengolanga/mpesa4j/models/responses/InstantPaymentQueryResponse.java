@@ -18,6 +18,7 @@ package com.github.ochiengolanga.mpesa4j.models.responses;
 import lombok.*;
 
 /** A data interface representing Lipa Na Mpesa Payment query API response */
+@SuppressWarnings("SameNameButDifferent")
 @AllArgsConstructor
 @Getter
 @ToString

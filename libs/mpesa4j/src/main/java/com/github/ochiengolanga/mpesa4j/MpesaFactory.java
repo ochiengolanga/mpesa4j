@@ -40,7 +40,7 @@ public class MpesaFactory implements java.io.Serializable {
       clazz = Class.forName(className);
       constructor = clazz.getDeclaredConstructor(Configuration.class, Authorization.class);
     } catch (NoSuchMethodException | ClassNotFoundException e) {
-      throw new AssertionError(e);
+      throw new  LinkageError(e.getMessage(), e);
     }
     MPESA_CONSTRUCTOR = constructor;
 
@@ -48,7 +48,7 @@ public class MpesaFactory implements java.io.Serializable {
       SINGLETON =
           MPESA_CONSTRUCTOR.newInstance(ConfigurationContext.getInstance(), DEFAULT_AUTHORIZATION);
     } catch (InstantiationException | InvocationTargetException | IllegalAccessException e) {
-      throw new AssertionError(e);
+      throw new LinkageError(e.getMessage(), e);
     }
   }
 
@@ -83,7 +83,7 @@ public class MpesaFactory implements java.io.Serializable {
     try {
       return MPESA_CONSTRUCTOR.newInstance(conf, auth);
     } catch (InstantiationException | InvocationTargetException | IllegalAccessException e) {
-      throw new AssertionError(e);
+      throw new LinkageError(e.getMessage(), e);
     }
   }
 

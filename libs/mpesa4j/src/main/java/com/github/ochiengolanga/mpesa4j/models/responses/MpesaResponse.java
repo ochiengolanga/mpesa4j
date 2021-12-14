@@ -20,6 +20,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 /** A data interface representing a response from M-Pesa API */
+@SuppressWarnings("SameNameButDifferent")
 @Getter
 @ToString
 public class MpesaResponse implements MpesaResponseCode, java.io.Serializable {

@@ -5,7 +5,7 @@ Below are guidelines for building and code contribution.
 ## Prerequisites
 
 - JDK 11 and above
-- [Gradle](https://gradle.org/) 5.0 and above
+- [Gradle](https://gradle.org/) 7.0 and above
 
 ## Build from source
 

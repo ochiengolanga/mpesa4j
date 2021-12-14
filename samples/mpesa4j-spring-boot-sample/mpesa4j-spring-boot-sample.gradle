@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 plugins {
-    id 'org.springframework.boot' version '2.4.2'
+    id 'org.springframework.boot' version '2.5.7'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
-    id 'maven'
-    id "com.diffplug.gradle.spotless" version "3.24.3"
+    id 'maven-publish'
+    id "com.diffplug.spotless" version "6.0.4"
 }
 
 ext {
-    lombokVersion = '1.18.10'
-    springBootVersion = '2.4.2'
+    log4jVersion        = '2.16.0'
+    lombokVersion       = '1.18.10'
+    springBootVersion   = '2.5.7'
 }
 
 repositories {
-    jcenter()
     mavenCentral()
 }
 
@@ -38,6 +38,15 @@ configurations {
     }
     compileOnly {
         extendsFrom annotationProcessor
+    }
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        if (details.requested.group == 'org.apache.logging.log4j') {
+            details.useVersion(log4jVersion)
+        }
+
     }
 }
 

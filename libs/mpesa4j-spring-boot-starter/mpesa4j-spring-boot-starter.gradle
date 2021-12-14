@@ -14,15 +14,29 @@
  * limitations under the License.
  */
 plugins {
-    id 'org.springframework.boot' version '2.4.2'
+    id 'org.springframework.boot' version '2.5.7'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'maven-publish'
 }
 
+ext {
+    commonsLoggingVersion   = '1.2'
+    log4jVersion            = '2.16.0'
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
+    }
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        if (details.requested.group == 'org.apache.logging.log4j') {
+            details.useVersion(log4jVersion)
+        }
+
     }
 }
 
@@ -37,7 +51,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-autoconfigure-processor'
     implementation 'org.springframework.boot:spring-boot-configuration-processor'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation group: 'commons-logging', name: 'commons-logging', version: '1.2'
+    implementation group: 'commons-logging', name: 'commons-logging', version: commonsLoggingVersion
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test')

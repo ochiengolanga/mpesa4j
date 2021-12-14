@@ -23,6 +23,7 @@ import lombok.Getter;
  * identifier types that can be used with M-Pesa APIs. <br>
  * https://developer.safaricom.co.ke/docs#identifier-types
  */
+@SuppressWarnings({"SameNameButDifferent"})
 @Getter
 public enum IdentifierType {
   MSISDN("1"),

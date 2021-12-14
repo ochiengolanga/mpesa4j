@@ -18,6 +18,7 @@ package com.github.ochiengolanga.mpesa4j.models.types;
 import com.github.ochiengolanga.mpesa4j.util.Preconditions;
 import lombok.*;
 
+@SuppressWarnings({"MissingSummary", "SameNameButDifferent"})
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)
