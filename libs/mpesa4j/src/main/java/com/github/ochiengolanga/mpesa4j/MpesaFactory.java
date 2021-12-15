@@ -40,7 +40,7 @@ public class MpesaFactory implements java.io.Serializable {
       clazz = Class.forName(className);
       constructor = clazz.getDeclaredConstructor(Configuration.class, Authorization.class);
     } catch (NoSuchMethodException | ClassNotFoundException e) {
-      throw new  LinkageError(e.getMessage(), e);
+      throw new LinkageError(e.getMessage(), e);
     }
     MPESA_CONSTRUCTOR = constructor;
 

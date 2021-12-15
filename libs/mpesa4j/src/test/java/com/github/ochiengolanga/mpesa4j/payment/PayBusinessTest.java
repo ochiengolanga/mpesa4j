@@ -118,11 +118,11 @@ class PayBusinessTest {
     Assertions.assertThrows(
         MpesaApiException.class,
         () ->
-        mpesa.payBusiness(
-            PhoneNumber.of("254708374149"),
-            TransactionAmount.of(new BigDecimal("100.00")),
-            Description.of("Business payment"),
-            null));
+            mpesa.payBusiness(
+                PhoneNumber.of("254708374149"),
+                TransactionAmount.of(new BigDecimal("100.00")),
+                Description.of("Business payment"),
+                null));
   }
 
   @Test

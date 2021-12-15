@@ -116,12 +116,13 @@ class PaySalaryTest {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
     Assertions.assertThrows(
-            MpesaApiException.class,
-            () -> mpesa.paySalary(
-                    PhoneNumber.of("254708374149"),
-                    TransactionAmount.of(new BigDecimal("100.00")),
-                    Description.of("Salary payment"),
-                    null));
+        MpesaApiException.class,
+        () ->
+            mpesa.paySalary(
+                PhoneNumber.of("254708374149"),
+                TransactionAmount.of(new BigDecimal("100.00")),
+                Description.of("Salary payment"),
+                null));
   }
 
   @Test
