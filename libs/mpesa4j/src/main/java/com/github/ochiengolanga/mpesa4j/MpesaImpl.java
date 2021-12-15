@@ -122,6 +122,7 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
     checkEmptyString(conf.getPayBusinessQueueTimeoutUrl(), "Queue timeout url missing");
     checkNotNull(conf.getPayBusinessResultUrl(), "Result url missing");
     checkEmptyString(conf.getPayBusinessResultUrl(), "Result url missing");
+    checkNotNull(payableAmount, "Payable amount is missing");
     checkNotNull(description, "Description is missing");
 
     return Try.of(
@@ -162,6 +163,7 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
     checkEmptyString(conf.getPayPromotionQueueTimeoutUrl(), "Queue timeout url missing");
     checkNotNull(conf.getPayPromotionResultUrl(), "Result url missing");
     checkEmptyString(conf.getPayPromotionResultUrl(), "Result url missing");
+    checkNotNull(payableAmount, "Payable amount is missing");
     checkNotNull(description, "Description is missing");
 
     return Try.of(
@@ -202,6 +204,7 @@ class MpesaImpl extends MpesaBaseImpl implements Mpesa {
     checkEmptyString(conf.getPaySalaryQueueTimeoutUrl(), "Queue timeout url missing");
     checkNotNull(conf.getPaySalaryResultUrl(), "Result url missing");
     checkEmptyString(conf.getPaySalaryResultUrl(), "Result url missing");
+    checkNotNull(payableAmount, "Payable amount is missing");
     checkNotNull(description, "Description is missing");
 
     return Try.of(

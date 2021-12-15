@@ -29,6 +29,7 @@ import com.github.ochiengolanga.mpesa4j.models.types.TransactionAmount;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class PaySalaryTest {
@@ -36,6 +37,7 @@ class PaySalaryTest {
   @BeforeEach
   void init() {}
 
+  @Disabled("Daraja API timeouts randomly or is unavailable")
   @Test
   void paySalaryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
@@ -113,13 +115,13 @@ class PaySalaryTest {
   void nullOccasion_paySalaryTest() {
     Mpesa mpesa = new MpesaFactory().getInstance();
 
-    mpesa.paySalary(
-        PhoneNumber.of("254708374149"),
-        TransactionAmount.of(new BigDecimal("100.00")),
-        Description.of("Salary payment"),
-        null);
-
-    assertTrue(true);
+    Assertions.assertThrows(
+            MpesaApiException.class,
+            () -> mpesa.paySalary(
+                    PhoneNumber.of("254708374149"),
+                    TransactionAmount.of(new BigDecimal("100.00")),
+                    Description.of("Salary payment"),
+                    null));
   }
 
   @Test

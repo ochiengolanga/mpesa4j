@@ -27,6 +27,7 @@ import com.github.ochiengolanga.mpesa4j.models.types.ValidationUrl;
 import java.net.MalformedURLException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class RegisterCallbackUrlsTest {
@@ -34,6 +35,7 @@ class RegisterCallbackUrlsTest {
   @BeforeEach
   void init() {}
 
+  @Disabled("Daraja API timeouts randomly or is unavailable")
   @Test
   void registerCallbackUrlsTest() throws MalformedURLException {
     Mpesa mpesa = new MpesaFactory().getInstance();
