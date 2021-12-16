@@ -18,8 +18,8 @@ plugins {
 }
 
 ext {
-    githubUsername  = project.hasProperty('gpr.user') ? project.property('gpr.user') : System.getenv('GITHUB_USERNAME')
-    githubPassword  = project.hasProperty('gpr.key') ? project.property('gpr.key') : System.getenv('GITHUB_TOKEN')
+    githubUsername  = project.findProperty('gpr.user') ?: System.getenv('GITHUB_ACTOR')
+    githubPassword  = project.findProject('gpr.key') ?: System.getenv('GITHUB_TOKEN')
 }
 
 config {
@@ -92,7 +92,6 @@ allprojects {
     apply plugin: 'idea'
 
     repositories {
-        jcenter()
         gradlePluginPortal()
     }
 }
